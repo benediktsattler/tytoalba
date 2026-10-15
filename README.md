@@ -1,42 +1,45 @@
-# Simple Theme - Clean, minimalist theme for Adminer
+# Tyto Alba — Clean theme for Adminer
 
-![Simple Theme for Adminer Cover](https://raw.githubusercontent.com/devknown/simple-theme/master/screenshots/cover.png)
+![Tyto Alba theme for Adminer — overview](https://raw.githubusercontent.com/benediktsattler/tytoalba/main/screenshots/cover.svg)
 
 ## Introduction
 
-Simple Theme is a clean and straightforward theme/skin designed for professionals using [Adminer](https://www.adminer.org/). This theme emphasizes a minimalist and intuitive interface, addressing layout and color scheme issues effectively. It provides a streamlined experience for efficiently managing your databases.
+Tyto Alba is a quiet, warm-toned theme for [Adminer](https://www.adminer.org/) — off-white and warm grey colour language. Built on the bones of Hassan Azzi's Simple Theme.
+- warm off-white/grey palette with one accent color
+- intuitive layout
+- collapsible sidebar
 
 ### Installation
 
 1. Get a copy of [Adminer](https://www.adminer.org/)
-2. Download the `adminer.css` from [here](https://raw.githubusercontent.com/devknown/simple-theme/master/adminer.css?version=1.0.06)
-3. Put the file `adminer.css` alongside `adminer.php` or in the same directory that contains Adminer on your web server.
+2. Download `adminer.css` from [here](https://raw.githubusercontent.com/benediktsattler/tytoalba/main/adminer.css).
+3. Put the file `adminer.css` alongside `adminer.php`, or in the same directory that contains Adminer on your web server.
 
-> **_NOTE:_**   Adminer is better used for development environments, not for production purposes.
+> **_NOTE:_** Adminer is better used for development environments, not for production purposes.
 
 ### Preview
 
 #### Select (filters + with & without pagination)
-![Simple Theme for Adminer - Select with pagination](https://raw.githubusercontent.com/devknown/simple-theme/master/screenshots/select.png)
-![Simple Theme for Adminer - Select](https://raw.githubusercontent.com/devknown/simple-theme/master/screenshots/select-filter.png)
-![Simple Theme for Adminer - Create table](https://raw.githubusercontent.com/devknown/simple-theme/master/screenshots/create-table.png)
+![Tyto Alba theme for Adminer - Select with pagination](https://raw.githubusercontent.com/benediktsattler/tytoalba/main/screenshots/select.svg)
+![Tyto Alba theme for Adminer - Select filters](https://raw.githubusercontent.com/benediktsattler/tytoalba/main/screenshots/select-filter.svg)
+![Tyto Alba theme for Adminer - Create table](https://raw.githubusercontent.com/benediktsattler/tytoalba/main/screenshots/create-table.svg)
 
 #### Schema
-![Simple Theme for Adminer - Schema](https://raw.githubusercontent.com/devknown/simple-theme/master/screenshots/schema.png)
+![Tyto Alba theme for Adminer - Schema](https://raw.githubusercontent.com/benediktsattler/tytoalba/main/screenshots/schema.svg)
 
 #### Tables
-![Simple Theme for Adminer - Tables](https://raw.githubusercontent.com/devknown/simple-theme/master/screenshots/tables.png)
+![Tyto Alba theme for Adminer - Tables](https://raw.githubusercontent.com/benediktsattler/tytoalba/main/screenshots/tables.svg)
 
 #### Query
-![Simple Theme for Adminer - Query](https://raw.githubusercontent.com/devknown/simple-theme/master/screenshots/query.png)
+![Tyto Alba theme for Adminer - Query](https://raw.githubusercontent.com/benediktsattler/tytoalba/main/screenshots/query.svg)
 
 #### RTL (right-to-left)
-![Simple Theme for Adminer - RTL support](https://raw.githubusercontent.com/devknown/simple-theme/master/screenshots/rtl.png)
+![Tyto Alba theme for Adminer - RTL support](https://raw.githubusercontent.com/benediktsattler/tytoalba/main/screenshots/rtl.svg)
 
 ### License
 
-Simple Theme for Adminer is licensed under the [MIT License](https://github.com/devknown/simple-theme/blob/master/LICENSE).
+Tyto Alba theme for Adminer is licensed under the [MIT License](https://github.com/benediktsattler/tytoalba/blob/main/LICENSE).
 
 ### Credits
 
-Forked from [Steve Copley's theme](https://github.com/stevecopley/adminer).
+Based on Simple Theme by Hassan Azzi, which forked [Steve Copley's theme](https://github.com/stevecopley/adminer)."
