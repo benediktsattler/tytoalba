@@ -4,6 +4,7 @@ html,
 body {
     margin: 0;
 }
+
 body {
     /* override sets this to `auto` (not simple-theme's `100%`) specifically
        so the body doesn't do its own width math alongside #menu's
@@ -11,6 +12,7 @@ body {
     width: auto;
     min-height: 100%;
 }
+
 body,
 body.rtl {
     font-family: var(--font-ui);
@@ -24,6 +26,7 @@ a:visited,
 fieldset legend a {
     color: var(--text-link);
 }
+
 a:link:focus,
 a:link:hover,
 a:visited:focus,
@@ -40,10 +43,10 @@ a:visited:hover {
 code,
 .jush-sql,
 .sqlarea,
-table tr > td,
+table tr>td,
 #schema .table span,
-fieldset > div > div label,
-fieldset > div > p:last-child {
+fieldset>div>div label,
+fieldset>div>p:last-child {
     font-family: var(--font-mono);
 }
 
@@ -55,29 +58,35 @@ select,
 textarea {
     border: thin solid var(--border);
 }
+
 input:not([type="image"]),
 select,
 textarea {
     padding: 0.2em 0.5em 0.3em;
     border-radius: var(--border-radius-input);
 }
+
 input:focus-visible,
 select:focus-visible,
 textarea:focus-visible {
     outline: 2px solid var(--accent);
-    outline-offset: 1px;
+    outline-offset: -2px;
 }
+
 input[type="checkbox"],
 input[type="radio"] {
     accent-color: var(--accent);
 }
+
 legend {
     padding: 0 0.5em;
     font-size: 0.9em;
 }
+
 fieldset legend {
     color: var(--sb-muted);
 }
+
 fieldset {
     border-radius: var(--border-radius-fieldset);
     padding-top: 0.3em;
@@ -87,16 +96,19 @@ fieldset {
     min-width: 4em;
     text-align: left;
 }
+
 .rtl fieldset {
     margin-left: 0.3rem;
 }
-.js fieldset > .hidden {
+
+.js fieldset>.hidden {
     display: block;
     min-width: 100%;
     min-height: 1.5rem;
 }
-#import.hidden > *,
-.js fieldset > .hidden > * {
+
+#import.hidden>*,
+.js fieldset>.hidden>* {
     display: none !important;
 }
 
@@ -118,6 +130,7 @@ input[type="submit"] {
     cursor: pointer;
     border-radius: var(--border-radius);
 }
+
 input[type="button"],
 input[type="file"],
 input[type="image"],
@@ -125,10 +138,12 @@ input[type="reset"],
 input[type="submit"] {
     border-style: none;
 }
+
 .links a {
     padding: 0.6em 0.8em 0.7em;
     border-radius: var(--border-radius);
 }
+
 input[type="file"]::-ms-browse,
 input[type="file"]::-webkit-file-upload-button,
 input[type="file"]::-moz-file-upload-button {
@@ -141,18 +156,22 @@ input[type="file"]::-moz-file-upload-button {
     border-style: none;
     cursor: pointer;
 }
+
 input[type="file"]::-ms-browse,
 input[type="file"]::-webkit-file-upload-button {
     padding: 0.3em 0.8em 0.4em;
 }
+
 input[type="file"]::-webkit-file-upload-button {
     -webkit-appearance: none;
 }
+
 input[type="file"]::-moz-file-upload-button {
     /* simple-theme.css gives -moz its own 2-value padding, unlike the other
        two vendor rules — kept as-is rather than guessing it was a typo */
     padding: 0.4em 0.8em;
 }
+
 .links a:link:focus,
 .links a:link:hover,
 .links a:visited:focus,
@@ -170,6 +189,7 @@ input[type="submit"]:hover {
     text-decoration: none;
     box-shadow: 0 0.1rem 0.2rem var(--shadow);
 }
+
 input[type="file"]:focus::-ms-browse,
 input[type="file"]:hover::-ms-browse,
 input[type="file"]:focus::-webkit-file-upload-button,
@@ -180,6 +200,7 @@ input[type="file"]:hover::-moz-file-upload-button {
     background: var(--back-button-high);
     text-decoration: none;
 }
+
 button:disabled,
 input[type="button"]:disabled,
 input[type="reset"]:disabled,
@@ -188,20 +209,24 @@ input[type="submit"]:disabled {
     cursor: not-allowed;
     border-radius: var(--border-radius);
 }
+
 input[type="file"]:disabled::-ms-browse,
 input[type="file"]:disabled::-webkit-file-upload-button,
 input[type="file"]:disabled::-moz-file-upload-button {
     background-color: var(--back-button-disabled);
     cursor: not-allowed;
 }
+
 input.default {
     background-color: var(--accent-strong);
     box-shadow: none;
 }
+
 input.default:hover,
 input.default:focus {
     background-color: hsl(var(--accent-h) var(--accent-s) 26%);
 }
+
 input.required {
     outline: thin dashed var(--accent2);
     outline-offset: 1px;
@@ -217,19 +242,23 @@ input.required {
     border-left: 3px solid var(--accent);
     border-radius: var(--border-radius);
 }
+
 .message .toggle,
 .message div p a {
     background-color: var(--back-main);
     border-radius: 2px;
 }
+
 .message .toggle {
     margin: 0 5px;
     padding: 0 5px;
 }
+
 .message div p a {
     margin: 0;
     padding: 0 10px;
 }
+
 .message .time {
     /* overrides simple-theme's `color: var(--text-button)` here — near-white,
        left over from the old dark theme where the message bar itself was
@@ -237,9 +266,11 @@ input.required {
     font-size: 14.4px;
     color: var(--sb-muted);
 }
+
 .time {
     color: var(--text-time);
 }
+
 .error {
     color: var(--text-error);
     background: var(--back-error);

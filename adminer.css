@@ -9,8 +9,8 @@ Edit the files in src/, not adminer.css directly — it gets overwritten.
 
     /* Accent: tawny orange by default. Swap --accent-h/--accent-s for another
        hue, e.g. 212/55% for blue. Everything below derives from these two. */
-    --accent-h: 28;
-    --accent-s: 85%;
+    --accent-h: 35;
+    --accent-s: 99%;
 
     --accent: hsl(var(--accent-h) var(--accent-s) 45%);
     /* icons, lines */
@@ -185,6 +185,7 @@ html,
 body {
     margin: 0;
 }
+
 body {
     /* override sets this to `auto` (not simple-theme's `100%`) specifically
        so the body doesn't do its own width math alongside #menu's
@@ -192,6 +193,7 @@ body {
     width: auto;
     min-height: 100%;
 }
+
 body,
 body.rtl {
     font-family: var(--font-ui);
@@ -205,6 +207,7 @@ a:visited,
 fieldset legend a {
     color: var(--text-link);
 }
+
 a:link:focus,
 a:link:hover,
 a:visited:focus,
@@ -221,10 +224,10 @@ a:visited:hover {
 code,
 .jush-sql,
 .sqlarea,
-table tr > td,
+table tr>td,
 #schema .table span,
-fieldset > div > div label,
-fieldset > div > p:last-child {
+fieldset>div>div label,
+fieldset>div>p:last-child {
     font-family: var(--font-mono);
 }
 
@@ -236,29 +239,35 @@ select,
 textarea {
     border: thin solid var(--border);
 }
+
 input:not([type="image"]),
 select,
 textarea {
     padding: 0.2em 0.5em 0.3em;
     border-radius: var(--border-radius-input);
 }
+
 input:focus-visible,
 select:focus-visible,
 textarea:focus-visible {
     outline: 2px solid var(--accent);
-    outline-offset: 1px;
+    outline-offset: -2px;
 }
+
 input[type="checkbox"],
 input[type="radio"] {
     accent-color: var(--accent);
 }
+
 legend {
     padding: 0 0.5em;
     font-size: 0.9em;
 }
+
 fieldset legend {
     color: var(--sb-muted);
 }
+
 fieldset {
     border-radius: var(--border-radius-fieldset);
     padding-top: 0.3em;
@@ -268,16 +277,19 @@ fieldset {
     min-width: 4em;
     text-align: left;
 }
+
 .rtl fieldset {
     margin-left: 0.3rem;
 }
-.js fieldset > .hidden {
+
+.js fieldset>.hidden {
     display: block;
     min-width: 100%;
     min-height: 1.5rem;
 }
-#import.hidden > *,
-.js fieldset > .hidden > * {
+
+#import.hidden>*,
+.js fieldset>.hidden>* {
     display: none !important;
 }
 
@@ -299,6 +311,7 @@ input[type="submit"] {
     cursor: pointer;
     border-radius: var(--border-radius);
 }
+
 input[type="button"],
 input[type="file"],
 input[type="image"],
@@ -306,10 +319,12 @@ input[type="reset"],
 input[type="submit"] {
     border-style: none;
 }
+
 .links a {
     padding: 0.6em 0.8em 0.7em;
     border-radius: var(--border-radius);
 }
+
 input[type="file"]::-ms-browse,
 input[type="file"]::-webkit-file-upload-button,
 input[type="file"]::-moz-file-upload-button {
@@ -322,18 +337,22 @@ input[type="file"]::-moz-file-upload-button {
     border-style: none;
     cursor: pointer;
 }
+
 input[type="file"]::-ms-browse,
 input[type="file"]::-webkit-file-upload-button {
     padding: 0.3em 0.8em 0.4em;
 }
+
 input[type="file"]::-webkit-file-upload-button {
     -webkit-appearance: none;
 }
+
 input[type="file"]::-moz-file-upload-button {
     /* simple-theme.css gives -moz its own 2-value padding, unlike the other
        two vendor rules — kept as-is rather than guessing it was a typo */
     padding: 0.4em 0.8em;
 }
+
 .links a:link:focus,
 .links a:link:hover,
 .links a:visited:focus,
@@ -351,6 +370,7 @@ input[type="submit"]:hover {
     text-decoration: none;
     box-shadow: 0 0.1rem 0.2rem var(--shadow);
 }
+
 input[type="file"]:focus::-ms-browse,
 input[type="file"]:hover::-ms-browse,
 input[type="file"]:focus::-webkit-file-upload-button,
@@ -361,6 +381,7 @@ input[type="file"]:hover::-moz-file-upload-button {
     background: var(--back-button-high);
     text-decoration: none;
 }
+
 button:disabled,
 input[type="button"]:disabled,
 input[type="reset"]:disabled,
@@ -369,20 +390,24 @@ input[type="submit"]:disabled {
     cursor: not-allowed;
     border-radius: var(--border-radius);
 }
+
 input[type="file"]:disabled::-ms-browse,
 input[type="file"]:disabled::-webkit-file-upload-button,
 input[type="file"]:disabled::-moz-file-upload-button {
     background-color: var(--back-button-disabled);
     cursor: not-allowed;
 }
+
 input.default {
     background-color: var(--accent-strong);
     box-shadow: none;
 }
+
 input.default:hover,
 input.default:focus {
     background-color: hsl(var(--accent-h) var(--accent-s) 26%);
 }
+
 input.required {
     outline: thin dashed var(--accent2);
     outline-offset: 1px;
@@ -398,19 +423,23 @@ input.required {
     border-left: 3px solid var(--accent);
     border-radius: var(--border-radius);
 }
+
 .message .toggle,
 .message div p a {
     background-color: var(--back-main);
     border-radius: 2px;
 }
+
 .message .toggle {
     margin: 0 5px;
     padding: 0 5px;
 }
+
 .message div p a {
     margin: 0;
     padding: 0 10px;
 }
+
 .message .time {
     /* overrides simple-theme's `color: var(--text-button)` here — near-white,
        left over from the old dark theme where the message bar itself was
@@ -418,9 +447,11 @@ input.required {
     font-size: 14.4px;
     color: var(--sb-muted);
 }
+
 .time {
     color: var(--text-time);
 }
+
 .error {
     color: var(--text-error);
     background: var(--back-error);
@@ -655,15 +686,22 @@ h2 + .hidden + * > :first-child {
 .logout #logout:hover {
     background: var(--sb-hover) !important;
 }
-.logout::before {
-    display: none;
-}
 .logout:hover,
 .logout:focus-within {
     background: none;
 }
 #lang {
-    right: 0px;
+    /* was right:0 — directly underneath .logout's area (right:16px, now a
+       wider flex row with icon+button since it's visible). Pushed further
+       left so the two don't overlap/stack; .logout paints later in the DOM
+       and would otherwise just cover #lang entirely regardless of its own
+       display value. Estimate — adjust once seen live.
+       Also no `top` was ever set here (simple-theme.css never needed one,
+       override only ever hid #lang outright) — added to match .logout's
+       top:.7em so they sit in the same row instead of #lang falling back
+       to wherever it happens to sit in normal flow. */
+    top: .7em;
+    right: 170px;
     left: auto;
     cursor: pointer;
     padding-left: 12px;
@@ -721,19 +759,20 @@ h2 + .hidden + * > :first-child {
 .rtl #lang:before {
     background-position-x: 12px;
 }
-.logout:before {
+.logout::before {
+    /* flex item now (`.logout` is display:flex), not the old full-width
+       absolute-background box #lang:before still is — needs its own
+       explicit size or `content:" "` has nothing to render into but a
+       sliver, clipping the 17px icon down to almost nothing. */
     display: block;
-    text-align: center;
+    flex-shrink: 0;
+    width: 1.1em;
+    height: 1.1em;
     content: " ";
-    background-position-x: calc(100% - 12px);
-    background-position-y: center;
+    background-position: center;
     background-repeat: no-repeat;
-    background-attachment: scroll;
-    background-size: 17px 17px !important;
+    background-size: 17px 17px;
     background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink' version='1.1' viewBox='0 0 512 512' enable-background='new 0 0 512 512' width='512px' height='512px'%3E%3Cg%3E%3Cpath d='m256,501c-129.6,0-235-102.2-235-227.8 0-87.8 50.6-166.3 132.1-204.9 10.2-4.8 22.4-0.5 27.2,9.7 4.8,10.2 0.5,22.4-9.7,27.2-67.1,31.8-108.7,96.1-108.7,168-7.10543e-15,103.1 87.1,187 194.1,187 107,0 194.1-83.9 194.1-187 0-72.4-44-138.9-112.2-169.5-10.3-4.6-14.9-16.7-10.3-27 4.6-10.3 16.7-14.9 27-10.2 82.9,37.1 136.4,118.3 136.4,206.7 0,125.6-105.4,227.8-235,227.8z' fill='%23FFFFFF'/%3E%3Cpath d='m256,287.9c-11.3,0-20.4-9.1-20.4-20.4v-236.1c0-11.3 9.2-20.4 20.4-20.4 11.3,0 20.4,9.1 20.4,20.4v236.1c0,11.3-9.1,20.4-20.4,20.4z' fill='%23FFFFFF'/%3E%3C/g%3E%3C/svg%3E");
-}
-.rtl .logout:before {
-    background-position-x: 12px;
 }
 .loadmore,
 .rtl .loadmore,
@@ -757,6 +796,7 @@ h2 + .hidden + * > :first-child {
     border-right: 1px solid var(--sb-border);
     height: 100vh;
 }
+
 .rtl #menu {
     /* override's #menu padding rule above doesn't include `.rtl #menu`, and
        `.rtl #menu` (1 class + 1 id) outranks plain `#menu` (1 id) regardless
@@ -766,35 +806,45 @@ h2 + .hidden + * > :first-child {
     margin: 0;
     padding: 0 20px 1.5em;
 }
+
 @media (min-width: 801px) {
     #menu {
         display: flex;
         flex-direction: column;
     }
-    #menu > * {
+
+    #menu>* {
         flex-shrink: 0;
     }
 }
+
 #menu h1 {
     padding: 1em 2.8rem .4em 8px;
+    background: transparent;
+    border-bottom: none;
 }
+
 #menu p {
     margin: .8em 0 0;
 }
+
 #logins,
 #menu p,
 #tables {
     padding: 0;
     border-bottom-style: none;
 }
+
 #menu .error,
 #menu .message {
     padding: 0.2em 0.4em;
 }
+
 #menu form p {
     display: flex;
     gap: 0.4rem;
 }
+
 #menu .version {
     color: var(--sb-muted);
     font-size: .8em;
@@ -808,10 +858,12 @@ h2 + .hidden + * > :first-child {
     gap: .5em;
     font-size: 0;
 }
+
 #dbs,
 #tables a.select {
     color: transparent;
 }
+
 #dbs select {
     flex: 1;
     min-width: 0;
@@ -823,6 +875,7 @@ h2 + .hidden + * > :first-child {
     padding: .4em .6em;
     color: var(--sb-text);
 }
+
 select:has(option:empty:checked) {
     background-repeat: no-repeat;
     background-position: center center;
@@ -839,6 +892,7 @@ select:has(option:empty:checked) {
     gap: 1px;
     margin: .8em 0 0;
 }
+
 #menu .links a {
     flex: none;
     margin: 0;
@@ -849,6 +903,7 @@ select:has(option:empty:checked) {
     background: transparent;
     border-radius: var(--radius-item);
 }
+
 #menu .links a:hover,
 #menu .links a:focus {
     background: var(--sb-hover);
@@ -856,6 +911,7 @@ select:has(option:empty:checked) {
     box-shadow: none;
     text-decoration: none;
 }
+
 #menu .links .active {
     background: var(--sb-active);
     color: var(--accent-strong);
@@ -877,6 +933,7 @@ select:has(option:empty:checked) {
     border-top: 1px solid var(--sb-border);
     font-size: .9rem;
 }
+
 #menu #tables::before {
     content: "Tabellen";
     display: block;
@@ -884,17 +941,21 @@ select:has(option:empty:checked) {
     color: var(--sb-muted);
     padding: 0 .6em .4em;
 }
+
 #menu #tables li {
     display: flex;
     align-items: center;
     border-radius: var(--radius-item);
 }
+
 #menu #tables li:hover {
     background: var(--sb-hover);
 }
+
 #menu #tables li:has(a.active) {
     background: var(--sb-active);
 }
+
 /* Horizontal clip, revealed on hover (so a long table name or the select
    icon peeking past the edge isn't cut off while hovering it). Independent
    of #menu #tables's overflow-y above: that one wins on the y-axis (higher
@@ -907,10 +968,12 @@ select:has(option:empty:checked) {
     overflow: hidden !important;
     font-size: 1rem;
 }
+
 #logins:hover,
 #tables:hover {
     overflow: visible !important;
 }
+
 #logins a,
 #tables a,
 #tables span {
@@ -918,30 +981,41 @@ select:has(option:empty:checked) {
     color: var(--text-button);
     padding: .2em .3em .3em;
 }
+
 #menu #tables li a {
     background: transparent !important;
     text-decoration: none;
 }
+
 #menu #tables li a.structure,
 #menu #tables li a.view {
     flex: 1;
     max-width: none;
-    padding: .35em .4em;
+    padding: .35em 0 .4em;
     color: var(--sb-text);
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
     border-radius: var(--border-radius);
 }
+
 #menu #tables li a.view {
     color: var(--sb-muted);
     text-decoration: none !important;
     font-style: normal;
 }
-#menu #tables li a.active {
+
+#menu #tables li a.structure.active,
+#menu #tables li a.view.active {
+    /* was `#menu #tables li a.active`, which also matches a.select.active —
+       its 2 ids always beat `#dbs, #tables a.select { color: transparent }`
+       (1 id), so the hidden link text ("zeigen" / "select" depending on
+       locale) became visible on whichever table is the current select
+       view. Scoped to .structure/.view only; a.select stays icon-only. */
     font-weight: 500;
     color: var(--accent-strong);
 }
+
 #menu #tables a.select {
     /* override fully replaces simple-theme's top:0.5em/width:1.13em/
        margin-left:-.3em/padding:.2em .3em sizing for the flex+centered `li`
@@ -957,9 +1031,9 @@ select:has(option:empty:checked) {
     flex: none;
     width: 1.5em;
     height: 1.5em;
-    margin: 0 0 0 .3em;
-    padding: .3em;
+    padding: .3em 0 .3em .2em
 }
+
 #menu #tables a.select.active,
 #menu #tables a.select:focus,
 #menu #tables a.select:hover {
@@ -971,6 +1045,7 @@ select:has(option:empty:checked) {
 #logins {
     line-height: 2;
 }
+
 #logins a {
     /* wins over the --text-button color set alongside #tables a/span above */
     color: var(--sb-text);
@@ -988,41 +1063,59 @@ select:has(option:empty:checked) {
     background: none;
     filter: none;
 }
+
 #menu .links a::before {
     display: inline-block;
     width: 1.4em;
 }
+
 #menu .links a[href$="&sql="]::before {
-    content: "\f120"; /* terminal */
+    content: "\f120";
+    /* terminal */
 }
+
 #menu .links a[href$="&import="]::before {
-    content: "\f093"; /* upload */
+    content: "\f093";
+    /* upload */
 }
+
 #menu .links a[href*="&dump="]::before {
-    content: "\f019"; /* download */
+    content: "\f019";
+    /* download */
 }
+
 #menu .links a[href$="&create="]::before {
-    content: "\f067"; /* plus */
+    content: "\f067";
+    /* plus */
 }
+
 #menu .links .active::before {
     color: var(--accent);
 }
+
 #menu #tables a.select::before {
-    content: "\f0ce"; /* table */
+    content: "\f0ce";
+    /* table */
     height: auto;
     line-height: 1;
 }
+
 #menu #tables li:has(a.view) a.select::before {
-    content: "\f06e"; /* eye = view */
+    content: "\f06e";
+    /* eye = view */
 }
+
 #menu #tables li:hover a.select::before {
     color: var(--sb-text);
 }
+
 #menu #tables li:has(a.active) a.select::before {
     color: var(--accent);
 }
+
 #dbs::before {
-    content: "\f1c0"; /* database */
+    content: "\f1c0";
+    /* database */
     width: auto;
     height: auto;
     margin: 0;
@@ -1035,149 +1128,202 @@ select:has(option:empty:checked) {
     background: transparent;
     color: var(--sb-muted);
 }
+
 #menuopen .icon:hover {
     background: var(--sb-hover);
     color: var(--accent-strong);
 }
+
 #menuopen .icon::before {
     font-family: var(--font-icon);
-    content: "\f0c9"; /* bars */
+    content: "\f0c9";
+    /* bars */
 }
 /* ========== Fieldset grouping (filters / sort / search / export) ========== */
 
 #fieldset-history code.jush-sql,
-#fieldset-search > div:not(:last-of-type),
-#fieldset-select > div:not(:last-of-type),
-#fieldset-sort > div:not(:last-of-type),
+#fieldset-search>div:not(:last-of-type),
+#fieldset-select>div:not(:last-of-type),
+#fieldset-sort>div:not(:last-of-type),
 fieldset {
     margin-bottom: 0.5rem;
 }
+
 #content .links,
-#fieldset-partition > p,
-#fieldset-search > div,
-#fieldset-select > div,
-#fieldset-sort > div {
+#fieldset-partition>p,
+#fieldset-search>div,
+#fieldset-select>div,
+#fieldset-sort>div {
     display: flex;
     flex-wrap: wrap;
     gap: 0.5rem;
 }
-#fieldset-partition > p,
-.footer ~ div {
+
+#fieldset-partition>p,
+.footer~div {
     margin-top: 0.2em;
 }
-#import,
-fieldset {
-    background: var(--back-panel);
-}
+
+
+
 #form fieldset {
     display: block;
     width: max-content;
 }
-.links ~ #form fieldset {
+
+.links~#form fieldset {
     display: inline-block;
 }
-form > p {
+
+form>p {
     display: flex;
     gap: 0.5rem;
 }
-form p:last-child > label,
+
+form p:last-child>label,
 #form p,
-fieldset > div > div {
+fieldset>div>div {
     display: flex;
     align-items: center;
 }
-fieldset > div > p:last-child > label,
-#form > p > label,
-fieldset > div > div label {
+
+fieldset>div>p:last-child>label,
+#form>p>label,
+fieldset>div>div label {
     font-size: 12px;
     font-weight: 400;
     text-transform: lowercase;
 }
-fieldset > div > p:last-child {
+
+fieldset>div>p:last-child {
     font-weight: 400;
     text-transform: lowercase;
 }
-.footer fieldset > label {
+
+.footer fieldset>label {
     font-size: 12px;
     padding-top: 3px;
     display: flex;
     align-items: center;
     color: var(--sb-text);
 }
-.footer div:first-child > fieldset:first-child > a {
+
+.footer div:first-child>fieldset:first-child>a {
     font-size: 15px;
     padding: 0px 7px;
     margin-top: 3px;
     display: inline-block;
 }
+
 #content .links .active {
     font-weight: 400;
     background-color: var(--back-button-high);
 }
+
 h3 {
     font-size: 110%;
 }
+
 .scrollable {
     overflow: auto;
 }
 
 /* ========== "SQL command" toggle (#import) ========== */
 
-a[href="#import"] {
+/* In the real markup, #import's `<p>` is a block-level sibling that comes
+   right AFTER `.footer` (closing `</div></div>`), not inside the fieldset
+   row — so it always starts a new line, and `order`/flex on the fieldsets
+   can't pull it in next to "Exportieren" (no shared flex/grid parent to
+   reorder within). Can't make it sit IN the row, so instead make the `<p>`
+   itself look like one of the fieldsets beside it — same border/radius/
+   background/sizing tokens as the real `fieldset` rule in 30-elements.css
+   — with the toggle link faked as a `<legend>` sitting on its top border,
+   the same trick a real `<legend>` gets natively. */
+.footer+p {
+    margin-top: 0;
     display: inline-block;
     position: relative;
-    margin-left: 1em;
-    padding: 0 0.5em;
-    background: linear-gradient(var(--back-main) 50%, transparent 0);
-    z-index: 2;
-    font-size: 0.9em;
+    vertical-align: top;
+    min-height: 1em;
+    min-width: 6em;
+    /* fieldset gets this horizontal/bottom padding for free from the
+       browser's UA stylesheet — <p> doesn't, so it's explicit here */
+    padding: .3em .75em .625em;
+    text-align: left;
+
+    border: thin solid var(--border);
+    border-radius: var(--border-radius-fieldset);
 }
+
+a[href="#import"] {
+    /* faked <legend>: real legends straddle the fieldset's top border and
+       use `padding: 0 .5em; font-size: .9em` (30-elements.css) — matched
+       here, since a <p> can't grow a native legend of its own. The
+       background swap (page bg, not --back-panel) hides the border behind
+       the label the same way a real legend's browser-drawn notch does. */
+    position: absolute;
+    top: -0.8em;
+    left: 8px;
+    z-index: 2;
+    padding: 0 .5em;
+    background: var(--back-main);
+    color: var(--sb-muted);
+    font-size: .9em;
+}
+
 #import {
+    /* no padding of its own — the `<p>` box above already provides it */
     gap: 0.5rem;
-    z-index: 1;
-    position: relative;
-    top: -0.6rem;
-    width: max-content;
-    min-height: 1.8rem;
-    padding: 0.8rem 0.5rem 0.5rem;
-    border: 1px solid var(--border);
     color: transparent;
 }
-#import > * {
+
+#import>* {
     color: initial;
 }
-#import > input[type="submit"] {
+
+#import>input[type="submit"] {
     color: var(--text-button);
 }
 
 /* Collapsed fieldsets show a centered icon instead of their form controls */
 #import.hidden,
-.js fieldset > .hidden {
+.js fieldset>.hidden {
     background-position: center;
     background-size: 1.5rem;
     background-repeat: no-repeat;
 }
+
 #fieldset-sort.hidden {
     background-image: url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22512%22%20height%3D%22512%22%20viewBox%3D%220%200%20511.6%20511.6%22%3E%3Cg%20fill%3D%22%23455a6440%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%3Cpath%20d%3D%22M260.5%20219.3h127.9a8.9%208.9%200%20009.1-9.1v-54.9c0-2.6-.8-4.8-2.5-6.5a8.9%208.9%200%2000-6.6-2.6h-128a8.9%208.9%200%2000-9.1%209.1v54.8c0%202.7%201%204.9%202.6%206.6a8.9%208.9%200%20006.6%202.6zM260.5%2073h73c2.8%200%205-.8%206.6-2.5a8.9%208.9%200%20002.6-6.5V9a8.9%208.9%200%2000-9.1-9.1h-73.1c-2.7%200-4.9.9-6.6%202.6a9%209%200%2000-2.5%206.5V64c0%202.6.8%204.8%202.5%206.5a9%209%200%20006.6%202.6zM196.5%20402h-54.8V9c0-2.6-.8-4.8-2.5-6.5a9%209%200%2000-6.6-2.6H77.8c-2.7%200-4.9.9-6.6%202.6A9%209%200%200068.6%209V402H13.8c-4.2%200-7%201.9-8.5%205.7-1.6%203.6-.9%207%202%2010L98.5%20509c2.1%201.7%204.3%202.5%206.6%202.5%202.5%200%204.6-.8%206.5-2.5l91.1-91.1c2-2.3%202.9-4.6%202.9-6.9a9%209%200%2000-2.6-6.5%209%209%200%2000-6.6-2.6zM504.6%20441.1a8.9%208.9%200%2000-6.6-2.6H260.5c-2.7%200-4.9.9-6.6%202.6a8.9%208.9%200%2000-2.5%206.6v54.8c0%202.7.8%204.8%202.5%206.6a8.9%208.9%200%20006.6%202.5H498c2.7%200%204.9-.8%206.6-2.5a8.9%208.9%200%20002.6-6.6v-54.8c0-2.7-.9-4.9-2.6-6.6zM260.5%20365.4h182.7a9%209%200%20006.6-2.5%208.9%208.9%200%20002.6-6.6v-54.8c0-2.7-.9-4.9-2.6-6.6a9%209%200%2000-6.6-2.5H260.5c-2.7%200-4.9.8-6.6%202.5a8.9%208.9%200%2000-2.5%206.6v54.8c0%202.7.8%204.9%202.5%206.6a8.9%208.9%200%20006.6%202.5z%22%2F%3E%3C%2Fg%3E%3C%2Fsvg%3E");
 }
+
 #fieldset-search.hidden {
     background-image: url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22512%22%20height%3D%22512%22%20viewBox%3D%220%200%20136%20136.2%22%3E%3Cpath%20d%3D%22M93.1%2080.8a51.2%2051.2%200%2010-15.7%2014.5l37.8%2037.6a10.7%2010.7%200%201015.1-15.2zm-41.8%203.5a33%2033%200%20110-66%2033%2033%200%20010%2066zm0%200%22%20fill%3D%22%23455a6440%22%2F%3E%3C%2Fsvg%3E");
 }
+
 #fieldset-select.hidden {
     background-image: url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22512%22%20height%3D%22512%22%3E%3Cg%20fill%3D%22%23455a6440%22%3E%3Cpath%20d%3D%22M301%20347h-91c-7%200-14%203-19%208-6%206-8%2012-8%2020v54c0%208%202%2014%208%2020%205%205%2012%208%2019%208h91c8%200%2015-3%2020-8%205-6%208-12%208-20v-54a27%2027%200%2000-27-27zM119%20347H27c-7%200-14%203-19%208-5%206-8%2012-8%2020v54c0%208%203%2014%208%2020%205%205%2012%208%2019%208h92c7%200%2014-3%2019-8%206-6%208-12%208-20v-54c0-8-2-14-8-20s-12-8-19-8zM119%2055H27c-7%200-14%202-19%208-5%205-8%2012-8%2019v55c0%208%203%2014%208%2019%205%206%2012%208%2019%208h92c7%200%2014-2%2019-8s8-11%208-19V82c0-7-2-14-8-19-5-6-12-8-19-8zM301%20201h-91a27%2027%200%2000-27%2027v55c0%208%202%2014%208%2020%205%205%2012%208%2019%208h91c8%200%2015-3%2020-8%205-6%208-12%208-20v-55a27%2027%200%2000-27-27zM119%20201H27c-7%200-14%203-19%208s-8%2012-8%2019v55c0%208%203%2014%208%2020%205%205%2012%208%2019%208h92c7%200%2014-3%2019-8%206-6%208-12%208-20v-55c0-7-2-14-8-19s-12-8-19-8zM504%2063c-6-6-12-8-20-8h-91c-8%200-14%202-20%208-5%205-8%2012-8%2019v55c0%208%203%2014%208%2019%206%206%2012%208%2020%208h91c8%200%2014-2%2020-8s8-11%208-19V82c0-7-3-14-8-19zM301%2055h-91c-7%200-14%202-19%208s-8%2012-8%2019v55c0%208%202%2014%208%2019%205%206%2012%208%2019%208h91c8%200%2015-2%2020-8%205-5%208-11%208-19V82c0-7-3-14-8-19-5-6-12-8-20-8zM484%20201h-91c-8%200-14%203-20%208-5%205-8%2012-8%2019v55c0%208%203%2014%208%2020%206%205%2012%208%2020%208h91c8%200%2014-3%2020-8%205-6%208-12%208-20v-55c0-7-3-14-8-19-6-5-12-8-20-8zM484%20347h-91c-8%200-14%203-20%208-5%206-8%2012-8%2020v54c0%208%203%2014%208%2020%206%205%2012%208%2020%208h91c8%200%2014-3%2020-8%205-6%208-12%208-20v-54a27%2027%200%2000-27-27z%22%2F%3E%3C%2Fg%3E%3C%2Fsvg%3E");
 }
+
 #fieldset-partition.hidden {
     background-image: url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22512%22%20height%3D%22512%22%20viewBox%3D%220%200%20475%20475%22%3E%3Cg%3E%3Cpath%20d%3D%22M183%2037H37c-10%200-19%203-26%2010C4%2055%200%2063%200%2073v110c0%2010%204%2018%2011%2025%207%208%2016%2011%2026%2011h146c10%200%2018-3%2025-11%208-7%2011-15%2011-25V73c0-10-3-18-11-26-7-7-15-10-25-10zM183%20256H37c-10%200-19%203-26%2011-7%207-11%2015-11%2025v110c0%2010%204%2018%2011%2026%207%207%2016%2011%2026%2011h146c10%200%2018-4%2025-11%208-8%2011-16%2011-26V292c0-10-3-18-11-25-7-8-15-11-25-11zM464%2047c-7-7-16-10-25-10H292c-10%200-18%203-25%2010-8%208-11%2016-11%2026v110c0%2010%203%2018%2011%2025%207%208%2015%2011%2025%2011h147c9%200%2018-3%2025-11%207-7%2011-15%2011-25V73c0-10-4-18-11-26zM439%20256H292c-10%200-18%203-25%2011-8%207-11%2015-11%2025v110c0%2010%203%2018%2011%2026%207%207%2015%2011%2025%2011h147c9%200%2018-4%2025-11%207-8%2011-16%2011-26V292c0-10-4-18-11-25-7-8-16-11-25-11z%22%20fill%3D%22%23455a6440%22%2F%3E%3C%2Fg%3E%3C%2Fsvg%3E");
 }
+
 #fieldset-export.hidden {
     background-image: url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22512%22%20height%3D%22512%22%3E%3Cpath%20d%3D%22M348.3%20101.6l-80-96c-6-7.3-18.5-7.3-24.6%200l-80%2096A16%2016%200%2000176%20128h48v240a16%2016%200%200016%2016h32a16%2016%200%200016-16v-240h48a16%2016%200%200012.3-26.3z%22%20fill%3D%22%23455a6440%22%2F%3E%3Cpath%20d%3D%22M480%20191.9H320v64h128v192H64v-192h128v-64H32a32%2032%200%2000-32%2032v256a32%2032%200%200032%2032h448a32%2032%200%200032-32v-256a32%2032%200%2000-32-32z%22%20fill%3D%22%23455a6440%22%2F%3E%3C%2Fsvg%3E");
 }
+
 #fieldset-history.hidden {
     background-image: url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22512%22%20height%3D%22512%22%20viewBox%3D%220%200%20448%20448%22%3E%3Cg%3E%3Cpath%20fill%3D%22%23455a6440%22%20d%3D%22M235%20139v106l91%2055%2015-26-74-45v-90z%22%2F%3E%3Cpath%20d%3D%22M256%2032C150%2032%2064%20118%2064%20224H0l83%2083%202%203%2086-86h-64a149%20149%200%201144%20105l-31%2031A192%20192%200%2010256%2032z%22%20fill%3D%22%23455a6440%22%2F%3E%3C%2Fg%3E%3C%2Fsvg%3E");
 }
+
 #import.hidden {
+    /* .js fieldset > .hidden normally supplies min-height:1.5rem for this
+       (30-elements.css) — doesn't apply here since #import's parent is a
+       <p>, not a <fieldset>, so it's repeated explicitly */
     display: block;
     min-width: 4em;
+    min-height: 1.5rem;
     color: transparent;
     background-image: url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22512%22%20height%3D%22512%22%3E%3Cpath%20d%3D%22M350.5%20281.4a16%2016%200%2000-14.5-9.2h-48v-240a16%2016%200%2000-16-16h-32a16%2016%200%2000-16%2016v240h-48a16%2016%200%2000-12.3%2026.2l80%2096a16.6%2016.6%200%200024.6%200l80-96a16%2016%200%20002.2-17z%22%20fill%3D%22%23455a6440%22%2F%3E%3Cpath%20d%3D%22M480%20175.8H320v64h128v192H64v-192h128v-64H32a32%2032%200%2000-32%2032v256a32%2032%200%200032%2032h448a32%2032%200%200032-32v-256a32%2032%200%2000-32-32z%22%20fill%3D%22%23455a6440%22%2F%3E%3C%2Fsvg%3E");
 }
@@ -1200,32 +1346,87 @@ button.icon {
     color: var(--text-button);
     border-radius: 6px;
 }
+
 button.icon:hover,
 button.icon:focus-visible {
     background: var(--accent-strong);
 }
+
 button.icon span {
     display: none;
 }
+
 button.icon::before {
     font-family: var(--font-icon);
     font-size: .85rem;
     line-height: 1;
 }
+
 .icon-plus::before {
-    content: "\f067"; /* plus */
+    content: "\f067";
+    /* plus */
 }
+
 .icon-up::before {
-    content: "\f062"; /* arrow-up */
+    content: "\f062";
+    /* arrow-up */
 }
+
 .icon-down::before {
-    content: "\f063"; /* arrow-down */
+    content: "\f063";
+    /* arrow-down */
 }
+
 .icon-cross::before {
-    content: "\f00d"; /* times */
+    content: "\f014";
+    /* trash — was times (\f00d), "remove column" reads
+                          better as delete than as a plain close/X */
 }
+
 .icon-move::before {
-    content: "\f047"; /* arrows */
+    content: "\f047";
+    /* arrows */
+}
+
+/* ========== "Edit" row action → pencil icon ==========
+   Corrected from real markup: the href pattern doesn't distinguish "New
+   item" from a per-row edit — both use edit=<tablename>, difference is
+   just whether a where[...] param follows. But the per-row link already
+   carries its own class="edit", which is what Adminer's own select/table
+   view actually renders — use that directly instead of guessing hrefs.
+   "New item" (in the #content .links action bar) has no such class, so
+   it's untouched and stays a plain text button like its siblings. */
+a.edit {
+    /* color:transparent (2nd attempt) still showed the first few characters
+       of "bearbeiten"/"edit" — left-aligned and clipped, not centered, so
+       something was overriding the color rather than inline-grid failing
+       to size the box. Switched to the classic text-indent hide, which
+       physically pushes the real text out of the clip area instead of
+       depending on which color rule happens to win: robust regardless. */
+    position: relative;
+    display: inline-block;
+    width: 1.7em;
+    height: 1.7em;
+    overflow: hidden;
+    white-space: nowrap;
+    text-indent: 150%;
+}
+
+a.edit::before {
+    position: absolute;
+    top: 0;
+    left: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+    text-indent: 0;
+    font-family: var(--font-icon);
+    font-size: .85rem;
+    line-height: 1;
+    content: "\f040";
+    /* pencil */
 }
 
 /* ========== SQL editor / code ========== */
@@ -1233,6 +1434,7 @@ button.icon::before {
 pre {
     overflow-x: auto;
 }
+
 code.jush-sql {
     display: inline-block;
     padding: 0.3em 0.5em 0.2em;
@@ -1243,21 +1445,25 @@ code.jush-sql {
     border: 1px solid var(--accent1);
     border-left: 3px solid var(--accent);
 }
+
 #help.jush-sql,
 code.jush-sqlset {
     font-size: 0.8rem;
 }
+
 .jush-sql,
 .sqlarea,
 code {
     font-size: 0.9rem;
 }
+
 .sqlarea {
     background: var(--back-editor);
     border: thin solid var(--border) !important;
     width: 100% !important;
     border-radius: var(--border-radius-input);
 }
+
 .message code.jush-sql {
     width: calc(100% - 30px);
     padding: 10px;
@@ -1274,33 +1480,34 @@ code {
     width: 100%;
     border-style: none;
     background: var(--back-main);
-    -webkit-mask-image: linear-gradient(
-        var(--back-footer-fade),
-        var(--back-footer) 1em
-    );
-    mask-image: linear-gradient(
-        var(--back-footer-fade),
-        var(--back-footer) 1em
-    );
+    -webkit-mask-image: linear-gradient(var(--back-footer-fade),
+            var(--back-footer) 1em);
+    mask-image: linear-gradient(var(--back-footer-fade),
+            var(--back-footer) 1em);
 }
+
 @supports (-ms-ime-align: auto) {
     .footer {
         background: var(--back-main);
     }
 }
-.footer > div {
+
+.footer>div {
     background: 0 0;
     padding: 0;
 }
+
 .footer fieldset input:not(:first-child),
 .footer fieldset select:not(:first-child) {
     margin-left: 0.3em;
 }
+
 .rtl .footer fieldset input:not(:first-child),
 .rtl .footer fieldset select:not(:first-child) {
     margin-left: 0;
     margin-right: 0.3em;
 }
+
 .footer p {
     width: 100%;
     font-size: 0.9em;
@@ -1319,44 +1526,54 @@ table {
     border-collapse: separate !important;
     border-radius: var(--border-radius-table-main);
 }
-table tr > td {
+
+table tr>td {
     font-weight: 400;
     font-variant-numeric: tabular-nums;
 }
-table tr > th,
-#form table tr > th > span {
+
+table tr>th,
+#form table tr>th>span {
     font-family: inherit;
     font-weight: 500;
 }
+
 td,
 th {
     border-color: var(--border-table);
     border-width: 0 thin thin 0;
     padding: 0.25em 0.6em 0.3em;
 }
+
 .rtl td,
 .rtl th {
     border-width: 0 0 thin thin;
 }
+
 th {
     background: inherit;
 }
+
 td a,
 th a {
     vertical-align: inherit;
 }
+
 td:last-child,
 th:last-child {
     border-right-width: 0;
 }
+
 .rtl td:last-child,
 .rtl th:last-child {
     border-left-width: 0;
 }
+
 tr:last-child td,
 tr:last-child th {
     border-bottom-width: 0;
 }
+
 thead td,
 thead th {
     border-color: var(--border-table-head);
@@ -1365,28 +1582,35 @@ thead th {
     position: relative;
     background-clip: padding-box;
 }
+
 thead th {
     font-weight: 400;
 }
+
 .js .checkable thead .checked th,
 thead th {
     background: var(--back-table-head);
 }
+
 td i {
     color: var(--sb-muted);
 }
+
 tbody tr:nth-child(2n) td,
 tbody tr:nth-child(2n) th {
     background: var(--back-table-tint);
 }
+
 .js .checkable tbody .checked td,
 .js .checkable tbody .checked th {
     background: var(--back-table-high);
 }
+
 .js .checkable tbody .checked:nth-child(2n) td,
 .js .checkable tbody .checked:nth-child(2n) th {
     background: var(--back-table-high-tint);
 }
+
 .js .checkable tbody .checked:hover td,
 .js .checkable tbody .checked:hover th,
 .js .checkable tbody .checked:hover:nth-child(2n) td,
@@ -1395,17 +1619,21 @@ tbody tr:nth-child(n):hover td,
 tbody tr:nth-child(n):hover th {
     background: var(--back-table-hover);
 }
+
 thead td:first-child,
 thead th:first-child {
     border-top-left-radius: var(--border-radius-table);
 }
+
 thead td:last-child,
 thead th:last-child {
     border-top-right-radius: var(--border-radius-table);
 }
+
 tbody tr:last-child td:first-child {
     border-bottom-left-radius: var(--border-radius-table);
 }
+
 tbody tr:last-child td:last-child {
     border-bottom-right-radius: var(--border-radius-table);
 }
@@ -1424,59 +1652,103 @@ table.nowrap thead th {
     background: var(--back-table);
     padding: 5px 10px;
 }
-#schema .table > a {
+
+#schema .table>a {
     padding-bottom: 7px;
     display: inline-block;
 }
+
 #schema .table span {
     /* font-family comes from the typography rule in 30-elements.css —
        override's combinator only replaces that one property, this
        font-weight is simple-theme's own and still applies */
     font-weight: 500;
 }
+
 #schema .table i span {
     color: var(--accent2);
 }
 
 /* ========== Column sort / search toggle ==========
-   Unlike the alter-table icon buttons above, these are still plain `<a>`
-   links with the old SVG-sprite backgrounds — nobody has redrawn them as
-   Nerd Font glyphs yet, so they look slightly out of step with the rest of
-   the icon system. */
+   Adminer renders these as real text (a Unicode ↓/↑ and a literal "="), not
+   blank links with an icon background. Hidden the same text-indent way as
+   a.edit above (not color:transparent — that one turned out unreliable)
+   and replaced with Nerd Font glyphs.
+
+   Which arrow to show is read off the href, not the `title` attribute —
+   title is localized ("absteigend"/"aufsteigend"), href isn't. A link
+   whose href carries &desc[0]= is offering to switch that column to
+   descending order (i.e. it's currently NOT sorted descending); anything
+   else sort-related defaults to the ascending-offer glyph. If you only
+   ever see one arrow, it means every column you're looking at is in the
+   same unsorted/default state — not a CSS issue, Adminer decides the
+   href per column server-side. */
 
 .js .column {
     z-index: 1;
-    padding: 0;
+    padding: .3em .66em;
     margin-top: 0;
     line-height: 1.25em;
-    background: 0 0;
 }
-.column a {
-    height: 0;
-    padding-top: 1.5em;
-    width: 1.5em;
-    margin-left: 0.2em;
-    display: inline-block;
-    overflow: hidden;
-    text-indent: -5em;
-    background: var(--back-button) center no-repeat;
-    background-size: 66%;
+
+.column {
+    display: inline-flex;
+    align-items: center;
+    gap: .15em;
+    margin-left: .3em;
+    padding: .15em .3em;
+    background: var(--sb-text);
+    color: var(--text-button);
     border-radius: var(--border-radius);
 }
-.rtl .column a {
+
+.rtl .column {
     margin-left: 0;
-    margin-right: 0.2em;
+    margin-right: .3em;
 }
-.column a:focus,
-.column a:hover {
-    background-color: var(--text-link-hover);
+
+.column a {
+    position: relative;
+    display: inline-block;
+    width: 1em;
+    height: 1em;
+    overflow: hidden;
+    white-space: nowrap;
+    text-indent: 150%;
 }
-.column a[href*="&asc%5B"] {
-    background-image: url("data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20xmlns:xlink='http://www.w3.org/1999/xlink'%20version='1.1'%20x='0px'%20y='0px'%20viewBox='0%200%20490%20490'%20style='enable-background:new%200%200%20490%20490;'%20width='512px'%20height='512px'%3E%3Cg%3E%3Cpath%20d='M490,474.459H0L245.009,15.541L490,474.459z'%20fill='%23FFFFFF'/%3E%3C/g%3E%3C/svg%3E");
+
+.column a::before {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-indent: 0;
+    font-family: var(--font-icon);
+    font-size: .8rem;
+    line-height: 1;
+    color: inherit;
 }
-.column a[href*="&desc%5B"] {
-    background-image: url("data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20xmlns:xlink='http://www.w3.org/1999/xlink'%20version='1.1'%20x='0px'%20y='0px'%20viewBox='0%200%20490%20490'%20style='enable-background:new%200%200%20490%20490;'%20width='512px'%20height='512px'%3E%3Cg%3E%3Cpath%20d='M0,15.541h490L244.991,474.459L0,15.541z'%20fill='%23FFFFFF'/%3E%3C/g%3E%3C/svg%3E");
+
+.column a[href^="#fieldset-search"]::before {
+    content: "\f002";
+    /* search */
 }
-.column a[href="#fieldset-search"] {
-    background-image: url("data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20xmlns:xlink='http://www.w3.org/1999/xlink'%20version='1.1'%20viewBox='0%200%20310.088%20310.088'%20enable-background='new%200%200%20310.088%20310.088'%20width='512px'%20height='512px'%3E%3Cg%3E%3Cpath%20d='m299.85,250.413l-62.808-62.808c-3.982-3.982-10.437-3.982-14.418,0l-3.539,3.539-18.586-18.586c29.709-42.872%2025.472-102.152-12.716-140.34-42.958-42.958-112.606-42.958-155.563,0s-42.958,112.606%200,155.563c38.189,38.188%2097.468,42.425%20140.34,12.716l18.586,18.586-3.539,3.539c-3.982,3.981-3.982,10.437%200,14.418l62.808,62.808c13.651,13.651%2035.785,13.651%2049.436,0s13.65-35.784-0.001-49.435zm-251.368-78.895c-33.921-33.921-33.921-89.115-0.001-123.036%2033.922-33.921%2089.117-33.922%20123.037-0.001v0.001c33.922,33.921%2033.922,89.115%200,123.036-16.96,16.961-39.239,25.441-61.518,25.441-22.279,0-44.558-8.48-61.518-25.441z'%20fill='%23FFFFFF'/%3E%3C/g%3E%3C/svg%3E");
+
+.column a[href*="&desc[0]="]::before {
+    content: "\f0dd";
+    /* sort-desc caret */
+}
+
+.column a:not([href^="#fieldset-search"]):not([href*="&desc[0]="])::before {
+    content: "\f0de";
+    /* sort-asc caret */
+}
+
+.column a:focus::before,
+.column a:hover::before {
+    color: var(--accent);
 }

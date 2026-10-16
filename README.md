@@ -33,9 +33,6 @@ Tyto Alba is a quiet, warm-toned theme for [Adminer](https://www.adminer.org/) â
 #### Query
 ![Tyto Alba theme for Adminer - Query](https://raw.githubusercontent.com/benediktsattler/tytoalba/main/screenshots/query.svg)
 
-#### RTL (right-to-left)
-![Tyto Alba theme for Adminer - RTL support](https://raw.githubusercontent.com/benediktsattler/tytoalba/main/screenshots/rtl.svg)
-
 ### Development
 
 `adminer.css` is a generated file, built from the sources in [`src/`](src/):
@@ -64,4 +61,4 @@ Tyto Alba theme for Adminer is licensed under the [MIT License](https://github.c
 
 ### Credits
 
-Based on [Simple Theme by Hassan Azzi](https://github.com/devknown/simple-theme/), which forked [Steve Copley's theme](https://github.com/stevecopley/adminer)."
+Based on [Simple Theme by Hassan Azzi](https://github.com/devknown/simple-theme/), which forked [Steve Copley's theme](https://github.com/stevecopley/adminer).

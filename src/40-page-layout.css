@@ -226,15 +226,22 @@ h2 + .hidden + * > :first-child {
 .logout #logout:hover {
     background: var(--sb-hover) !important;
 }
-.logout::before {
-    display: none;
-}
 .logout:hover,
 .logout:focus-within {
     background: none;
 }
 #lang {
-    right: 0px;
+    /* was right:0 — directly underneath .logout's area (right:16px, now a
+       wider flex row with icon+button since it's visible). Pushed further
+       left so the two don't overlap/stack; .logout paints later in the DOM
+       and would otherwise just cover #lang entirely regardless of its own
+       display value. Estimate — adjust once seen live.
+       Also no `top` was ever set here (simple-theme.css never needed one,
+       override only ever hid #lang outright) — added to match .logout's
+       top:.7em so they sit in the same row instead of #lang falling back
+       to wherever it happens to sit in normal flow. */
+    top: .7em;
+    right: 170px;
     left: auto;
     cursor: pointer;
     padding-left: 12px;
@@ -292,19 +299,20 @@ h2 + .hidden + * > :first-child {
 .rtl #lang:before {
     background-position-x: 12px;
 }
-.logout:before {
+.logout::before {
+    /* flex item now (`.logout` is display:flex), not the old full-width
+       absolute-background box #lang:before still is — needs its own
+       explicit size or `content:" "` has nothing to render into but a
+       sliver, clipping the 17px icon down to almost nothing. */
     display: block;
-    text-align: center;
+    flex-shrink: 0;
+    width: 1.1em;
+    height: 1.1em;
     content: " ";
-    background-position-x: calc(100% - 12px);
-    background-position-y: center;
+    background-position: center;
     background-repeat: no-repeat;
-    background-attachment: scroll;
-    background-size: 17px 17px !important;
+    background-size: 17px 17px;
     background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink' version='1.1' viewBox='0 0 512 512' enable-background='new 0 0 512 512' width='512px' height='512px'%3E%3Cg%3E%3Cpath d='m256,501c-129.6,0-235-102.2-235-227.8 0-87.8 50.6-166.3 132.1-204.9 10.2-4.8 22.4-0.5 27.2,9.7 4.8,10.2 0.5,22.4-9.7,27.2-67.1,31.8-108.7,96.1-108.7,168-7.10543e-15,103.1 87.1,187 194.1,187 107,0 194.1-83.9 194.1-187 0-72.4-44-138.9-112.2-169.5-10.3-4.6-14.9-16.7-10.3-27 4.6-10.3 16.7-14.9 27-10.2 82.9,37.1 136.4,118.3 136.4,206.7 0,125.6-105.4,227.8-235,227.8z' fill='%23FFFFFF'/%3E%3Cpath d='m256,287.9c-11.3,0-20.4-9.1-20.4-20.4v-236.1c0-11.3 9.2-20.4 20.4-20.4 11.3,0 20.4,9.1 20.4,20.4v236.1c0,11.3-9.1,20.4-20.4,20.4z' fill='%23FFFFFF'/%3E%3C/g%3E%3C/svg%3E");
-}
-.rtl .logout:before {
-    background-position-x: 12px;
 }
 .loadmore,
 .rtl .loadmore,

@@ -1,138 +1,188 @@
 /* ========== Fieldset grouping (filters / sort / search / export) ========== */
 
 #fieldset-history code.jush-sql,
-#fieldset-search > div:not(:last-of-type),
-#fieldset-select > div:not(:last-of-type),
-#fieldset-sort > div:not(:last-of-type),
+#fieldset-search>div:not(:last-of-type),
+#fieldset-select>div:not(:last-of-type),
+#fieldset-sort>div:not(:last-of-type),
 fieldset {
     margin-bottom: 0.5rem;
 }
+
 #content .links,
-#fieldset-partition > p,
-#fieldset-search > div,
-#fieldset-select > div,
-#fieldset-sort > div {
+#fieldset-partition>p,
+#fieldset-search>div,
+#fieldset-select>div,
+#fieldset-sort>div {
     display: flex;
     flex-wrap: wrap;
     gap: 0.5rem;
 }
-#fieldset-partition > p,
-.footer ~ div {
+
+#fieldset-partition>p,
+.footer~div {
     margin-top: 0.2em;
 }
-#import,
-fieldset {
-    background: var(--back-panel);
-}
+
+
+
 #form fieldset {
     display: block;
     width: max-content;
 }
-.links ~ #form fieldset {
+
+.links~#form fieldset {
     display: inline-block;
 }
-form > p {
+
+form>p {
     display: flex;
     gap: 0.5rem;
 }
-form p:last-child > label,
+
+form p:last-child>label,
 #form p,
-fieldset > div > div {
+fieldset>div>div {
     display: flex;
     align-items: center;
 }
-fieldset > div > p:last-child > label,
-#form > p > label,
-fieldset > div > div label {
+
+fieldset>div>p:last-child>label,
+#form>p>label,
+fieldset>div>div label {
     font-size: 12px;
     font-weight: 400;
     text-transform: lowercase;
 }
-fieldset > div > p:last-child {
+
+fieldset>div>p:last-child {
     font-weight: 400;
     text-transform: lowercase;
 }
-.footer fieldset > label {
+
+.footer fieldset>label {
     font-size: 12px;
     padding-top: 3px;
     display: flex;
     align-items: center;
     color: var(--sb-text);
 }
-.footer div:first-child > fieldset:first-child > a {
+
+.footer div:first-child>fieldset:first-child>a {
     font-size: 15px;
     padding: 0px 7px;
     margin-top: 3px;
     display: inline-block;
 }
+
 #content .links .active {
     font-weight: 400;
     background-color: var(--back-button-high);
 }
+
 h3 {
     font-size: 110%;
 }
+
 .scrollable {
     overflow: auto;
 }
 
 /* ========== "SQL command" toggle (#import) ========== */
 
-a[href="#import"] {
+/* In the real markup, #import's `<p>` is a block-level sibling that comes
+   right AFTER `.footer` (closing `</div></div>`), not inside the fieldset
+   row — so it always starts a new line, and `order`/flex on the fieldsets
+   can't pull it in next to "Exportieren" (no shared flex/grid parent to
+   reorder within). Can't make it sit IN the row, so instead make the `<p>`
+   itself look like one of the fieldsets beside it — same border/radius/
+   background/sizing tokens as the real `fieldset` rule in 30-elements.css
+   — with the toggle link faked as a `<legend>` sitting on its top border,
+   the same trick a real `<legend>` gets natively. */
+.footer+p {
+    margin-top: 0;
     display: inline-block;
     position: relative;
-    margin-left: 1em;
-    padding: 0 0.5em;
-    background: linear-gradient(var(--back-main) 50%, transparent 0);
-    z-index: 2;
-    font-size: 0.9em;
+    vertical-align: top;
+    min-height: 1em;
+    min-width: 6em;
+    /* fieldset gets this horizontal/bottom padding for free from the
+       browser's UA stylesheet — <p> doesn't, so it's explicit here */
+    padding: .3em .75em .625em;
+    text-align: left;
+
+    border: thin solid var(--border);
+    border-radius: var(--border-radius-fieldset);
 }
+
+a[href="#import"] {
+    /* faked <legend>: real legends straddle the fieldset's top border and
+       use `padding: 0 .5em; font-size: .9em` (30-elements.css) — matched
+       here, since a <p> can't grow a native legend of its own. The
+       background swap (page bg, not --back-panel) hides the border behind
+       the label the same way a real legend's browser-drawn notch does. */
+    position: absolute;
+    top: -0.8em;
+    left: 8px;
+    z-index: 2;
+    padding: 0 .5em;
+    background: var(--back-main);
+    color: var(--sb-muted);
+    font-size: .9em;
+}
+
 #import {
+    /* no padding of its own — the `<p>` box above already provides it */
     gap: 0.5rem;
-    z-index: 1;
-    position: relative;
-    top: -0.6rem;
-    width: max-content;
-    min-height: 1.8rem;
-    padding: 0.8rem 0.5rem 0.5rem;
-    border: 1px solid var(--border);
     color: transparent;
 }
-#import > * {
+
+#import>* {
     color: initial;
 }
-#import > input[type="submit"] {
+
+#import>input[type="submit"] {
     color: var(--text-button);
 }
 
 /* Collapsed fieldsets show a centered icon instead of their form controls */
 #import.hidden,
-.js fieldset > .hidden {
+.js fieldset>.hidden {
     background-position: center;
     background-size: 1.5rem;
     background-repeat: no-repeat;
 }
+
 #fieldset-sort.hidden {
     background-image: url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22512%22%20height%3D%22512%22%20viewBox%3D%220%200%20511.6%20511.6%22%3E%3Cg%20fill%3D%22%23455a6440%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%3Cpath%20d%3D%22M260.5%20219.3h127.9a8.9%208.9%200%20009.1-9.1v-54.9c0-2.6-.8-4.8-2.5-6.5a8.9%208.9%200%2000-6.6-2.6h-128a8.9%208.9%200%2000-9.1%209.1v54.8c0%202.7%201%204.9%202.6%206.6a8.9%208.9%200%20006.6%202.6zM260.5%2073h73c2.8%200%205-.8%206.6-2.5a8.9%208.9%200%20002.6-6.5V9a8.9%208.9%200%2000-9.1-9.1h-73.1c-2.7%200-4.9.9-6.6%202.6a9%209%200%2000-2.5%206.5V64c0%202.6.8%204.8%202.5%206.5a9%209%200%20006.6%202.6zM196.5%20402h-54.8V9c0-2.6-.8-4.8-2.5-6.5a9%209%200%2000-6.6-2.6H77.8c-2.7%200-4.9.9-6.6%202.6A9%209%200%200068.6%209V402H13.8c-4.2%200-7%201.9-8.5%205.7-1.6%203.6-.9%207%202%2010L98.5%20509c2.1%201.7%204.3%202.5%206.6%202.5%202.5%200%204.6-.8%206.5-2.5l91.1-91.1c2-2.3%202.9-4.6%202.9-6.9a9%209%200%2000-2.6-6.5%209%209%200%2000-6.6-2.6zM504.6%20441.1a8.9%208.9%200%2000-6.6-2.6H260.5c-2.7%200-4.9.9-6.6%202.6a8.9%208.9%200%2000-2.5%206.6v54.8c0%202.7.8%204.8%202.5%206.6a8.9%208.9%200%20006.6%202.5H498c2.7%200%204.9-.8%206.6-2.5a8.9%208.9%200%20002.6-6.6v-54.8c0-2.7-.9-4.9-2.6-6.6zM260.5%20365.4h182.7a9%209%200%20006.6-2.5%208.9%208.9%200%20002.6-6.6v-54.8c0-2.7-.9-4.9-2.6-6.6a9%209%200%2000-6.6-2.5H260.5c-2.7%200-4.9.8-6.6%202.5a8.9%208.9%200%2000-2.5%206.6v54.8c0%202.7.8%204.9%202.5%206.6a8.9%208.9%200%20006.6%202.5z%22%2F%3E%3C%2Fg%3E%3C%2Fsvg%3E");
 }
+
 #fieldset-search.hidden {
     background-image: url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22512%22%20height%3D%22512%22%20viewBox%3D%220%200%20136%20136.2%22%3E%3Cpath%20d%3D%22M93.1%2080.8a51.2%2051.2%200%2010-15.7%2014.5l37.8%2037.6a10.7%2010.7%200%201015.1-15.2zm-41.8%203.5a33%2033%200%20110-66%2033%2033%200%20010%2066zm0%200%22%20fill%3D%22%23455a6440%22%2F%3E%3C%2Fsvg%3E");
 }
+
 #fieldset-select.hidden {
     background-image: url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22512%22%20height%3D%22512%22%3E%3Cg%20fill%3D%22%23455a6440%22%3E%3Cpath%20d%3D%22M301%20347h-91c-7%200-14%203-19%208-6%206-8%2012-8%2020v54c0%208%202%2014%208%2020%205%205%2012%208%2019%208h91c8%200%2015-3%2020-8%205-6%208-12%208-20v-54a27%2027%200%2000-27-27zM119%20347H27c-7%200-14%203-19%208-5%206-8%2012-8%2020v54c0%208%203%2014%208%2020%205%205%2012%208%2019%208h92c7%200%2014-3%2019-8%206-6%208-12%208-20v-54c0-8-2-14-8-20s-12-8-19-8zM119%2055H27c-7%200-14%202-19%208-5%205-8%2012-8%2019v55c0%208%203%2014%208%2019%205%206%2012%208%2019%208h92c7%200%2014-2%2019-8s8-11%208-19V82c0-7-2-14-8-19-5-6-12-8-19-8zM301%20201h-91a27%2027%200%2000-27%2027v55c0%208%202%2014%208%2020%205%205%2012%208%2019%208h91c8%200%2015-3%2020-8%205-6%208-12%208-20v-55a27%2027%200%2000-27-27zM119%20201H27c-7%200-14%203-19%208s-8%2012-8%2019v55c0%208%203%2014%208%2020%205%205%2012%208%2019%208h92c7%200%2014-3%2019-8%206-6%208-12%208-20v-55c0-7-2-14-8-19s-12-8-19-8zM504%2063c-6-6-12-8-20-8h-91c-8%200-14%202-20%208-5%205-8%2012-8%2019v55c0%208%203%2014%208%2019%206%206%2012%208%2020%208h91c8%200%2014-2%2020-8s8-11%208-19V82c0-7-3-14-8-19zM301%2055h-91c-7%200-14%202-19%208s-8%2012-8%2019v55c0%208%202%2014%208%2019%205%206%2012%208%2019%208h91c8%200%2015-2%2020-8%205-5%208-11%208-19V82c0-7-3-14-8-19-5-6-12-8-20-8zM484%20201h-91c-8%200-14%203-20%208-5%205-8%2012-8%2019v55c0%208%203%2014%208%2020%206%205%2012%208%2020%208h91c8%200%2014-3%2020-8%205-6%208-12%208-20v-55c0-7-3-14-8-19-6-5-12-8-20-8zM484%20347h-91c-8%200-14%203-20%208-5%206-8%2012-8%2020v54c0%208%203%2014%208%2020%206%205%2012%208%2020%208h91c8%200%2014-3%2020-8%205-6%208-12%208-20v-54a27%2027%200%2000-27-27z%22%2F%3E%3C%2Fg%3E%3C%2Fsvg%3E");
 }
+
 #fieldset-partition.hidden {
     background-image: url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22512%22%20height%3D%22512%22%20viewBox%3D%220%200%20475%20475%22%3E%3Cg%3E%3Cpath%20d%3D%22M183%2037H37c-10%200-19%203-26%2010C4%2055%200%2063%200%2073v110c0%2010%204%2018%2011%2025%207%208%2016%2011%2026%2011h146c10%200%2018-3%2025-11%208-7%2011-15%2011-25V73c0-10-3-18-11-26-7-7-15-10-25-10zM183%20256H37c-10%200-19%203-26%2011-7%207-11%2015-11%2025v110c0%2010%204%2018%2011%2026%207%207%2016%2011%2026%2011h146c10%200%2018-4%2025-11%208-8%2011-16%2011-26V292c0-10-3-18-11-25-7-8-15-11-25-11zM464%2047c-7-7-16-10-25-10H292c-10%200-18%203-25%2010-8%208-11%2016-11%2026v110c0%2010%203%2018%2011%2025%207%208%2015%2011%2025%2011h147c9%200%2018-3%2025-11%207-7%2011-15%2011-25V73c0-10-4-18-11-26zM439%20256H292c-10%200-18%203-25%2011-8%207-11%2015-11%2025v110c0%2010%203%2018%2011%2026%207%207%2015%2011%2025%2011h147c9%200%2018-4%2025-11%207-8%2011-16%2011-26V292c0-10-4-18-11-25-7-8-16-11-25-11z%22%20fill%3D%22%23455a6440%22%2F%3E%3C%2Fg%3E%3C%2Fsvg%3E");
 }
+
 #fieldset-export.hidden {
     background-image: url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22512%22%20height%3D%22512%22%3E%3Cpath%20d%3D%22M348.3%20101.6l-80-96c-6-7.3-18.5-7.3-24.6%200l-80%2096A16%2016%200%2000176%20128h48v240a16%2016%200%200016%2016h32a16%2016%200%200016-16v-240h48a16%2016%200%200012.3-26.3z%22%20fill%3D%22%23455a6440%22%2F%3E%3Cpath%20d%3D%22M480%20191.9H320v64h128v192H64v-192h128v-64H32a32%2032%200%2000-32%2032v256a32%2032%200%200032%2032h448a32%2032%200%200032-32v-256a32%2032%200%2000-32-32z%22%20fill%3D%22%23455a6440%22%2F%3E%3C%2Fsvg%3E");
 }
+
 #fieldset-history.hidden {
     background-image: url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22512%22%20height%3D%22512%22%20viewBox%3D%220%200%20448%20448%22%3E%3Cg%3E%3Cpath%20fill%3D%22%23455a6440%22%20d%3D%22M235%20139v106l91%2055%2015-26-74-45v-90z%22%2F%3E%3Cpath%20d%3D%22M256%2032C150%2032%2064%20118%2064%20224H0l83%2083%202%203%2086-86h-64a149%20149%200%201144%20105l-31%2031A192%20192%200%2010256%2032z%22%20fill%3D%22%23455a6440%22%2F%3E%3C%2Fg%3E%3C%2Fsvg%3E");
 }
+
 #import.hidden {
+    /* .js fieldset > .hidden normally supplies min-height:1.5rem for this
+       (30-elements.css) — doesn't apply here since #import's parent is a
+       <p>, not a <fieldset>, so it's repeated explicitly */
     display: block;
     min-width: 4em;
+    min-height: 1.5rem;
     color: transparent;
     background-image: url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22512%22%20height%3D%22512%22%3E%3Cpath%20d%3D%22M350.5%20281.4a16%2016%200%2000-14.5-9.2h-48v-240a16%2016%200%2000-16-16h-32a16%2016%200%2000-16%2016v240h-48a16%2016%200%2000-12.3%2026.2l80%2096a16.6%2016.6%200%200024.6%200l80-96a16%2016%200%20002.2-17z%22%20fill%3D%22%23455a6440%22%2F%3E%3Cpath%20d%3D%22M480%20175.8H320v64h128v192H64v-192h128v-64H32a32%2032%200%2000-32%2032v256a32%2032%200%200032%2032h448a32%2032%200%200032-32v-256a32%2032%200%2000-32-32z%22%20fill%3D%22%23455a6440%22%2F%3E%3C%2Fsvg%3E");
 }
@@ -155,32 +205,87 @@ button.icon {
     color: var(--text-button);
     border-radius: 6px;
 }
+
 button.icon:hover,
 button.icon:focus-visible {
     background: var(--accent-strong);
 }
+
 button.icon span {
     display: none;
 }
+
 button.icon::before {
     font-family: var(--font-icon);
     font-size: .85rem;
     line-height: 1;
 }
+
 .icon-plus::before {
-    content: "\f067"; /* plus */
+    content: "\f067";
+    /* plus */
 }
+
 .icon-up::before {
-    content: "\f062"; /* arrow-up */
+    content: "\f062";
+    /* arrow-up */
 }
+
 .icon-down::before {
-    content: "\f063"; /* arrow-down */
+    content: "\f063";
+    /* arrow-down */
 }
+
 .icon-cross::before {
-    content: "\f00d"; /* times */
+    content: "\f014";
+    /* trash — was times (\f00d), "remove column" reads
+                          better as delete than as a plain close/X */
 }
+
 .icon-move::before {
-    content: "\f047"; /* arrows */
+    content: "\f047";
+    /* arrows */
+}
+
+/* ========== "Edit" row action → pencil icon ==========
+   Corrected from real markup: the href pattern doesn't distinguish "New
+   item" from a per-row edit — both use edit=<tablename>, difference is
+   just whether a where[...] param follows. But the per-row link already
+   carries its own class="edit", which is what Adminer's own select/table
+   view actually renders — use that directly instead of guessing hrefs.
+   "New item" (in the #content .links action bar) has no such class, so
+   it's untouched and stays a plain text button like its siblings. */
+a.edit {
+    /* color:transparent (2nd attempt) still showed the first few characters
+       of "bearbeiten"/"edit" — left-aligned and clipped, not centered, so
+       something was overriding the color rather than inline-grid failing
+       to size the box. Switched to the classic text-indent hide, which
+       physically pushes the real text out of the clip area instead of
+       depending on which color rule happens to win: robust regardless. */
+    position: relative;
+    display: inline-block;
+    width: 1.7em;
+    height: 1.7em;
+    overflow: hidden;
+    white-space: nowrap;
+    text-indent: 150%;
+}
+
+a.edit::before {
+    position: absolute;
+    top: 0;
+    left: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+    text-indent: 0;
+    font-family: var(--font-icon);
+    font-size: .85rem;
+    line-height: 1;
+    content: "\f040";
+    /* pencil */
 }
 
 /* ========== SQL editor / code ========== */
@@ -188,6 +293,7 @@ button.icon::before {
 pre {
     overflow-x: auto;
 }
+
 code.jush-sql {
     display: inline-block;
     padding: 0.3em 0.5em 0.2em;
@@ -198,21 +304,25 @@ code.jush-sql {
     border: 1px solid var(--accent1);
     border-left: 3px solid var(--accent);
 }
+
 #help.jush-sql,
 code.jush-sqlset {
     font-size: 0.8rem;
 }
+
 .jush-sql,
 .sqlarea,
 code {
     font-size: 0.9rem;
 }
+
 .sqlarea {
     background: var(--back-editor);
     border: thin solid var(--border) !important;
     width: 100% !important;
     border-radius: var(--border-radius-input);
 }
+
 .message code.jush-sql {
     width: calc(100% - 30px);
     padding: 10px;
@@ -229,33 +339,34 @@ code {
     width: 100%;
     border-style: none;
     background: var(--back-main);
-    -webkit-mask-image: linear-gradient(
-        var(--back-footer-fade),
-        var(--back-footer) 1em
-    );
-    mask-image: linear-gradient(
-        var(--back-footer-fade),
-        var(--back-footer) 1em
-    );
+    -webkit-mask-image: linear-gradient(var(--back-footer-fade),
+            var(--back-footer) 1em);
+    mask-image: linear-gradient(var(--back-footer-fade),
+            var(--back-footer) 1em);
 }
+
 @supports (-ms-ime-align: auto) {
     .footer {
         background: var(--back-main);
     }
 }
-.footer > div {
+
+.footer>div {
     background: 0 0;
     padding: 0;
 }
+
 .footer fieldset input:not(:first-child),
 .footer fieldset select:not(:first-child) {
     margin-left: 0.3em;
 }
+
 .rtl .footer fieldset input:not(:first-child),
 .rtl .footer fieldset select:not(:first-child) {
     margin-left: 0;
     margin-right: 0.3em;
 }
+
 .footer p {
     width: 100%;
     font-size: 0.9em;

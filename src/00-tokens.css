@@ -9,8 +9,8 @@ Edit the files in src/, not adminer.css directly — it gets overwritten.
 
     /* Accent: tawny orange by default. Swap --accent-h/--accent-s for another
        hue, e.g. 212/55% for blue. Everything below derives from these two. */
-    --accent-h: 28;
-    --accent-s: 85%;
+    --accent-h: 35;
+    --accent-s: 99%;
 
     --accent: hsl(var(--accent-h) var(--accent-s) 45%);
     /* icons, lines */

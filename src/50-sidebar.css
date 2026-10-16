@@ -15,6 +15,7 @@
     border-right: 1px solid var(--sb-border);
     height: 100vh;
 }
+
 .rtl #menu {
     /* override's #menu padding rule above doesn't include `.rtl #menu`, and
        `.rtl #menu` (1 class + 1 id) outranks plain `#menu` (1 id) regardless
@@ -24,35 +25,45 @@
     margin: 0;
     padding: 0 20px 1.5em;
 }
+
 @media (min-width: 801px) {
     #menu {
         display: flex;
         flex-direction: column;
     }
-    #menu > * {
+
+    #menu>* {
         flex-shrink: 0;
     }
 }
+
 #menu h1 {
     padding: 1em 2.8rem .4em 8px;
+    background: transparent;
+    border-bottom: none;
 }
+
 #menu p {
     margin: .8em 0 0;
 }
+
 #logins,
 #menu p,
 #tables {
     padding: 0;
     border-bottom-style: none;
 }
+
 #menu .error,
 #menu .message {
     padding: 0.2em 0.4em;
 }
+
 #menu form p {
     display: flex;
     gap: 0.4rem;
 }
+
 #menu .version {
     color: var(--sb-muted);
     font-size: .8em;
@@ -66,10 +77,12 @@
     gap: .5em;
     font-size: 0;
 }
+
 #dbs,
 #tables a.select {
     color: transparent;
 }
+
 #dbs select {
     flex: 1;
     min-width: 0;
@@ -81,6 +94,7 @@
     padding: .4em .6em;
     color: var(--sb-text);
 }
+
 select:has(option:empty:checked) {
     background-repeat: no-repeat;
     background-position: center center;
@@ -97,6 +111,7 @@ select:has(option:empty:checked) {
     gap: 1px;
     margin: .8em 0 0;
 }
+
 #menu .links a {
     flex: none;
     margin: 0;
@@ -107,6 +122,7 @@ select:has(option:empty:checked) {
     background: transparent;
     border-radius: var(--radius-item);
 }
+
 #menu .links a:hover,
 #menu .links a:focus {
     background: var(--sb-hover);
@@ -114,6 +130,7 @@ select:has(option:empty:checked) {
     box-shadow: none;
     text-decoration: none;
 }
+
 #menu .links .active {
     background: var(--sb-active);
     color: var(--accent-strong);
@@ -135,6 +152,7 @@ select:has(option:empty:checked) {
     border-top: 1px solid var(--sb-border);
     font-size: .9rem;
 }
+
 #menu #tables::before {
     content: "Tabellen";
     display: block;
@@ -142,17 +160,21 @@ select:has(option:empty:checked) {
     color: var(--sb-muted);
     padding: 0 .6em .4em;
 }
+
 #menu #tables li {
     display: flex;
     align-items: center;
     border-radius: var(--radius-item);
 }
+
 #menu #tables li:hover {
     background: var(--sb-hover);
 }
+
 #menu #tables li:has(a.active) {
     background: var(--sb-active);
 }
+
 /* Horizontal clip, revealed on hover (so a long table name or the select
    icon peeking past the edge isn't cut off while hovering it). Independent
    of #menu #tables's overflow-y above: that one wins on the y-axis (higher
@@ -165,10 +187,12 @@ select:has(option:empty:checked) {
     overflow: hidden !important;
     font-size: 1rem;
 }
+
 #logins:hover,
 #tables:hover {
     overflow: visible !important;
 }
+
 #logins a,
 #tables a,
 #tables span {
@@ -176,30 +200,41 @@ select:has(option:empty:checked) {
     color: var(--text-button);
     padding: .2em .3em .3em;
 }
+
 #menu #tables li a {
     background: transparent !important;
     text-decoration: none;
 }
+
 #menu #tables li a.structure,
 #menu #tables li a.view {
     flex: 1;
     max-width: none;
-    padding: .35em .4em;
+    padding: .35em 0 .4em;
     color: var(--sb-text);
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
     border-radius: var(--border-radius);
 }
+
 #menu #tables li a.view {
     color: var(--sb-muted);
     text-decoration: none !important;
     font-style: normal;
 }
-#menu #tables li a.active {
+
+#menu #tables li a.structure.active,
+#menu #tables li a.view.active {
+    /* was `#menu #tables li a.active`, which also matches a.select.active —
+       its 2 ids always beat `#dbs, #tables a.select { color: transparent }`
+       (1 id), so the hidden link text ("zeigen" / "select" depending on
+       locale) became visible on whichever table is the current select
+       view. Scoped to .structure/.view only; a.select stays icon-only. */
     font-weight: 500;
     color: var(--accent-strong);
 }
+
 #menu #tables a.select {
     /* override fully replaces simple-theme's top:0.5em/width:1.13em/
        margin-left:-.3em/padding:.2em .3em sizing for the flex+centered `li`
@@ -215,9 +250,9 @@ select:has(option:empty:checked) {
     flex: none;
     width: 1.5em;
     height: 1.5em;
-    margin: 0 0 0 .3em;
-    padding: .3em;
+    padding: .3em 0 .3em .2em
 }
+
 #menu #tables a.select.active,
 #menu #tables a.select:focus,
 #menu #tables a.select:hover {
@@ -229,6 +264,7 @@ select:has(option:empty:checked) {
 #logins {
     line-height: 2;
 }
+
 #logins a {
     /* wins over the --text-button color set alongside #tables a/span above */
     color: var(--sb-text);
@@ -246,41 +282,59 @@ select:has(option:empty:checked) {
     background: none;
     filter: none;
 }
+
 #menu .links a::before {
     display: inline-block;
     width: 1.4em;
 }
+
 #menu .links a[href$="&sql="]::before {
-    content: "\f120"; /* terminal */
+    content: "\f120";
+    /* terminal */
 }
+
 #menu .links a[href$="&import="]::before {
-    content: "\f093"; /* upload */
+    content: "\f093";
+    /* upload */
 }
+
 #menu .links a[href*="&dump="]::before {
-    content: "\f019"; /* download */
+    content: "\f019";
+    /* download */
 }
+
 #menu .links a[href$="&create="]::before {
-    content: "\f067"; /* plus */
+    content: "\f067";
+    /* plus */
 }
+
 #menu .links .active::before {
     color: var(--accent);
 }
+
 #menu #tables a.select::before {
-    content: "\f0ce"; /* table */
+    content: "\f0ce";
+    /* table */
     height: auto;
     line-height: 1;
 }
+
 #menu #tables li:has(a.view) a.select::before {
-    content: "\f06e"; /* eye = view */
+    content: "\f06e";
+    /* eye = view */
 }
+
 #menu #tables li:hover a.select::before {
     color: var(--sb-text);
 }
+
 #menu #tables li:has(a.active) a.select::before {
     color: var(--accent);
 }
+
 #dbs::before {
-    content: "\f1c0"; /* database */
+    content: "\f1c0";
+    /* database */
     width: auto;
     height: auto;
     margin: 0;
@@ -293,11 +347,14 @@ select:has(option:empty:checked) {
     background: transparent;
     color: var(--sb-muted);
 }
+
 #menuopen .icon:hover {
     background: var(--sb-hover);
     color: var(--accent-strong);
 }
+
 #menuopen .icon::before {
     font-family: var(--font-icon);
-    content: "\f0c9"; /* bars */
+    content: "\f0c9";
+    /* bars */
 }
