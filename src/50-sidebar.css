@@ -1,0 +1,303 @@
+#menu {
+    position: fixed;
+    top: 0;
+    z-index: 1;
+    /* flex-basis is still simple-theme's literal 20em, not var(--sb-width) —
+       override never touches it. Harmless at the default root font-size
+       (20em == 20rem at 16px), but diverges if that changes. Faithfully
+       reproduced as-is rather than silently switched to the variable. */
+    flex: 0 0 20em;
+    width: var(--sb-width);
+    max-width: none;
+    margin: 0;
+    padding: 0 12px 1em;
+    background: var(--sb-bg);
+    border-right: 1px solid var(--sb-border);
+    height: 100vh;
+}
+.rtl #menu {
+    /* override's #menu padding rule above doesn't include `.rtl #menu`, and
+       `.rtl #menu` (1 class + 1 id) outranks plain `#menu` (1 id) regardless
+       of source order — so in RTL mode simple-theme's original wider padding
+       wins back over override's padding. Reproduced faithfully; see the
+       README/commit notes on RTL gaps for whether that's wanted. */
+    margin: 0;
+    padding: 0 20px 1.5em;
+}
+@media (min-width: 801px) {
+    #menu {
+        display: flex;
+        flex-direction: column;
+    }
+    #menu > * {
+        flex-shrink: 0;
+    }
+}
+#menu h1 {
+    padding: 1em 2.8rem .4em 8px;
+}
+#menu p {
+    margin: .8em 0 0;
+}
+#logins,
+#menu p,
+#tables {
+    padding: 0;
+    border-bottom-style: none;
+}
+#menu .error,
+#menu .message {
+    padding: 0.2em 0.4em;
+}
+#menu form p {
+    display: flex;
+    gap: 0.4rem;
+}
+#menu .version {
+    color: var(--sb-muted);
+    font-size: .8em;
+}
+
+/* ========== Database select ========== */
+
+#dbs {
+    display: flex;
+    align-items: center;
+    gap: .5em;
+    font-size: 0;
+}
+#dbs,
+#tables a.select {
+    color: transparent;
+}
+#dbs select {
+    flex: 1;
+    min-width: 0;
+    width: auto;
+    font-size: .9rem;
+    background: var(--back-main);
+    border: 1px solid var(--sb-border);
+    border-radius: var(--radius-item);
+    padding: .4em .6em;
+    color: var(--sb-text);
+}
+select:has(option:empty:checked) {
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-size: 20px auto;
+    background-image: url("data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iaXNvLTg4NTktMSI/Pg0KPHN2ZyBmaWxsPSIjMjcyNzJhIiBoZWlnaHQ9IjgwMHB4IiB3aWR0aD0iODAwcHgiIHZlcnNpb249IjEuMSIgaWQ9IkNhcGFfMSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB4bWxuczp4bGluaz0iaHR0cDovL3d3dy53My5vcmcvMTk5OS94bGluayIgDQoJIHZpZXdCb3g9IjAgMCAzMi4wNTUgMzIuMDU1IiB4bWw6c3BhY2U9InByZXNlcnZlIj4NCjxnPg0KCTxwYXRoIGQ9Ik0zLjk2OCwxMi4wNjFDMS43NzUsMTIuMDYxLDAsMTMuODM1LDAsMTYuMDI3YzAsMi4xOTIsMS43NzMsMy45NjcsMy45NjgsMy45NjdjMi4xODksMCwzLjk2Ni0xLjc3MiwzLjk2Ni0zLjk2Nw0KCQlDNy45MzQsMTMuODM1LDYuMTU3LDEyLjA2MSwzLjk2OCwxMi4wNjF6IE0xNi4yMzMsMTIuMDYxYy0yLjE4OCwwLTMuOTY4LDEuNzczLTMuOTY4LDMuOTY1YzAsMi4xOTIsMS43NzgsMy45NjcsMy45NjgsMy45NjcNCgkJczMuOTctMS43NzIsMy45Ny0zLjk2N0MyMC4yMDEsMTMuODM1LDE4LjQyMywxMi4wNjEsMTYuMjMzLDEyLjA2MXogTTI4LjA5LDEyLjA2MWMtMi4xOTIsMC0zLjk2OSwxLjc3NC0zLjk2OSwzLjk2Nw0KCQljMCwyLjE5LDEuNzc0LDMuOTY1LDMuOTY5LDMuOTY1YzIuMTg4LDAsMy45NjUtMS43NzIsMy45NjUtMy45NjVTMzAuMjc4LDEyLjA2MSwyOC4wOSwxMi4wNjF6Ii8+DQo8L2c+DQo8L3N2Zz4=");
+}
+
+/* ========== Nav (SQL command / import / export / create table) ========== */
+
+#menu .links {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    gap: 1px;
+    margin: .8em 0 0;
+}
+#menu .links a {
+    flex: none;
+    margin: 0;
+    text-align: left;
+    font-size: .92rem;
+    padding: .45em .6em;
+    color: var(--sb-text);
+    background: transparent;
+    border-radius: var(--radius-item);
+}
+#menu .links a:hover,
+#menu .links a:focus {
+    background: var(--sb-hover);
+    color: var(--sb-text);
+    box-shadow: none;
+    text-decoration: none;
+}
+#menu .links .active {
+    background: var(--sb-active);
+    color: var(--accent-strong);
+    font-weight: 500;
+}
+
+/* ========== Table list ========== */
+
+#menu #tables {
+    /* max-height:none cancels the old fixed calc() cap so flex can size
+       this to the remaining sidebar space (min-height:0 lets it shrink);
+       overflow-y:auto is what actually makes it scroll within that space. */
+    flex: 1 1 auto;
+    min-height: 0;
+    max-height: none !important;
+    overflow-y: auto !important;
+    margin: 1em -4px 0;
+    padding: .8em 4px 1em;
+    border-top: 1px solid var(--sb-border);
+    font-size: .9rem;
+}
+#menu #tables::before {
+    content: "Tabellen";
+    display: block;
+    font-size: .75rem;
+    color: var(--sb-muted);
+    padding: 0 .6em .4em;
+}
+#menu #tables li {
+    display: flex;
+    align-items: center;
+    border-radius: var(--radius-item);
+}
+#menu #tables li:hover {
+    background: var(--sb-hover);
+}
+#menu #tables li:has(a.active) {
+    background: var(--sb-active);
+}
+/* Horizontal clip, revealed on hover (so a long table name or the select
+   icon peeking past the edge isn't cut off while hovering it). Independent
+   of #menu #tables's overflow-y above: that one wins on the y-axis (higher
+   specificity, #menu #tables = 2 ids vs #tables = 1), this one still
+   decides the x-axis. */
+#logins,
+#tables {
+    margin: 0.7em -20px -20px;
+    padding: 0 20px 20px;
+    overflow: hidden !important;
+    font-size: 1rem;
+}
+#logins:hover,
+#tables:hover {
+    overflow: visible !important;
+}
+#logins a,
+#tables a,
+#tables span {
+    background: 0 0;
+    color: var(--text-button);
+    padding: .2em .3em .3em;
+}
+#menu #tables li a {
+    background: transparent !important;
+    text-decoration: none;
+}
+#menu #tables li a.structure,
+#menu #tables li a.view {
+    flex: 1;
+    max-width: none;
+    padding: .35em .4em;
+    color: var(--sb-text);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    border-radius: var(--border-radius);
+}
+#menu #tables li a.view {
+    color: var(--sb-muted);
+    text-decoration: none !important;
+    font-style: normal;
+}
+#menu #tables li a.active {
+    font-weight: 500;
+    color: var(--accent-strong);
+}
+#menu #tables a.select {
+    /* override fully replaces simple-theme's top:0.5em/width:1.13em/
+       margin-left:-.3em/padding:.2em .3em sizing for the flex+centered `li`
+       layout above — nothing of the old box survives except
+       position/overflow/display/border-radius, which override never
+       touches. display:inline-block matters: without it, width/height
+       don't apply to an `a` at all (inline elements ignore both). */
+    position: relative;
+    overflow: hidden;
+    display: inline-block;
+    border-radius: var(--border-radius);
+    top: 0;
+    flex: none;
+    width: 1.5em;
+    height: 1.5em;
+    margin: 0 0 0 .3em;
+    padding: .3em;
+}
+#menu #tables a.select.active,
+#menu #tables a.select:focus,
+#menu #tables a.select:hover {
+    text-decoration: none;
+}
+
+/* ========== Saved logins (login page) ========== */
+
+#logins {
+    line-height: 2;
+}
+#logins a {
+    /* wins over the --text-button color set alongside #tables a/span above */
+    color: var(--sb-text);
+}
+
+/* ========== Icons (Nerd Font glyphs) ========== */
+
+#menu .links a::before,
+#menu #tables a.select::before,
+#dbs::before {
+    font-family: var(--font-icon);
+    font-weight: 400;
+    font-size: .9rem;
+    color: var(--sb-muted);
+    background: none;
+    filter: none;
+}
+#menu .links a::before {
+    display: inline-block;
+    width: 1.4em;
+}
+#menu .links a[href$="&sql="]::before {
+    content: "\f120"; /* terminal */
+}
+#menu .links a[href$="&import="]::before {
+    content: "\f093"; /* upload */
+}
+#menu .links a[href*="&dump="]::before {
+    content: "\f019"; /* download */
+}
+#menu .links a[href$="&create="]::before {
+    content: "\f067"; /* plus */
+}
+#menu .links .active::before {
+    color: var(--accent);
+}
+#menu #tables a.select::before {
+    content: "\f0ce"; /* table */
+    height: auto;
+    line-height: 1;
+}
+#menu #tables li:has(a.view) a.select::before {
+    content: "\f06e"; /* eye = view */
+}
+#menu #tables li:hover a.select::before {
+    color: var(--sb-text);
+}
+#menu #tables li:has(a.active) a.select::before {
+    color: var(--accent);
+}
+#dbs::before {
+    content: "\f1c0"; /* database */
+    width: auto;
+    height: auto;
+    margin: 0;
+    color: var(--accent);
+}
+
+/* ========== Menu button (#menuopen) ========== */
+
+#menuopen .icon {
+    background: transparent;
+    color: var(--sb-muted);
+}
+#menuopen .icon:hover {
+    background: var(--sb-hover);
+    color: var(--accent-strong);
+}
+#menuopen .icon::before {
+    font-family: var(--font-icon);
+    content: "\f0c9"; /* bars */
+}

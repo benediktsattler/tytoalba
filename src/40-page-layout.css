@@ -1,0 +1,313 @@
+/* ========== Sidebar + content split ========== */
+
+#content {
+    order: 2;
+    flex: 1 1 0;
+    min-width: 0;
+    max-width: none;
+    margin-left: var(--sb-width);
+    padding: 0 20px 1.5em;
+    background: var(--back-main);
+    overflow-x: clip;
+    /* clip, not hidden: not scrollable, but sticky headers keep working */
+}
+/* override's selector list is literally "#content, .rtl #content" — same
+   flex/min-width/max-width/margin-left apply to both. But it only sets
+   margin-LEFT, so simple-theme's `.rtl #content { margin: 0 20em 0 0; }`
+   (a full shorthand) still contributes its OTHER sides — specifically
+   margin-right: 20em survives untouched. Combined with override's
+   margin-left: var(--sb-width) winning on the left, RTL desktop content
+   ends up with a margin on BOTH sides at once (old right-side assumption +
+   new left-side variable). That's almost certainly not intended — it's a
+   pre-existing gap in adminer-overrides.css itself, not introduced here.
+   Reproduced faithfully below; worth a real RTL decision before shipping. */
+.rtl #content {
+    flex: 1 1 0;
+    min-width: 0;
+    max-width: none;
+    margin: 0 20em 0 var(--sb-width);
+    padding: 0 20px 20px 0 !important;
+}
+.rtl #content > * {
+    max-width: calc(100% - 20px);
+}
+.rtl #content,
+body.rtl {
+    overflow-x: hidden;
+}
+#content [id] {
+    /* anchor targets shouldn't hide under the sticky header */
+    scroll-margin-top: 7rem;
+}
+
+/* ========== Header / breadcrumb ========== */
+
+h1 {
+    background-image: none;
+    text-align: left;
+    font-size: 1rem;
+    padding: 1em 0 0.5em;
+}
+#h1 {
+    color: var(--accent-strong);
+    font-weight: 600;
+    font-style: normal;
+    pointer-events: none;
+    cursor: default;
+}
+#h1:focus,
+#h1:hover {
+    text-decoration: underline;
+}
+h2,
+thead td,
+thead th {
+    color: var(--text-heading);
+}
+h2 {
+    background: var(--back-main);
+    border-bottom: 1px solid var(--sb-border);
+    font-size: 1.4rem;
+    font-weight: 600;
+    padding: 2.2em 20px .6em;
+    z-index: 1;
+}
+.rtl h2,
+h2 {
+    margin: 0 -20px 20px;
+}
+h2 + *,
+h2 + * > :first-child,
+h2 + .hidden + *,
+h2 + .hidden + * > :first-child {
+    margin-top: 0;
+}
+#breadcrumb {
+    z-index: 2;
+    white-space: normal;
+    background: transparent;
+    color: var(--sb-muted);
+    font-size: .85rem;
+    padding: .9em 12em 0 20px;
+    height: auto;
+    margin: 0 -20px -2em;
+    left: auto;
+}
+#breadcrumb a,
+#breadcrumb a:visited {
+    color: var(--accent-strong);
+}
+.rtl #breadcrumb {
+    right: auto;
+    left: 0;
+    margin: 0 -20px -2em;
+    padding-right: 20px;
+    padding-left: 2.5em;
+}
+.version {
+    color: var(--text-sub-heading);
+}
+
+/* ========== Collapsible sidebar (desktop + mobile) ==========
+   Adminer toggles the `.foot` class on #foot when #menuopen is clicked;
+   "without .foot" means collapsed. State is per page load, not persisted. */
+
+@media (min-width: 801px) {
+    #menuopen {
+        display: block;
+        position: fixed;
+        top: .8rem;
+        left: calc(var(--sb-width) - 2.6rem);
+        z-index: 20;
+    }
+    body:has(#foot:not(.foot)) #menu {
+        transform: translateX(-100%);
+    }
+    body:has(#foot:not(.foot)) #content {
+        margin-left: 0;
+        max-width: 100%;
+    }
+    body:has(#foot:not(.foot)) #menuopen {
+        left: .6rem;
+    }
+    body:has(#foot:not(.foot)) #breadcrumb,
+    body:has(#foot:not(.foot)) h2 {
+        padding-left: 3.5rem;
+    }
+}
+@media (min-width: 801px) and (prefers-reduced-motion: no-preference) {
+    #menu {
+        transition: transform .2s ease;
+    }
+    #content {
+        transition: margin-left .2s ease, max-width .2s ease;
+    }
+}
+@media (max-width: 800px) {
+    #content,
+    .rtl #content {
+        margin: 0;
+        max-width: 100%;
+    }
+    #menuopen {
+        position: fixed;
+        top: .6em;
+        left: .6em;
+        z-index: 20;
+    }
+    #breadcrumb,
+    h2 {
+        padding-left: 3.5rem;
+    }
+    #menu {
+        z-index: 15;
+        overflow-y: auto;
+        box-shadow: 0 0 2rem var(--shadow);
+    }
+}
+/* NOTE: the sidebar redesign above (border-right, left-anchored #menuopen,
+   translateX collapse) has no RTL counterpart — in `.rtl` mode #menu should
+   sit on the right with a left border, and #menuopen/collapse should mirror.
+   Not done here; flagging as a known gap, since the README still advertises
+   RTL support. */
+
+/* ========== Header controls: logout / language ========== */
+
+#lang,
+.logout {
+    z-index: 3;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    height: 2em;
+    position: fixed;
+}
+.logout {
+    /* override replaces simple-theme's right:10em/min-width:10em/height:2em/
+       overflow:hidden box entirely, and adds `top` (simple-theme never set
+       one for .logout) */
+    top: .7em;
+    right: 16px;
+    left: auto;
+    min-width: 0;
+    width: auto;
+    height: auto;
+    overflow: visible;
+    display: flex;
+    align-items: center;
+    gap: .6em;
+    font-size: .85rem;
+    color: var(--sb-muted);
+}
+.rtl .logout {
+    left: 8em;
+    right: auto;
+}
+.logout #logout {
+    /* `#logout` IS the `<input>` that `.logout input`/`.rtl .logout input`
+       in simple-theme.css also target — same element, two selectors. This
+       one (id, plus mostly !important) wins every overlapping property via
+       specificity, so simple-theme's version is dead except box-shadow,
+       which override never touches and is folded in here. See zz-legacy.css. */
+    position: static;
+    width: auto !important;
+    height: auto;
+    margin: 0 !important;
+    padding: .35em .9em !important;
+    text-align: center;
+    color: var(--sb-text) !important;
+    background: var(--back-main) !important;
+    border: 1px solid var(--sb-border) !important;
+    border-radius: var(--radius-item);
+    font: inherit;
+    font-weight: 500 !important;
+    box-shadow: none !important;
+}
+.logout #logout:hover {
+    background: var(--sb-hover) !important;
+}
+.logout::before {
+    display: none;
+}
+.logout:hover,
+.logout:focus-within {
+    background: none;
+}
+#lang {
+    right: 0px;
+    left: auto;
+    cursor: pointer;
+    padding-left: 12px;
+    color: var(--text-button);
+    font-weight: 500;
+    min-width: 6em;
+    width: auto;
+    text-align: right;
+    padding-right: 40px;
+    /* literal, not var(--font-ui) — override never touches #lang's font,
+       only hides it entirely via display:none below */
+    font-family: "Geist Sans", "MS Shell Dlg 2", Roboto, Helvetica, Arial, sans-serif;
+    padding-top: 2.5px;
+    height: calc(2em - 2.5px);
+    /* once the language cookie is set it never needs to be touched again */
+    display: none;
+}
+.rtl #lang {
+    left: 0px;
+    right: auto;
+    padding-right: 12px;
+    padding-left: 0px;
+}
+#lang select {
+    opacity: 0;
+    width: 100% !important;
+}
+#lang select,
+#lang:before {
+    position: absolute;
+    left: 0;
+    top: 0;
+    height: 2em;
+    width: 100%;
+}
+#lang:focus,
+#lang:hover {
+    background-color: var(--back-button);
+}
+#lang select {
+    cursor: pointer;
+    z-index: 1;
+}
+#lang:before {
+    display: block;
+    text-align: center;
+    content: " ";
+    background-position-x: calc(100% - 12px);
+    background-position-y: center;
+    background-repeat: no-repeat;
+    background-attachment: scroll;
+    background-size: 17px 17px !important;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink' version='1.1' viewBox='0 0 470 470' enable-background='new 0 0 470 470' width='512px' height='512px'%3E%3Cg%3E%3Cpath d='M432.5,227.5h-77.031c-0.611-37.438-5.782-73.616-14.771-105.694h50.518c4.143,0 7.5-3.357 7.5-7.5s-3.357-7.5-7.5-7.5h-55.112c-8.018-24.165-18.316-45.521-30.553-62.656-2.408-3.371-7.093-4.153-10.462-1.745-3.371,2.407-4.152,7.092-1.745,10.462 10.618,14.868 19.688,33.199 26.965,53.939h-77.809v-69.306c0-4.143-3.357-7.5-7.5-7.5s-7.5,3.357-7.5,7.5v69.306h-77.81c7.277-20.74 16.347-39.071 26.965-53.939 2.407-3.37 1.626-8.055-1.745-10.462-3.372-2.407-8.055-1.625-10.462,1.745-12.237,17.135-22.535,38.492-30.553,62.656h-55.112c-4.143,0-7.5,3.357-7.5,7.5s3.357,7.5 7.5,7.5h50.518c-8.988,32.078-14.159,68.256-14.771,105.694h-77.03c-4.143,0-7.5,3.357-7.5,7.5s3.357,7.5 7.5,7.5h77.031c0.611,37.438 5.782,73.616 14.771,105.694h-50.519c-4.143,0-7.5,3.357-7.5,7.5s3.357,7.5 7.5,7.5h55.112c8.019,24.169 18.32,45.529 30.56,62.666 1.464,2.049 3.77,3.142 6.11,3.142 1.508,0 3.031-0.454 4.353-1.397 3.37-2.408 4.151-7.092 1.744-10.463-10.621-14.869-19.693-33.204-26.972-53.947h77.81v69.305c0,4.143 3.357,7.5 7.5,7.5s7.5-3.357 7.5-7.5v-69.306h77.81c-7.278,20.744-16.351,39.078-26.972,53.947-2.407,3.371-1.626,8.055 1.744,10.463 1.321,0.943 2.844,1.397 4.353,1.397 2.341,0 4.646-1.093 6.11-3.142 12.24-17.137 22.54-38.497 30.56-62.666h55.112c4.143,0 7.5-3.357 7.5-7.5s-3.357-7.5-7.5-7.5h-50.519c8.989-32.078 14.16-68.256 14.771-105.694h77.031c4.143,0 7.5-3.357 7.5-7.5s-3.357-7.499-7.5-7.499zm-107.36-105.694c9.313,31.683 14.695,67.958 15.326,105.694h-97.966v-105.694h82.64zm-180.28,0h82.64v105.694h-97.966c0.632-37.737 6.013-74.011 15.326-105.694zm0,226.388c-9.313-31.683-14.695-67.958-15.326-105.694h97.966v105.694h-82.64zm180.28,0h-82.64v-105.694h97.966c-0.632,37.737-6.013,74.012-15.326,105.694z' fill='%23ECEBE4'/%3E%3Cpath d='M401.17,68.83C356.784,24.444,297.771,0,235,0S113.216,24.444,68.83,68.83S0,172.229,0,235.001 c0,46.271,13.391,90.899,38.764,129.316l-28.718,86.148c-0.898,2.695-0.197,5.667,1.812,7.676c2.009,2.008,4.979,2.708,7.676,1.812 l86.15-28.716C144.102,456.609,188.729,470,235,470c62.771,0,121.784-24.444,166.17-68.83S470,297.771,470,235.001 C470,172.229,445.556,113.216,401.17,68.83z M235,455c-44.491,0-87.355-13.222-123.961-38.235 c-1.262-0.862-2.739-1.308-4.231-1.308c-0.797,0-1.598,0.127-2.372,0.385L29.02,440.979l25.14-75.414 c0.741-2.225,0.399-4.668-0.923-6.604C28.222,322.357,15,279.492,15,235.001C15,113.692,113.691,15,235,15s220,98.692,220,220.001 C455,356.309,356.309,455,235,455z' fill='%23ECEBE4'/%3E%3C/g%3E%3C/svg%3E");
+}
+.rtl #lang:before {
+    background-position-x: 12px;
+}
+.logout:before {
+    display: block;
+    text-align: center;
+    content: " ";
+    background-position-x: calc(100% - 12px);
+    background-position-y: center;
+    background-repeat: no-repeat;
+    background-attachment: scroll;
+    background-size: 17px 17px !important;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink' version='1.1' viewBox='0 0 512 512' enable-background='new 0 0 512 512' width='512px' height='512px'%3E%3Cg%3E%3Cpath d='m256,501c-129.6,0-235-102.2-235-227.8 0-87.8 50.6-166.3 132.1-204.9 10.2-4.8 22.4-0.5 27.2,9.7 4.8,10.2 0.5,22.4-9.7,27.2-67.1,31.8-108.7,96.1-108.7,168-7.10543e-15,103.1 87.1,187 194.1,187 107,0 194.1-83.9 194.1-187 0-72.4-44-138.9-112.2-169.5-10.3-4.6-14.9-16.7-10.3-27 4.6-10.3 16.7-14.9 27-10.2 82.9,37.1 136.4,118.3 136.4,206.7 0,125.6-105.4,227.8-235,227.8z' fill='%23FFFFFF'/%3E%3Cpath d='m256,287.9c-11.3,0-20.4-9.1-20.4-20.4v-236.1c0-11.3 9.2-20.4 20.4-20.4 11.3,0 20.4,9.1 20.4,20.4v236.1c0,11.3-9.1,20.4-20.4,20.4z' fill='%23FFFFFF'/%3E%3C/g%3E%3C/svg%3E");
+}
+.rtl .logout:before {
+    background-position-x: 12px;
+}
+.loadmore,
+.rtl .loadmore,
+.rtl .logout {
+    margin: 0;
+}

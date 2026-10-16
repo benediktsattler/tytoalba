@@ -1,0 +1,27 @@
+/* Self-hosted Fira Mono Nerd Font: monospace text + icon glyphs
+   (U+F000–F2E0), no Google Fonts / jsDelivr dependency.
+   Icons use font-display:block so they never flash as a [ ] box before the
+   font loads; everything else uses swap — a short fallback beats invisible
+   text. */
+
+@font-face {
+    font-family: "Fira Mono NF";
+    font-weight: 400;
+    font-display: swap;
+    src: url("fonts/fira-mono-nf-Regular.woff2") format("woff2");
+}
+
+@font-face {
+    font-family: "Fira Mono NF";
+    font-weight: 500;
+    font-display: swap;
+    src: url("fonts/fira-mono-nf-Medium.woff2") format("woff2");
+}
+
+@font-face {
+    font-family: "NF Icons";
+    font-weight: 400;
+    font-display: block;
+    unicode-range: U+F000-F2E0;
+    src: url("fonts/fira-mono-nf-Regular.woff2") format("woff2");
+}

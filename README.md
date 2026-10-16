@@ -36,10 +36,32 @@ Tyto Alba is a quiet, warm-toned theme for [Adminer](https://www.adminer.org/) â
 #### RTL (right-to-left)
 ![Tyto Alba theme for Adminer - RTL support](https://raw.githubusercontent.com/benediktsattler/tytoalba/main/screenshots/rtl.svg)
 
+### Development
+
+`adminer.css` is a generated file, built from the sources in [`src/`](src/):
+
+```
+src/
+  00-tokens.css        colors, spacing, font tokens (:root)
+  10-fonts.css         self-hosted Fira Mono NF + icon glyphs
+  20-reset.css         low-level resets
+  30-elements.css      body, links, inputs, buttons, messages/errors
+  40-page-layout.css   sidebar/content split, header, collapsible sidebar
+  50-sidebar.css       nav, DB select, table list, sidebar icons
+  60-forms.css         fieldsets, SQL editor, icon buttons, footer
+  70-tables.css        table/thead/tbody, schema view, column sort
+  zz-legacy.css        dead rules from Simple Theme, kept for reference,
+                        NOT built into adminer.css
+```
+
+Edit the files in `src/`, then run `./build.sh` to regenerate `adminer.css`.
+There's no separate overrides file to layer on top anymore â€” what used to be
+`adminer-overrides.css` is folded into these sources as the actual rules.
+
 ### License
 
 Tyto Alba theme for Adminer is licensed under the [MIT License](https://github.com/benediktsattler/tytoalba/blob/main/LICENSE).
 
 ### Credits
 
-Based on Simple Theme by Hassan Azzi, which forked [Steve Copley's theme](https://github.com/stevecopley/adminer)."
+Based on [Simple Theme by Hassan Azzi](https://github.com/devknown/simple-theme/), which forked [Steve Copley's theme](https://github.com/stevecopley/adminer)."

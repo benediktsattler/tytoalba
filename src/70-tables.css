@@ -1,0 +1,175 @@
+td[id^="Comment-"] {
+    white-space: normal;
+    min-width: 20ch;
+    max-width: 40ch;
+}
+
+table {
+    background: var(--back-table);
+    border: 1px solid var(--border);
+    width: auto;
+    max-width: 100%;
+    border-collapse: separate !important;
+    border-radius: var(--border-radius-table-main);
+}
+table tr > td {
+    font-weight: 400;
+    font-variant-numeric: tabular-nums;
+}
+table tr > th,
+#form table tr > th > span {
+    font-family: inherit;
+    font-weight: 500;
+}
+td,
+th {
+    border-color: var(--border-table);
+    border-width: 0 thin thin 0;
+    padding: 0.25em 0.6em 0.3em;
+}
+.rtl td,
+.rtl th {
+    border-width: 0 0 thin thin;
+}
+th {
+    background: inherit;
+}
+td a,
+th a {
+    vertical-align: inherit;
+}
+td:last-child,
+th:last-child {
+    border-right-width: 0;
+}
+.rtl td:last-child,
+.rtl th:last-child {
+    border-left-width: 0;
+}
+tr:last-child td,
+tr:last-child th {
+    border-bottom-width: 0;
+}
+thead td,
+thead th {
+    border-color: var(--border-table-head);
+    padding: 0.3em 0.5em;
+    background: var(--back-table-head);
+    position: relative;
+    background-clip: padding-box;
+}
+thead th {
+    font-weight: 400;
+}
+.js .checkable thead .checked th,
+thead th {
+    background: var(--back-table-head);
+}
+td i {
+    color: var(--sb-muted);
+}
+tbody tr:nth-child(2n) td,
+tbody tr:nth-child(2n) th {
+    background: var(--back-table-tint);
+}
+.js .checkable tbody .checked td,
+.js .checkable tbody .checked th {
+    background: var(--back-table-high);
+}
+.js .checkable tbody .checked:nth-child(2n) td,
+.js .checkable tbody .checked:nth-child(2n) th {
+    background: var(--back-table-high-tint);
+}
+.js .checkable tbody .checked:hover td,
+.js .checkable tbody .checked:hover th,
+.js .checkable tbody .checked:hover:nth-child(2n) td,
+.js .checkable tbody .checked:hover:nth-child(2n) th,
+tbody tr:nth-child(n):hover td,
+tbody tr:nth-child(n):hover th {
+    background: var(--back-table-hover);
+}
+thead td:first-child,
+thead th:first-child {
+    border-top-left-radius: var(--border-radius-table);
+}
+thead td:last-child,
+thead th:last-child {
+    border-top-right-radius: var(--border-radius-table);
+}
+tbody tr:last-child td:first-child {
+    border-bottom-left-radius: var(--border-radius-table);
+}
+tbody tr:last-child td:last-child {
+    border-bottom-right-radius: var(--border-radius-table);
+}
+
+/* Column headers may wrap in the data view (table.nowrap, despite the name,
+   is the view that opts INTO wrapping) */
+table.nowrap thead th {
+    white-space: normal;
+    line-height: 1.25;
+    vertical-align: bottom;
+}
+
+/* ========== Schema view ========== */
+
+#schema .table {
+    background: var(--back-table);
+    padding: 5px 10px;
+}
+#schema .table > a {
+    padding-bottom: 7px;
+    display: inline-block;
+}
+#schema .table span {
+    /* font-family comes from the typography rule in 30-elements.css —
+       override's combinator only replaces that one property, this
+       font-weight is simple-theme's own and still applies */
+    font-weight: 500;
+}
+#schema .table i span {
+    color: var(--accent2);
+}
+
+/* ========== Column sort / search toggle ==========
+   Unlike the alter-table icon buttons above, these are still plain `<a>`
+   links with the old SVG-sprite backgrounds — nobody has redrawn them as
+   Nerd Font glyphs yet, so they look slightly out of step with the rest of
+   the icon system. */
+
+.js .column {
+    z-index: 1;
+    padding: 0;
+    margin-top: 0;
+    line-height: 1.25em;
+    background: 0 0;
+}
+.column a {
+    height: 0;
+    padding-top: 1.5em;
+    width: 1.5em;
+    margin-left: 0.2em;
+    display: inline-block;
+    overflow: hidden;
+    text-indent: -5em;
+    background: var(--back-button) center no-repeat;
+    background-size: 66%;
+    border-radius: var(--border-radius);
+}
+.rtl .column a {
+    margin-left: 0;
+    margin-right: 0.2em;
+}
+.column a:focus,
+.column a:hover {
+    background-color: var(--text-link-hover);
+}
+.column a[href*="&asc%5B"] {
+    background-image: url("data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20xmlns:xlink='http://www.w3.org/1999/xlink'%20version='1.1'%20x='0px'%20y='0px'%20viewBox='0%200%20490%20490'%20style='enable-background:new%200%200%20490%20490;'%20width='512px'%20height='512px'%3E%3Cg%3E%3Cpath%20d='M490,474.459H0L245.009,15.541L490,474.459z'%20fill='%23FFFFFF'/%3E%3C/g%3E%3C/svg%3E");
+}
+.column a[href*="&desc%5B"] {
+    background-image: url("data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20xmlns:xlink='http://www.w3.org/1999/xlink'%20version='1.1'%20x='0px'%20y='0px'%20viewBox='0%200%20490%20490'%20style='enable-background:new%200%200%20490%20490;'%20width='512px'%20height='512px'%3E%3Cg%3E%3Cpath%20d='M0,15.541h490L244.991,474.459L0,15.541z'%20fill='%23FFFFFF'/%3E%3C/g%3E%3C/svg%3E");
+}
+.column a[href="#fieldset-search"] {
+    background-image: url("data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20xmlns:xlink='http://www.w3.org/1999/xlink'%20version='1.1'%20viewBox='0%200%20310.088%20310.088'%20enable-background='new%200%200%20310.088%20310.088'%20width='512px'%20height='512px'%3E%3Cg%3E%3Cpath%20d='m299.85,250.413l-62.808-62.808c-3.982-3.982-10.437-3.982-14.418,0l-3.539,3.539-18.586-18.586c29.709-42.872%2025.472-102.152-12.716-140.34-42.958-42.958-112.606-42.958-155.563,0s-42.958,112.606%200,155.563c38.189,38.188%2097.468,42.425%20140.34,12.716l18.586,18.586-3.539,3.539c-3.982,3.981-3.982,10.437%200,14.418l62.808,62.808c13.651,13.651%2035.785,13.651%2049.436,0s13.65-35.784-0.001-49.435zm-251.368-78.895c-33.921-33.921-33.921-89.115-0.001-123.036%2033.922-33.921%2089.117-33.922%20123.037-0.001v0.001c33.922,33.921%2033.922,89.115%200,123.036-16.96,16.961-39.239,25.441-61.518,25.441-22.279,0-44.558-8.48-61.518-25.441z'%20fill='%23FFFFFF'/%3E%3C/g%3E%3C/svg%3E");
+}

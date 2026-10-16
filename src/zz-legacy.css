@@ -1,0 +1,108 @@
+/*
+Confirmed-dead rules from the original Simple Theme, kept here for reference
+only — ./build.sh does NOT concatenate this file into adminer.css. Delete
+this file once nobody needs to double check against the pre-merge behavior.
+
+Each block below is dead because something elsewhere in src/ already wins
+over it for every property it sets (explained inline), not because it looked
+unnecessary.
+*/
+
+/* .icon used to style `<img class="icon" src="?...file=plus.gif">` — Adminer
+   6 renders these as `<button class="icon icon-plus">` instead, which is
+   what 60-forms.css's `button.icon` + `.icon-*::before` block targets. The
+   combined selector below is split: `.column a` (sort/search, still real)
+   moved to 70-tables.css; the `.icon` half and everything keyed off
+   `[src*="file=...gif"]` has no matching element left to select. */
+.icon {
+    height: 0;
+    padding-top: 1.5em;
+    width: 1.5em;
+    background: var(--back-button) center no-repeat;
+    background-size: 66%;
+    border-radius: var(--border-radius);
+}
+.icon:hover {
+    background-color: var(--back-button-high);
+}
+.icon[src*="file=plus.gif"] {
+    background-image: url("data:image/svg+xml,...plus...");
+}
+.icon[src*="file=minus.gif"] {
+    background-image: url("data:image/svg+xml,...minus...");
+}
+.icon[src*="file=up.gif"] {
+    background-image: url("data:image/svg+xml,...up...");
+}
+.icon[src*="file=down.gif"] {
+    background-image: url("data:image/svg+xml,...down...");
+}
+.icon[src*="file=cross.gif"] {
+    background-image: url("data:image/svg+xml,...cross...");
+}
+
+/* h1's decorative logo background image — killed by the theme's own
+   `h1 { background-image: none; }` in 40-page-layout.css. */
+h1 {
+    background-image: url("data:image/svg+xml,...adminer-wordmark...");
+    background-position-x: 224px;
+    background-position-y: 1rem;
+    background-size: 1.5rem;
+}
+
+/* #dbs:before's SVG database icon — 50-sidebar.css's `#dbs::before` sets
+   `background: none` and a Nerd Font glyph instead. */
+#dbs:before {
+    content: " ";
+    width: 1.3em;
+    margin-top: 0.2em;
+    margin-right: -0.5em;
+    background: url("data:image/svg+xml,...database...") center/auto 100% no-repeat;
+}
+.rtl #dbs:before {
+    margin-right: 0;
+    margin-left: -0.5em;
+}
+
+/* #tables a.select's SVG grid icon — 50-sidebar.css's `#menu #tables
+   a.select::before` sets a Nerd Font glyph instead (background stays none
+   via the shared icon rule there). */
+#tables a.select:before {
+    content: " ";
+    background: url("data:image/svg+xml,...grid...") center/contain no-repeat;
+    display: block;
+    height: 100%;
+}
+
+/* #menu .links used to be a wrapping row of pill buttons (flex-wrap: wrap,
+   margin: 1em -5px -5px, each link flex: 1 1 7em). 50-sidebar.css turns it
+   into a vertical list (flex-direction: column, flex-wrap: nowrap) instead —
+   every property below is replaced, none of it still applies. */
+#menu .links {
+    flex-wrap: wrap;
+    margin: 1em -5px -5px;
+}
+#menu .links:after {
+    content: " ";
+    display: table;
+    clear: both;
+}
+#menu .links a {
+    flex: 1 1 7em;
+    margin: 5px;
+}
+
+/* Hover/active background for the table-list links — 50-sidebar.css's
+   `#menu #tables li a.structure, #menu #tables li a.view { background:
+   transparent !important; }` always wins (it's !important, this isn't). */
+#menu #tables li a.view.active,
+#menu #tables li a.view:focus,
+#menu #tables li a.view:hover,
+#menu #tables li a.select.active,
+#menu #tables li a.select:focus,
+#menu #tables li a.select:hover,
+#menu #tables li a.structure.active,
+#menu #tables li a.structure:focus,
+#menu #tables li a.structure:hover {
+    background: rgba(255, 255, 255, 0.1);
+}
