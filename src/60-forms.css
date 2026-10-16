@@ -310,6 +310,25 @@ code.jush-sqlset {
     font-size: 0.8rem;
 }
 
+/* ========== SQL syntax highlighting (jush.js) ==========
+   Adminer's own jush.css already does the real work (every token class —
+   keywords as `.jush a`, backtick identifiers as `.jush-bac`, numbers as
+   `.jush-num`, SQL string literals as `.jush-sql_apo`/`.jush-sql_quo`, …)
+   by reading a handful of CSS custom properties defined once on `.jush`
+   itself. It loads before this theme, so overriding those same properties
+   here — not writing our own per-class rules — retheme every token class
+   at once, including ones we haven't seen a live example of yet
+   (strings, brackets, comments stay jush's default gray). */
+.jush {
+    --text-color: var(--sb-text);
+    --bg-color: var(--back-main);
+    --border-color: var(--sb-border);
+    --keyword-color: var(--jush-keyword);
+    --identifier-color: var(--jush-identifier);
+    --number-color: var(--jush-number);
+    --string-plain-color: var(--jush-string);
+}
+
 .jush-sql,
 .sqlarea,
 code {
