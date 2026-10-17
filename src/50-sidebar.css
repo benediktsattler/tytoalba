@@ -38,7 +38,11 @@
 }
 
 #menu h1 {
-    padding: 1em 2.8rem .4em 8px;
+    /* top bumped up (1em → 1.6em) to give the now block-stacked icon+text
+       lockup room; left/right stayed asymmetric (8px vs 2.8rem, clearance
+       for #menuopen) — true pixel-centering of the icon/text would need
+       that fixed too, not done here */
+    padding: 1.6em 2.8rem .4em 8px;
     background: transparent;
     border-bottom: none;
 }
