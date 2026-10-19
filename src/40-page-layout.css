@@ -226,12 +226,20 @@ h2+.hidden+*> :first-child {
 
 #lang,
 .logout {
-    z-index: 3;
+    /* #content had no z-index/position of its own, so by the normal
+       stacking rules these two (position:fixed) should already paint
+       above it regardless — but margin-top:0 on #content apparently
+       still let it cover #lang in practice, so bumped well past any
+       plausible conflict instead of relying on that. Dark pill
+       background added too, to visually anchor both as one group. */
+    z-index: 50;
     margin: 0;
     padding: 0;
     overflow: hidden;
     height: 2em;
     position: fixed;
+    background-color: var(--back-button-high);
+    border-radius: var(--radius-item);
 }
 
 .logout {
@@ -245,6 +253,7 @@ h2+.hidden+*> :first-child {
     width: auto;
     height: auto;
     overflow: visible;
+    padding: .3em .8em;
     display: flex;
     align-items: center;
     gap: .6em;
@@ -284,7 +293,7 @@ h2+.hidden+*> :first-child {
 
 .logout:hover,
 .logout:focus-within {
-    background: none;
+    background-color: var(--back-button-high);
 }
 
 #lang {
