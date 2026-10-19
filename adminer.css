@@ -1078,6 +1078,15 @@ h2+.hidden+*> :first-child {
     padding: 1.6em 2.8rem .4em 8px;
     background: transparent;
     border-bottom: none;
+    /* version number sits right of "Adminer" on the same baseline instead
+       of on its own line below — saves a line of sidebar height. #h1's
+       owl ::before is an empty block, so #h1's baseline is still the
+       "Adminer" text line. */
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    justify-content: center;
+    column-gap: .5em;
 }
 
 #menu p {
@@ -1104,6 +1113,19 @@ h2+.hidden+*> :first-child {
 #menu .version {
     color: var(--sb-muted);
     font-size: .8em;
+    font-weight: 400;
+}
+
+#menu #version {
+    /* newer Adminer release available — Adminer only renders this link
+       then, so it may stand out a bit */
+    margin-left: .3em;
+    padding: .05em .45em;
+    border-radius: 999px;
+    background: var(--accent-soft);
+    color: var(--accent-strong);
+    font-weight: 600;
+    text-decoration: none;
 }
 
 /* ========== Database select ========== */
