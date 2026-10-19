@@ -101,6 +101,13 @@ textarea {
     border-radius: var(--border-radius-input);
 }
 
+input.size[type="number"] {
+    /* Adminer's default.css gives .size (Limit, Text length) a fixed 7ex —
+       with this theme's padding plus the spin buttons that leaves room
+       for barely one digit. Sized for ~5 digits + padding + spinner. */
+    width: calc(5ch + 1.5em);
+}
+
 input:focus-visible,
 select:focus-visible,
 textarea:focus-visible {
@@ -179,32 +186,27 @@ input[type="submit"] {
     border-radius: var(--border-radius);
 }
 
-input[type="file"]::-ms-browse,
-input[type="file"]::-webkit-file-upload-button,
-input[type="file"]::-moz-file-upload-button {
-    display: inline-block;
-    font-size: 85%;
-    text-align: center;
+input[type="file"] {
+    /* form controls don't inherit font by default — without this the file
+       name and its button render at the browser's ~13px */
+    font: inherit;
+}
+
+input[type="file"]::file-selector-button {
+    /* standard pseudo-element, styled like the other buttons. Was three
+       vendor variants (::-ms-browse, ::-webkit-file-upload-button,
+       ::-moz-file-upload-button) in ONE selector list — a browser drops
+       the whole rule if it doesn't know any one of them, so it never
+       applied anywhere. */
+    margin: 0 .6em 0 0;
+    padding: 0.3em 0.8em 0.4em;
+    font: inherit;
+    font-size: 95%;
     background: var(--back-button);
     color: var(--text-button);
-    margin: 0;
-    border-style: none;
+    border: none;
+    border-radius: var(--border-radius);
     cursor: pointer;
-}
-
-input[type="file"]::-ms-browse,
-input[type="file"]::-webkit-file-upload-button {
-    padding: 0.3em 0.8em 0.4em;
-}
-
-input[type="file"]::-webkit-file-upload-button {
-    -webkit-appearance: none;
-}
-
-input[type="file"]::-moz-file-upload-button {
-    /* simple-theme.css gives -moz its own 2-value padding, unlike the other
-       two vendor rules — kept as-is rather than guessing it was a typo */
-    padding: 0.4em 0.8em;
 }
 
 .links a:link:focus,
@@ -225,15 +227,11 @@ input[type="submit"]:hover {
     box-shadow: 0 0.1rem 0.2rem var(--shadow);
 }
 
-input[type="file"]:focus::-ms-browse,
-input[type="file"]:hover::-ms-browse,
-input[type="file"]:focus::-webkit-file-upload-button,
-input[type="file"]:hover::-webkit-file-upload-button,
-input[type="file"]:focus::-moz-file-upload-button,
-input[type="file"]:hover::-moz-file-upload-button {
+input[type="file"]:focus-visible::file-selector-button,
+input[type="file"]:hover::file-selector-button {
     color: var(--text-button);
     background: var(--back-button-high);
-    text-decoration: none;
+    box-shadow: 0 0.1rem 0.2rem var(--shadow);
 }
 
 button:disabled,
@@ -245,9 +243,7 @@ input[type="submit"]:disabled {
     border-radius: var(--border-radius);
 }
 
-input[type="file"]:disabled::-ms-browse,
-input[type="file"]:disabled::-webkit-file-upload-button,
-input[type="file"]:disabled::-moz-file-upload-button {
+input[type="file"]:disabled::file-selector-button {
     background-color: var(--back-button-disabled);
     cursor: not-allowed;
 }

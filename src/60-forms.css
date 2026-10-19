@@ -97,8 +97,12 @@ h3 {
    itself look like one of the fieldsets beside it — same border/radius/
    background/sizing tokens as the real `fieldset` rule in 30-elements.css
    — with the toggle link faked as a `<legend>` sitting on its top border,
-   the same trick a real `<legend>` gets natively. */
-.footer+p {
+   the same trick a real `<legend>` gets natively.
+   Matched by content, not as `.footer+p`: with "No rows." Adminer renders
+   no .footer div at all, the <p> then follows <p class="message"> — the
+   old selector missed it and left the absolutely positioned label
+   floating loose. */
+p:has(> a[href="#import"]) {
     margin-top: 0;
     display: inline-block;
     position: relative;
@@ -112,6 +116,11 @@ h3 {
 
     border: thin solid var(--border);
     border-radius: var(--border-radius-fieldset);
+}
+
+.message+p:has(> a[href="#import"]) {
+    /* "No rows." case: room for the faked legend above the border */
+    margin-top: 1.2em;
 }
 
 a[href="#import"] {
