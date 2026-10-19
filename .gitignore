@@ -1,5 +1,8 @@
-/fonts
+/fonts/*
+!/fonts/fira-mono-Regular.woff2
+!/fonts/fira-mono-Medium.woff2
 todo.md
 summary.md
 simple-theme.css
 adminer-overrides.css
+!/fonts/OFL.txt

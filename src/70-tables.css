@@ -159,7 +159,7 @@ table.nowrap thead th {
    Adminer renders these as real text (a Unicode ↓/↑ and a literal "="), not
    blank links with an icon background. Hidden the same text-indent way as
    a.edit above (not color:transparent — that one turned out unreliable)
-   and replaced with Nerd Font glyphs.
+   and replaced with mask icons.
 
    Which arrow to show is read off the href, not the `title` attribute —
    title is localized ("absteigend"/"aufsteigend"), href isn't. A link
@@ -209,29 +209,21 @@ table.nowrap thead th {
     left: 0;
     width: 100%;
     height: 100%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    text-indent: 0;
-    font-family: var(--font-icon);
-    font-size: .8rem;
-    line-height: 1;
     color: inherit;
+    -webkit-mask-size: .85rem;
+    mask-size: .85rem;
 }
 
 .column a[href^="#fieldset-search"]::before {
-    content: "\f002";
-    /* search */
+    --icon: var(--i-search);
 }
 
 .column a[href*="&desc[0]="]::before {
-    content: "\f0dd";
-    /* sort-desc caret */
+    --icon: var(--i-sort-desc);
 }
 
 .column a:not([href^="#fieldset-search"]):not([href*="&desc[0]="])::before {
-    content: "\f0de";
-    /* sort-asc caret */
+    --icon: var(--i-sort-asc);
 }
 
 .column a:focus::before,

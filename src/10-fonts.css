@@ -1,27 +1,20 @@
-/* Self-hosted Fira Mono Nerd Font: monospace text + icon glyphs
-   (U+F000–F2E0), no Google Fonts / jsDelivr dependency.
-   Icons use font-display:block so they never flash as a [ ] box before the
-   font loads; everything else uses swap — a short fallback beats invisible
-   text. */
+/* Fira Mono (dotted zero), SIL OFL 1.1 — see fonts/OFL.txt. Cut from the
+   Fira Mono Nerd Font with the icon glyphs (Private Use Area) removed by
+   tools/subset-fonts.py — ~60 KB instead of ~2.3 MB per weight; icons are
+   Lucide SVG masks now (05-icons.css). build.sh inlines these url()s as
+   base64, so adminer.css needs no fonts/ folder next to it. swap: a short
+   fallback beats invisible text. */
 
 @font-face {
-    font-family: "Fira Mono NF";
+    font-family: "Fira Mono";
     font-weight: 400;
     font-display: swap;
-    src: url("fonts/fira-mono-nf-Regular.woff2") format("woff2");
+    src: url("fonts/fira-mono-Regular.woff2") format("woff2");
 }
 
 @font-face {
-    font-family: "Fira Mono NF";
+    font-family: "Fira Mono";
     font-weight: 500;
     font-display: swap;
-    src: url("fonts/fira-mono-nf-Medium.woff2") format("woff2");
-}
-
-@font-face {
-    font-family: "NF Icons";
-    font-weight: 400;
-    font-display: block;
-    unicode-range: U+F000-F2E0;
-    src: url("fonts/fira-mono-nf-Regular.woff2") format("woff2");
+    src: url("fonts/fira-mono-Medium.woff2") format("woff2");
 }

@@ -5,92 +5,91 @@ Edit the files in src/, not adminer.css directly — it gets overwritten.
 */
 
 :root {
-   color-scheme: light;
+    color-scheme: light;
 
-   /* Accent: tawny orange by default. Swap --accent-h/--accent-s for another
+    /* Accent: tawny orange by default. Swap --accent-h/--accent-s for another
        hue, e.g. 212/55% for blue. Everything below derives from these two. */
-   --accent-h: 35;
-   --accent-s: 99%;
+    --accent-h: 35;
+    --accent-s: 99%;
 
-   --accent: hsl(var(--accent-h) var(--accent-s) 45%);
-   /* icons, lines */
-   --accent-strong: hsl(var(--accent-h) var(--accent-s) 33%);
-   /* text, links */
-   --accent-soft: hsl(var(--accent-h) var(--accent-s) 50% / .12);
-   --accent-softer: hsl(var(--accent-h) var(--accent-s) 50% / .06);
+    --accent: hsl(var(--accent-h) var(--accent-s) 45%);
+    /* icons, lines */
+    --accent-strong: hsl(var(--accent-h) var(--accent-s) 33%);
+    /* text, links */
+    --accent-soft: hsl(var(--accent-h) var(--accent-s) 50% / .12);
+    --accent-softer: hsl(var(--accent-h) var(--accent-s) 50% / .06);
 
-   /* Sidebar surfaces, lightly tinted toward the accent */
-   --sb-bg: hsl(var(--accent-h) 25% 96%);
-   --sb-border: hsl(var(--accent-h) 12% 87%);
-   --sb-text: hsl(240 5% 22%);
-   --sb-muted: hsl(240 4% 50%);
-   --sb-hover: hsl(var(--accent-h) 30% 35% / .07);
-   --sb-active: var(--accent-soft);
-   --sb-width: 17rem;
-   /* bottom dock row in the sidebar (logout + language) */
-   --sb-dock-h: 2rem;
-   --sb-dock-gap: .6rem;
-   --sb-dock-space: .4rem;
-   --radius-item: 8px;
+    /* Sidebar surfaces, lightly tinted toward the accent */
+    --sb-bg: hsl(var(--accent-h) 25% 96%);
+    --sb-border: hsl(var(--accent-h) 12% 87%);
+    --sb-text: hsl(240 5% 22%);
+    --sb-muted: hsl(240 4% 50%);
+    --sb-hover: hsl(var(--accent-h) 30% 35% / .07);
+    --sb-active: var(--accent-soft);
+    --sb-width: 17rem;
+    /* bottom dock row in the sidebar (logout + language) */
+    --sb-dock-h: 2rem;
+    --sb-dock-gap: .6rem;
+    --sb-dock-space: .4rem;
+    --radius-item: 8px;
 
-   /* Hovered table row background — placeholder cyan, swap for real color */
-   --row-hover: hsla(200, 90%, 75%, 0.5);
+    /* Hovered table row background */
+    --row-hover: hsla(200, 90%, 75%, 0.5);
 
-   --font-ui: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
-   --font-mono: "Fira Mono NF", ui-monospace, Menlo, Consolas, monospace;
-   --font-icon: "NF Icons";
+    --font-ui: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+    --font-mono: "Fira Mono", ui-monospace, Menlo, Consolas, monospace;
 
-   /* Adminer's own variable names, mapped onto the palette above */
-   --accent1: var(--sb-border);
-   --accent2: var(--accent);
-   --back-main: hsl(0 0% 99%);
-   --back-table: var(--back-main);
-   --back-editor: hsl(0 0% 100%);
-   --back-table-head: hsl(var(--accent-h) 20% 93%);
-   --back-table-tint: hsl(var(--accent-h) 15% 40% / .04);
-   --back-table-hover: var(--row-hover);
-   --back-table-high: var(--accent-soft);
-   --back-table-high-tint: hsl(var(--accent-h) var(--accent-s) 50% / .17);
-   --back-panel: hsl(var(--accent-h) 20% 40% / .04);
-   --back-message: var(--accent-softer);
-   --back-footer: var(--back-main);
-   /* same as --back-footer: the footer fade-mask needs a start AND end color,
+    /* Adminer's own variable names, mapped onto the palette above */
+    --accent1: var(--sb-border);
+    --accent2: var(--accent);
+    --back-main: hsl(0 0% 99%);
+    --back-table: var(--back-main);
+    --back-editor: hsl(0 0% 100%);
+    --back-table-head: hsl(var(--accent-h) 20% 93%);
+    --back-table-tint: hsl(var(--accent-h) 15% 40% / .04);
+    --back-table-hover: var(--row-hover);
+    --back-table-high: var(--accent-soft);
+    --back-table-high-tint: hsl(var(--accent-h) var(--accent-s) 50% / .17);
+    --back-panel: hsl(var(--accent-h) 20% 40% / .04);
+    --back-message: var(--accent-softer);
+    --back-footer: var(--back-main);
+    /* same as --back-footer: the footer fade-mask needs a start AND end color,
        both equal to the page background, or the mask clips the footer away
        (this was still the old dark theme's near-black value before the merge) */
-   --back-footer-fade: var(--back-main);
-   --back-button: hsl(240 6% 10% / .88);
-   --back-button-high: hsl(240 6% 10%);
-   --back-button-disabled: hsl(0 0% 40%);
-   --back-error: hsl(0 85% 96%);
-   --text-heading: var(--sb-text);
-   --text-sub-heading: var(--sb-muted);
-   --text-link: var(--accent-strong);
-   --text-link-hover: hsl(var(--accent-h) var(--accent-s) 24%);
-   --text-message: var(--sb-text);
-   --text-error: hsl(0 65% 35%);
-   --text-time: var(--sb-muted);
-   --text-button: hsl(0 0% 98%);
-   --border: var(--sb-border);
-   --border-table: var(--sb-border);
-   --border-table-head: var(--sb-border);
-   --border-radius: 3px;
-   --border-radius-input: 3px;
-   --border-radius-table: 3px;
-   --border-radius-table-main: 4px;
-   --border-radius-fieldset: 3px;
-   --shadow: hsl(0 0% 0% / .25);
+    --back-footer-fade: var(--back-main);
+    --back-button: hsl(240 6% 10% / .88);
+    --back-button-high: hsl(240 6% 10%);
+    --back-button-disabled: hsl(0 0% 40%);
+    --back-error: hsl(0 85% 96%);
+    --text-heading: var(--sb-text);
+    --text-sub-heading: var(--sb-muted);
+    --text-link: var(--accent-strong);
+    --text-link-hover: hsl(var(--accent-h) var(--accent-s) 24%);
+    --text-message: var(--sb-text);
+    --text-error: hsl(0 65% 35%);
+    --text-time: var(--sb-muted);
+    --text-button: hsl(0 0% 98%);
+    --border: var(--sb-border);
+    --border-table: var(--sb-border);
+    --border-table-head: var(--sb-border);
+    --border-radius: 3px;
+    --border-radius-input: 3px;
+    --border-radius-table: 3px;
+    --border-radius-table-main: 4px;
+    --border-radius-fieldset: 3px;
+    --shadow: hsl(0 0% 0% / .25);
 
-   /* SQL syntax highlighting (jush.js token classes) — more added once
+    /* SQL syntax highlighting (jush.js token classes) — more added once
        there's a confirmed example (strings, comments, variables, …) */
-   --jush-keyword: var(--accent-strong);
-   --jush-identifier: hsl(260 35% 45%);
-   --jush-number: hsl(195 45% 38%);
-   --jush-string: hsl(140 30% 32%);
+    --jush-keyword: var(--accent-strong);
+    --jush-identifier: hsl(260 35% 45%);
+    --jush-number: hsl(195 45% 38%);
+    --jush-string: hsl(140 30% 32%);
 
-   /* narrow scrollbars everywhere (scrollbar-color is inherited) */
-   scrollbar-color: var(--sb-border) transparent;
+    /* narrow scrollbars everywhere (scrollbar-color is inherited) */
+    scrollbar-color: var(--sb-border) transparent;
 }
 
 * {
-   scrollbar-width: thin;
+    scrollbar-width: thin;
 }

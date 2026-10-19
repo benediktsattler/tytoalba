@@ -36,6 +36,29 @@ a:visited:hover {
     outline: 0;
 }
 
+/* ========== Icons (mask base) ==========
+   Every icon is a pseudo-element masked with a Lucide SVG token from
+   05-icons.css: the rule for a spot only sets `--icon: var(--i-<name>)`
+   (plus size), the shape comes from the mask, the color from
+   background-color — currentColor unless a rule says otherwise. */
+
+#menu .links a::before,
+#menu #tables a.select::before,
+#dbs::before,
+#menuopen .icon::before,
+button.icon::before,
+a.edit::before,
+.column a::before,
+#foot #lang::after,
+#foot .logout::after,
+#import.hidden::before,
+.js fieldset>.hidden::before {
+    content: "";
+    background-color: currentColor;
+    -webkit-mask: var(--icon) center / contain no-repeat;
+    mask: var(--icon) center / contain no-repeat;
+}
+
 /* ========== Jump target (#anchor) ==========
    Adminer's default.css marks the element jumped to via #anchor with a
    background color only. Highlight the text instead. */

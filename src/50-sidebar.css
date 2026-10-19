@@ -123,7 +123,7 @@ select:has(option:empty:checked) {
     background-repeat: no-repeat;
     background-position: center center;
     background-size: 20px auto;
-    background-image: url("data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iaXNvLTg4NTktMSI/Pg0KPHN2ZyBmaWxsPSIjMjcyNzJhIiBoZWlnaHQ9IjgwMHB4IiB3aWR0aD0iODAwcHgiIHZlcnNpb249IjEuMSIgaWQ9IkNhcGFfMSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB4bWxuczp4bGluaz0iaHR0cDovL3d3dy53My5vcmcvMTk5OS94bGluayIgDQoJIHZpZXdCb3g9IjAgMCAzMi4wNTUgMzIuMDU1IiB4bWw6c3BhY2U9InByZXNlcnZlIj4NCjxnPg0KCTxwYXRoIGQ9Ik0zLjk2OCwxMi4wNjFDMS43NzUsMTIuMDYxLDAsMTMuODM1LDAsMTYuMDI3YzAsMi4xOTIsMS43NzMsMy45NjcsMy45NjgsMy45NjdjMi4xODksMCwzLjk2Ni0xLjc3MiwzLjk2Ni0zLjk2Nw0KCQlDNy45MzQsMTMuODM1LDYuMTU3LDEyLjA2MSwzLjk2OCwxMi4wNjF6IE0xNi4yMzMsMTIuMDYxYy0yLjE4OCwwLTMuOTY4LDEuNzczLTMuOTY4LDMuOTY1YzAsMi4xOTIsMS43NzgsMy45NjcsMy45NjgsMy45NjcNCgkJczMuOTctMS43NzIsMy45Ny0zLjk2N0MyMC4yMDEsMTMuODM1LDE4LjQyMywxMi4wNjEsMTYuMjMzLDEyLjA2MXogTTI4LjA5LDEyLjA2MWMtMi4xOTIsMC0zLjk2OSwxLjc3NC0zLjk2OSwzLjk2Nw0KCQljMCwyLjE5LDEuNzc0LDMuOTY1LDMuOTY5LDMuOTY1YzIuMTg4LDAsMy45NjUtMS43NzIsMy45NjUtMy45NjVTMzAuMjc4LDEyLjA2MSwyOC4wOSwxMi4wNjF6Ii8+DQo8L2c+DQo8L3N2Zz4=");
+    background-image: var(--img-ellipsis);
 }
 
 /* ========== Nav (SQL command / import / export / create table) ========== */
@@ -269,13 +269,18 @@ select:has(option:empty:checked) {
        don't apply to an `a` at all (inline elements ignore both). */
     position: relative;
     overflow: hidden;
-    display: inline-block;
+    /* inline-flex + center: the icon sits on the li's vertical middle,
+       like the table name next to it; the hidden link text follows the
+       icon as a second flex item and is clipped by overflow */
+    display: inline-flex;
+    align-items: center;
     border-radius: var(--border-radius);
     top: 0;
     flex: none;
     width: 1.5em;
     height: 1.5em;
-    padding: .3em 0 .3em .2em
+    padding: 0 0 0 .2em;
+    box-sizing: border-box;
 }
 
 #menu #tables a.select.active,
@@ -295,42 +300,38 @@ select:has(option:empty:checked) {
     color: var(--sb-text);
 }
 
-/* ========== Icons (Nerd Font glyphs) ========== */
+/* ========== Icons ========== */
 
 #menu .links a::before,
 #menu #tables a.select::before,
 #dbs::before {
-    font-family: var(--font-icon);
-    font-weight: 400;
-    font-size: .9rem;
+    /* rem, not em: #dbs has font-size:0 */
+    width: .95rem;
+    height: .95rem;
     color: var(--sb-muted);
-    background: none;
     filter: none;
 }
 
 #menu .links a::before {
     display: inline-block;
-    width: 1.4em;
+    margin-right: .45rem;
+    vertical-align: -.15em;
 }
 
 #menu .links a[href$="&sql="]::before {
-    content: "\f120";
-    /* terminal */
+    --icon: var(--i-terminal);
 }
 
 #menu .links a[href$="&import="]::before {
-    content: "\f093";
-    /* upload */
+    --icon: var(--i-upload);
 }
 
 #menu .links a[href*="&dump="]::before {
-    content: "\f019";
-    /* download */
+    --icon: var(--i-download);
 }
 
 #menu .links a[href$="&create="]::before {
-    content: "\f067";
-    /* plus */
+    --icon: var(--i-plus);
 }
 
 #menu .links .active::before {
@@ -338,15 +339,13 @@ select:has(option:empty:checked) {
 }
 
 #menu #tables a.select::before {
-    content: "\f0ce";
-    /* table */
-    height: auto;
-    line-height: 1;
+    --icon: var(--i-table);
+    display: block;
+    flex: none;
 }
 
 #menu #tables li:has(a.view) a.select::before {
-    content: "\f06e";
-    /* eye = view */
+    --icon: var(--i-eye);
 }
 
 #menu #tables li:hover a.select::before {
@@ -358,10 +357,8 @@ select:has(option:empty:checked) {
 }
 
 #dbs::before {
-    content: "\f1c0";
-    /* database */
-    width: auto;
-    height: auto;
+    --icon: var(--i-database);
+    flex: none;
     margin: 0;
     color: var(--accent);
 }
@@ -379,7 +376,8 @@ select:has(option:empty:checked) {
 }
 
 #menuopen .icon::before {
-    font-family: var(--font-icon);
-    content: "\f0c9";
-    /* bars */
+    --icon: var(--i-menu);
+    display: block;
+    width: 1.1rem;
+    height: 1.1rem;
 }
