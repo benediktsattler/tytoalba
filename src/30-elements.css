@@ -36,6 +36,17 @@ a:visited:hover {
     outline: 0;
 }
 
+/* ========== Jump target (#anchor) ==========
+   Adminer's default.css marks the element jumped to via #anchor with a
+   background color only. Highlight the text instead. */
+
+:target {
+    background: none;
+    color: var(--accent-strong);
+    font-weight: 800;
+    text-decoration: underline;
+}
+
 /* ========== Typography ==========
    Single place that decides what's UI-sans vs monospace, instead of each
    selector declaring its own font-family. */
