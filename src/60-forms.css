@@ -322,6 +322,45 @@ a.doc:not(:has(*))::before {
     mask-size: .9em;
 }
 
+/* In table headers: pinned to the th's top-right corner instead of
+   trailing the label (thead th is position:relative, .sticky ones are
+   sticky — both work as containing block). Padding keeps the label clear.
+   Note: `th:has(> a.doc)` without the :not(:has(*)) used elsewhere —
+   :has() can't be nested, that would drop the rule; the <code> doc link
+   variant never appears in thead anyway. */
+thead th:has(> a.doc) {
+    padding-right: 1.3em;
+}
+
+thead th>a.doc:not(:has(*)) {
+    position: absolute;
+    top: .2em;
+    right: .2em;
+    width: .9em;
+    height: .9em;
+    color: var(--sb-muted);
+}
+
+thead th>a.doc:not(:has(*))::before {
+    -webkit-mask-size: .75em;
+    mask-size: .75em;
+}
+
+thead th>a.doc:not(:has(*)):hover,
+thead th>a.doc:not(:has(*)):focus-visible {
+    color: var(--accent-strong);
+}
+
+.rtl thead th:has(> a.doc) {
+    padding-right: .5em;
+    padding-left: 1.3em;
+}
+
+.rtl thead th>a.doc:not(:has(*)) {
+    right: auto;
+    left: .2em;
+}
+
 /* ========== SQL editor / code ========== */
 
 pre {

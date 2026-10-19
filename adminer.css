@@ -344,6 +344,83 @@ input[type="radio"] {
     accent-color: var(--accent);
 }
 
+/* ========== Toggle switches ==========
+   Form-level on/off options (`<p><label><input type="checkbox">…</label>`:
+   "Default values", "Comment", "Stop on error", "Show only errors", …)
+   render as switches. Checkboxes in tables stay checkboxes — they sit in
+   `td > label.block` or directly in td/th, never in `p > label`. */
+
+p>label:has(> input[type="checkbox"]) {
+    display: inline-flex;
+    align-items: center;
+    gap: .45em;
+    margin: 0 .5em 0 .8em;
+    cursor: pointer;
+}
+
+p>label>input[type="checkbox"] {
+    -webkit-appearance: none;
+    appearance: none;
+    position: relative;
+    flex: none;
+    width: 2.1em;
+    height: 1.2em;
+    margin: 0;
+    padding: 0;
+    border: 0;
+    border-radius: 999px;
+    background: var(--sb-border);
+    cursor: pointer;
+    vertical-align: middle;
+}
+
+p>label>input[type="checkbox"]::before {
+    /* the knob */
+    content: "";
+    position: absolute;
+    top: .15em;
+    left: .15em;
+    width: .9em;
+    height: .9em;
+    border-radius: 50%;
+    background: var(--back-main);
+    box-shadow: 0 1px 2px var(--shadow);
+}
+
+p>label>input[type="checkbox"]:checked {
+    background: var(--accent);
+}
+
+p>label>input[type="checkbox"]:checked::before {
+    transform: translateX(.9em);
+}
+
+.rtl p>label>input[type="checkbox"]:checked::before {
+    transform: translateX(-.9em);
+}
+
+.rtl p>label>input[type="checkbox"]::before {
+    left: auto;
+    right: .15em;
+}
+
+p>label>input[type="checkbox"]:focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 2px;
+}
+
+p>label>input[type="checkbox"]:disabled {
+    opacity: .5;
+    cursor: not-allowed;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+    p>label>input[type="checkbox"],
+    p>label>input[type="checkbox"]::before {
+        transition: background-color .15s ease, transform .15s ease;
+    }
+}
+
 legend {
     padding: 0 0.5em;
     font-size: 0.9em;
@@ -1639,6 +1716,45 @@ a.doc:not(:has(*))::before {
     --icon: var(--i-info);
     -webkit-mask-size: .9em;
     mask-size: .9em;
+}
+
+/* In table headers: pinned to the th's top-right corner instead of
+   trailing the label (thead th is position:relative, .sticky ones are
+   sticky — both work as containing block). Padding keeps the label clear.
+   Note: `th:has(> a.doc)` without the :not(:has(*)) used elsewhere —
+   :has() can't be nested, that would drop the rule; the <code> doc link
+   variant never appears in thead anyway. */
+thead th:has(> a.doc) {
+    padding-right: 1.3em;
+}
+
+thead th>a.doc:not(:has(*)) {
+    position: absolute;
+    top: .2em;
+    right: .2em;
+    width: .9em;
+    height: .9em;
+    color: var(--sb-muted);
+}
+
+thead th>a.doc:not(:has(*))::before {
+    -webkit-mask-size: .75em;
+    mask-size: .75em;
+}
+
+thead th>a.doc:not(:has(*)):hover,
+thead th>a.doc:not(:has(*)):focus-visible {
+    color: var(--accent-strong);
+}
+
+.rtl thead th:has(> a.doc) {
+    padding-right: .5em;
+    padding-left: 1.3em;
+}
+
+.rtl thead th>a.doc:not(:has(*)) {
+    right: auto;
+    left: .2em;
 }
 
 /* ========== SQL editor / code ========== */
