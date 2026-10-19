@@ -30,6 +30,8 @@ ICONS = {
     "columns": "columns-3",
     "partition": "layout-grid",
     "history": "history",
+    "options": "sliders-horizontal",
+    "ellipsis": "ellipsis",
     "globe": "globe",
     "power": "power",
 }

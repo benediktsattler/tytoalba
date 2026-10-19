@@ -160,6 +160,9 @@ a[href="#import"] {
     height: 1.5rem;
     background-color: var(--sb-muted);
     opacity: .45;
+    /* fallback for fieldsets without their own rule below — without any
+       --icon the mask is invalid and ::before shows as a solid grey bar */
+    --icon: var(--i-ellipsis);
 }
 
 #fieldset-sort.hidden::before {
@@ -184,6 +187,11 @@ a[href="#import"] {
 
 #fieldset-history.hidden::before {
     --icon: var(--i-history);
+}
+
+#fieldset-options.hidden::before {
+    /* create/alter procedure & function: DEFINER, DETERMINISTIC, ... */
+    --icon: var(--i-options);
 }
 
 #import.hidden::before {
