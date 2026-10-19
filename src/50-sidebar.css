@@ -18,16 +18,11 @@
     /* static, not positioned: no stacking context of its own, and #lang
        (nested inside it) resolves its absolute position against #foot */
     position: static;
-    /* flex-basis is still simple-theme's literal 20em, not var(--sb-width) —
-       override never touches it. Harmless at the default root font-size
-       (20em == 20rem at 16px), but diverges if that changes. Faithfully
-       reproduced as-is rather than silently switched to the variable. */
     flex: 0 0 20em;
     width: auto;
     min-width: 0;
     max-width: none;
     margin: 0;
-    /* bottom padding keeps #tables clear of the docked logout/lang row */
     padding: 0 12px calc(var(--sb-dock-h) + 2 * var(--sb-dock-gap));
     background: transparent;
     border: 0;
@@ -37,11 +32,6 @@
 }
 
 .rtl #menu {
-    /* override's #menu padding rule above doesn't include `.rtl #menu`, and
-       `.rtl #menu` (1 class + 1 id) outranks plain `#menu` (1 id) regardless
-       of source order — so in RTL mode simple-theme's original wider padding
-       wins back over override's padding. Reproduced faithfully; see the
-       README/commit notes on RTL gaps for whether that's wanted. */
     margin: 0;
     padding: 0 20px calc(var(--sb-dock-h) + 2 * var(--sb-dock-gap));
 }
@@ -58,12 +48,9 @@
 }
 
 #menu h1 {
-    /* left/right asymmetric (8px vs 2.8rem): clearance for #menuopen */
     padding: 1em 2.8rem .4em 8px;
     background: transparent;
     border-bottom: none;
-    /* version number sits right of "Adminer" on the same baseline instead
-       of on its own line below — saves a line of sidebar height. */
     display: flex;
     flex-wrap: wrap;
     align-items: baseline;
@@ -108,6 +95,12 @@
     color: var(--back-footer);
     font-weight: 600;
     text-decoration: none;
+}
+
+#menu #version:empty {
+    /* Adminer always renders the link and only fills it in (via JS) when
+       a newer release exists — empty means up to date: no pill */
+    display: none;
 }
 
 /* ========== Database select ========== */
@@ -181,9 +174,6 @@ select:has(option:empty:checked) {
 /* ========== Table list ========== */
 
 #menu #tables {
-    /* max-height:none cancels the old fixed calc() cap so flex can size
-       this to the remaining sidebar space (min-height:0 lets it shrink);
-       overflow-y:auto is what actually makes it scroll within that space. */
     flex: 1 1 auto;
     min-height: 0;
     max-height: none !important;
@@ -217,11 +207,6 @@ select:has(option:empty:checked) {
     background: var(--sb-active);
 }
 
-/* Horizontal clip, revealed on hover (so a long table name or the select
-   icon peeking past the edge isn't cut off while hovering it). Independent
-   of #menu #tables's overflow-y above: that one wins on the y-axis (higher
-   specificity, #menu #tables = 2 ids vs #tables = 1), this one still
-   decides the x-axis. */
 #logins,
 #tables {
     margin: 0.7em -20px -20px;
@@ -268,27 +253,13 @@ select:has(option:empty:checked) {
 
 #menu #tables li a.structure.active,
 #menu #tables li a.view.active {
-    /* was `#menu #tables li a.active`, which also matches a.select.active —
-       its 2 ids always beat `#dbs, #tables a.select { color: transparent }`
-       (1 id), so the hidden link text ("zeigen" / "select" depending on
-       locale) became visible on whichever table is the current select
-       view. Scoped to .structure/.view only; a.select stays icon-only. */
     font-weight: 500;
     color: var(--accent-strong);
 }
 
 #menu #tables a.select {
-    /* override fully replaces simple-theme's top:0.5em/width:1.13em/
-       margin-left:-.3em/padding:.2em .3em sizing for the flex+centered `li`
-       layout above — nothing of the old box survives except
-       position/overflow/display/border-radius, which override never
-       touches. display:inline-block matters: without it, width/height
-       don't apply to an `a` at all (inline elements ignore both). */
     position: relative;
     overflow: hidden;
-    /* inline-flex + center: the icon sits on the li's vertical middle,
-       like the table name next to it; the hidden link text follows the
-       icon as a second flex item and is clipped by overflow */
     display: inline-flex;
     align-items: center;
     border-radius: var(--border-radius);
@@ -313,7 +284,6 @@ select:has(option:empty:checked) {
 }
 
 #logins a {
-    /* wins over the --text-button color set alongside #tables a/span above */
     color: var(--sb-text);
 }
 
@@ -322,7 +292,6 @@ select:has(option:empty:checked) {
 #menu .links a::before,
 #menu #tables a.select::before,
 #dbs::before {
-    /* rem, not em: #dbs has font-size:0 */
     width: .95rem;
     height: .95rem;
     color: var(--sb-muted);

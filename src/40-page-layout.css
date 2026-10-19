@@ -10,19 +10,8 @@
     padding: 0 20px 1.5em;
     background: var(--back-main);
     overflow-x: clip;
-    /* clip, not hidden: not scrollable, but sticky headers keep working */
 }
 
-/* override's selector list is literally "#content, .rtl #content" — same
-   flex/min-width/max-width/margin-left apply to both. But it only sets
-   margin-LEFT, so simple-theme's `.rtl #content { margin: 0 20em 0 0; }`
-   (a full shorthand) still contributes its OTHER sides — specifically
-   margin-right: 20em survives untouched. Combined with override's
-   margin-left: var(--sb-width) winning on the left, RTL desktop content
-   ends up with a margin on BOTH sides at once (old right-side assumption +
-   new left-side variable). That's almost certainly not intended — it's a
-   pre-existing gap in adminer-overrides.css itself, not introduced here.
-   Reproduced faithfully below; worth a real RTL decision before shipping. */
 .rtl #content {
     flex: 1 1 0;
     min-width: 0;
@@ -41,7 +30,6 @@ body.rtl {
 }
 
 #content [id] {
-    /* anchor targets shouldn't hide under the sticky header */
     scroll-margin-top: 7rem;
 }
 
@@ -125,10 +113,8 @@ h2+.hidden+*> :first-child {
     padding-left: 2.5em;
 }
 
-/* Tyto Alba owl as a faint watermark centered behind the content header
-   (h2 is sticky → containing block; its 2.2em top padding is the
-   breadcrumb row, so the mark spans both). Decorative only, takes no
-   space. */
+/* Tyto Alba owl as a watermark centered behind the content header
+   Decorative only, takes no space. */
 h2::after {
     content: "";
     position: absolute;
@@ -139,8 +125,8 @@ h2::after {
     transform: translateX(-50%);
     background-color: var(--accent);
     opacity: .16;
-    -webkit-mask: var(--i-owl) center / contain no-repeat;
-    mask: var(--i-owl) center / contain no-repeat;
+    -webkit-mask: var(--i-tyto) center / contain no-repeat;
+    mask: var(--i-tyto) center / contain no-repeat;
     pointer-events: none;
 }
 
@@ -148,9 +134,7 @@ h2::after {
     color: var(--text-sub-heading);
 }
 
-/* ========== Collapsible sidebar (desktop + mobile) ==========
-   Adminer toggles the `.foot` class on #foot when #menuopen is clicked;
-   "without .foot" means collapsed. State is per page load, not persisted. */
+/* ========== Collapsible sidebar (desktop + mobile) ========== */
 
 @media (min-width: 801px) {
     #menuopen {
@@ -220,23 +204,7 @@ h2::after {
     }
 }
 
-/* NOTE: the sidebar redesign above (border-right, left-anchored #menuopen,
-   translateX collapse) has no RTL counterpart — in `.rtl` mode #menu should
-   sit on the right with a left border, and #menuopen/collapse should mirror.
-   Not done here; flagging as a known gap, since the README still advertises
-   RTL support. */
-
-/* ========== Sidebar dock: logout / language ==========
-   Both used to be position:fixed pills anchored to the viewport — #lang
-   lives inside #menu (#menu > form > #lang), so it sat in #menu's own
-   stacking context and needed z-index:50 to not get covered. Now #foot
-   (see 50-sidebar.css) is the fixed sidebar box and the nearest positioned
-   ancestor of both; #menu and its form are static, so both dock to the
-   bottom of the sidebar via position:absolute and simply move/collapse
-   with it. Top-right isn't an option: #menuopen sits there.
-   Layout of the dock row, two equal halves:  [🌐] Deutsch   [⏻] username
-   The dark square (::before) is the button look; the text next to it is
-   plain sidebar text. */
+/* ========== Sidebar dock: logout / language ========== */
 
 #foot #lang,
 #foot .logout {
@@ -266,8 +234,6 @@ h2::after {
 #foot #lang {
     left: 12px;
     right: auto;
-    /* hides Adminer's "Language:" label text node; the <select> below
-       sets its own size again and shows the selected language instead */
     font-size: 0;
 }
 
@@ -289,7 +255,6 @@ h2::after {
 
 #foot #lang::before,
 #foot .logout::before {
-    /* the square button */
     position: static;
     flex: 0 0 var(--sb-dock-h);
     width: var(--sb-dock-h);
@@ -301,7 +266,6 @@ h2::after {
 
 #foot #lang::after,
 #foot .logout::after {
-    /* the icon, laid over the square */
     position: absolute;
     top: 0;
     left: 0;
@@ -341,13 +305,6 @@ h2::after {
 }
 
 .logout #logout {
-    /* `#logout` IS the `<input>` that `.logout input`/`.rtl .logout input`
-       in simple-theme.css also target — same element, two selectors. This
-       one (id, plus mostly !important) wins every overlapping property via
-       specificity, so simple-theme's version is dead except box-shadow,
-       which override never touches and is folded in here. See zz-legacy.css.
-       Stretched invisibly over the square only — the username isn't
-       clickable. */
     position: absolute;
     top: 0;
     left: 0;
@@ -368,9 +325,6 @@ h2::after {
 }
 
 #foot #lang select {
-    /* visible now, styled as plain text: shows the selected language.
-       Covers the whole half (square included, via padding) so a click on
-       the globe opens it too; transparent so the square shows through. */
     position: absolute;
     inset: 0;
     z-index: 1;

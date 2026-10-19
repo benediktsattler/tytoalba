@@ -1,0 +1,11 @@
+#!/usr/bin/env bash
+# Rebuilds adminer.css on every commit and adds it to that commit, so the
+# built file always matches src/ and carries the commit's date.
+# Enable once per clone:  git config core.hooksPath .githooks
+#
+# Note: builds from the working tree. With only part of src/ staged, the
+# committed adminer.css may include unstaged source changes.
+set -euo pipefail
+cd "$(git rev-parse --show-toplevel)"
+./build.sh >/dev/null
+git add adminer.css

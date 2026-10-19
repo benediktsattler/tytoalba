@@ -89,19 +89,6 @@ h3 {
 
 /* ========== "SQL command" toggle (#import) ========== */
 
-/* In the real markup, #import's `<p>` is a block-level sibling that comes
-   right AFTER `.footer` (closing `</div></div>`), not inside the fieldset
-   row — so it always starts a new line, and `order`/flex on the fieldsets
-   can't pull it in next to "Exportieren" (no shared flex/grid parent to
-   reorder within). Can't make it sit IN the row, so instead make the `<p>`
-   itself look like one of the fieldsets beside it — same border/radius/
-   background/sizing tokens as the real `fieldset` rule in 30-elements.css
-   — with the toggle link faked as a `<legend>` sitting on its top border,
-   the same trick a real `<legend>` gets natively.
-   Matched by content, not as `.footer+p`: with "No rows." Adminer renders
-   no .footer div at all, the <p> then follows <p class="message"> — the
-   old selector missed it and left the absolutely positioned label
-   floating loose. */
 p:has(> a[href="#import"]) {
     margin-top: 0;
     display: inline-block;
@@ -153,15 +140,12 @@ a[href="#import"] {
     color: var(--text-button);
 }
 
-/* Collapsed fieldsets show a centered icon instead of their form controls */
 #import.hidden::before,
 .js fieldset>.hidden::before {
     display: block;
     height: 1.5rem;
     background-color: var(--sb-muted);
     opacity: .45;
-    /* fallback for fieldsets without their own rule below — without any
-       --icon the mask is invalid and ::before shows as a solid grey bar */
     --icon: var(--i-ellipsis);
 }
 
@@ -199,20 +183,13 @@ a[href="#import"] {
 }
 
 #import.hidden {
-    /* .js fieldset > .hidden normally supplies min-height:1.5rem for this
-       (30-elements.css) — doesn't apply here since #import's parent is a
-       <p>, not a <fieldset>, so it's repeated explicitly */
     display: block;
     min-width: 4em;
     min-height: 1.5rem;
     color: transparent;
 }
 
-/* ========== Icon buttons (alter table: move / add / remove columns) ==========
-   Adminer renders these as `<button class="icon icon-*">`. The theme's
-   `background` shorthand would otherwise wipe out Adminer's own icon images
-   (default.css sets them via `background`), so these are mask icons on
-   ::before instead of images. */
+/* ========== Icon buttons (alter table: move / add / remove columns) ========== */
 
 button.icon {
     display: inline-grid;
@@ -254,7 +231,6 @@ button.icon::before {
 }
 
 .icon-cross::before {
-    /* trash, not X: "remove column" reads better as delete than as close */
     --icon: var(--i-trash);
 }
 
@@ -262,21 +238,8 @@ button.icon::before {
     --icon: var(--i-move);
 }
 
-/* ========== "Edit" row action → pencil icon ==========
-   Corrected from real markup: the href pattern doesn't distinguish "New
-   item" from a per-row edit — both use edit=<tablename>, difference is
-   just whether a where[...] param follows. But the per-row link already
-   carries its own class="edit", which is what Adminer's own select/table
-   view actually renders — use that directly instead of guessing hrefs.
-   "New item" (in the #content .links action bar) has no such class, so
-   it's untouched and stays a plain text button like its siblings. */
+/* ========== "Edit" row action → pencil icon ========== */
 a.edit {
-    /* color:transparent (2nd attempt) still showed the first few characters
-       of "bearbeiten"/"edit" — left-aligned and clipped, not centered, so
-       something was overriding the color rather than inline-grid failing
-       to size the box. Switched to the classic text-indent hide, which
-       physically pushes the real text out of the clip area instead of
-       depending on which color rule happens to win: robust regardless. */
     position: relative;
     display: inline-block;
     width: 1.7em;
@@ -297,11 +260,7 @@ a.edit::before {
     mask-size: .9rem;
 }
 
-/* ========== Documentation link: 📖 → info icon ==========
-   Adminer's doc_link() renders `<a class="doc">📖</a>`. One call site
-   passes its own text instead (MySQL bit type: `<code>b''</code>`), so
-   only a.doc without child elements — i.e. the bare emoji — is swapped;
-   hidden the same text-indent way as a.edit. */
+/* ========== Documentation link: 📖 → info icon ========== */
 a.doc:not(:has(*)) {
     position: relative;
     display: inline-block;
@@ -322,12 +281,6 @@ a.doc:not(:has(*))::before {
     mask-size: .9em;
 }
 
-/* In table headers: pinned to the th's top-right corner instead of
-   trailing the label (thead th is position:relative, .sticky ones are
-   sticky — both work as containing block). Padding keeps the label clear.
-   Note: `th:has(> a.doc)` without the :not(:has(*)) used elsewhere —
-   :has() can't be nested, that would drop the rule; the <code> doc link
-   variant never appears in thead anyway. */
 thead th:has(> a.doc) {
     padding-right: 1.3em;
 }

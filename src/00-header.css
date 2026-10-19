@@ -1,0 +1,22 @@
+/*!
+ * Tyto Alba — Adminer theme
+ * https://github.com/benediktsattler/tytoalba
+ *
+ * Version   @VERSION@  (@DATE@)
+ * Tested    Adminer 5.4.2, 6.1.2
+ * Author    Benedikt Nierula
+ * License   MIT
+ *
+ * Based on  Simple Theme by Hassan Azzi — https://github.com/devknown/simple-theme
+ * Icons     Lucide — ISC License, © Lucide Contributors — https://lucide.dev
+ * Font      Fira Mono — SIL Open Font License 1.1, © The Mozilla Foundation
+ *           and Telefonica S.A. Embedded as a subset; full license text:
+ *           fonts/OFL.txt in the repository.
+ * Adminer   https://www.adminer.org — https://github.com/vrana/adminer
+ *
+ * Install   Put this file next to adminer.php, named adminer.css.
+ * Customize Change --accent-h / --accent-s in :root for another accent hue.
+ *
+ * GENERATED from src/*.css by build.sh — edit the sources, not this file.
+ */
+

@@ -124,8 +124,6 @@ tbody tr:last-child td:last-child {
     border-bottom-right-radius: var(--border-radius-table);
 }
 
-/* Column headers may wrap in the data view (table.nowrap, despite the name,
-   is the view that opts INTO wrapping) */
 table.nowrap thead th {
     white-space: normal;
     line-height: 1.25;
@@ -145,9 +143,6 @@ table.nowrap thead th {
 }
 
 #schema .table span {
-    /* font-family comes from the typography rule in 30-elements.css —
-       override's combinator only replaces that one property, this
-       font-weight is simple-theme's own and still applies */
     font-weight: 500;
 }
 
@@ -155,20 +150,7 @@ table.nowrap thead th {
     color: var(--accent2);
 }
 
-/* ========== Column sort / search toggle ==========
-   Adminer renders these as real text (a Unicode ↓/↑ and a literal "="), not
-   blank links with an icon background. Hidden the same text-indent way as
-   a.edit above (not color:transparent — that one turned out unreliable)
-   and replaced with mask icons.
-
-   Which arrow to show is read off the href, not the `title` attribute —
-   title is localized ("absteigend"/"aufsteigend"), href isn't. A link
-   whose href carries &desc[0]= is offering to switch that column to
-   descending order (i.e. it's currently NOT sorted descending); anything
-   else sort-related defaults to the ascending-offer glyph. If you only
-   ever see one arrow, it means every column you're looking at is in the
-   same unsorted/default state — not a CSS issue, Adminer decides the
-   href per column server-side. */
+/* ========== Column sort / search toggle ==========*/
 
 .js .column {
     z-index: 1;

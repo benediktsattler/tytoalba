@@ -1,101 +1,113 @@
-/*
-Tyto Alba — theme for Adminer 6.
-Generated file: the repo's adminer.css is built from src/*.css via ./build.sh.
-Edit the files in src/, not adminer.css directly — it gets overwritten.
-*/
+/*!
+ * Tyto Alba — Adminer theme
+ * https://github.com/benediktsattler/tytoalba
+ *
+ * Version   1.0.0  (2026-10-19)
+ * Tested    Adminer 5.4.2, 6.1.2
+ * Author    Benedikt Nierula
+ * License   MIT
+ *
+ * Based on  Simple Theme by Hassan Azzi — https://github.com/devknown/simple-theme
+ * Icons     Lucide — ISC License, © Lucide Contributors — https://lucide.dev
+ * Font      Fira Mono — SIL Open Font License 1.1, © The Mozilla Foundation
+ *           and Telefonica S.A. Embedded as a subset; full license text:
+ *           fonts/OFL.txt in the repository.
+ * Adminer   https://www.adminer.org — https://github.com/vrana/adminer
+ *
+ * Install   Put this file next to adminer.php, named adminer.css.
+ * Customize Change --accent-h / --accent-s in :root for another accent hue.
+ *
+ * GENERATED from src/*.css by build.sh — edit the sources, not this file.
+ */
 
 :root {
-    color-scheme: light;
+   color-scheme: light;
 
-    /* Accent: tawny orange by default. Swap --accent-h/--accent-s for another
+   /* Accent: tawny orange by default. Swap --accent-h/--accent-s for another
        hue, e.g. 212/55% for blue. Everything below derives from these two. */
-    --accent-h: 35;
-    --accent-s: 99%;
+   --accent-h: 35;
+   --accent-s: 99%;
 
-    --accent: hsl(var(--accent-h) var(--accent-s) 45%);
-    /* icons, lines */
-    --accent-strong: hsl(var(--accent-h) var(--accent-s) 33%);
-    /* text, links */
-    --accent-soft: hsl(var(--accent-h) var(--accent-s) 50% / .12);
-    --accent-softer: hsl(var(--accent-h) var(--accent-s) 50% / .06);
+   --accent: hsl(var(--accent-h) var(--accent-s) 45%);
+   /* icons, lines */
+   --accent-strong: hsl(var(--accent-h) var(--accent-s) 33%);
+   /* text, links */
+   --accent-soft: hsl(var(--accent-h) var(--accent-s) 50% / .12);
+   --accent-softer: hsl(var(--accent-h) var(--accent-s) 50% / .06);
 
-    /* Sidebar surfaces, lightly tinted toward the accent */
-    --sb-bg: hsl(var(--accent-h) 25% 96%);
-    --sb-border: hsl(var(--accent-h) 12% 87%);
-    --sb-text: hsl(240 5% 22%);
-    --sb-muted: hsl(240 4% 50%);
-    --sb-hover: hsl(var(--accent-h) 30% 35% / .07);
-    --sb-active: var(--accent-soft);
-    --sb-width: 17rem;
-    /* bottom dock row in the sidebar (logout + language) */
-    --sb-dock-h: 2rem;
-    --sb-dock-gap: .6rem;
-    --sb-dock-space: .4rem;
-    --radius-item: 8px;
+   /* Sidebar surfaces, lightly tinted toward the accent */
+   --sb-bg: hsl(var(--accent-h) 25% 96%);
+   --sb-border: hsl(var(--accent-h) 12% 87%);
+   --sb-text: hsl(240 5% 22%);
+   --sb-muted: hsl(240 4% 50%);
+   --sb-hover: hsl(var(--accent-h) 30% 35% / .07);
+   --sb-active: var(--accent-soft);
+   --sb-width: 17rem;
+   /* bottom dock row in the sidebar (logout + language) */
+   --sb-dock-h: 2rem;
+   --sb-dock-gap: .6rem;
+   --sb-dock-space: .4rem;
+   --radius-item: 8px;
 
-    /* Hovered table row background */
-    --row-hover: hsla(200, 90%, 75%, 0.5);
+   /* Hovered table row background */
+   --row-hover: hsla(200, 90%, 75%, 0.5);
 
-    /* Tyto Alba owl mark (teardrop, same shape as favicon.svg), as a mask
-       token like the --i-* Lucide icons in 05-icons.css */
-   --i-owl: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 48 56'%3E%3Cpath d='M24 2C13 2 4 11 4 22c0 12 20 30 20 30s20-18 20-30C44 11 35 2 24 2Z' fill='none' stroke='%23000' stroke-width='3' stroke-linejoin='round'/%3E%3Ccircle cx='17' cy='18' r='3.2'/%3E%3Ccircle cx='31' cy='18' r='3.2'/%3E%3Cpath d='M24 23v8M6 35q18 8 36 0' fill='none' stroke='%23000' stroke-width='3' stroke-linecap='round'/%3E%3C/svg%3E");
+   /* Tyto Alba owl mark, as a mask token like the --i-* icons */
+   --i-tyto: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 48 56'%3E%3Cpath d='M24 2C13 2 4 11 4 22c0 12 20 30 20 30s20-18 20-30C44 11 35 2 24 2Z' fill='none' stroke='%23000' stroke-width='3' stroke-linejoin='round'/%3E%3Ccircle cx='17' cy='18' r='3.2'/%3E%3Ccircle cx='31' cy='18' r='3.2'/%3E%3Cpath d='M24 23v8M6 35q18 8 36 0' fill='none' stroke='%23000' stroke-width='3' stroke-linecap='round'/%3E%3C/svg%3E");
 
    --font-ui: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
-    --font-mono: "Fira Mono", ui-monospace, Menlo, Consolas, monospace;
+   --font-mono: "Fira Mono", ui-monospace, Menlo, Consolas, monospace;
 
-    /* Adminer's own variable names, mapped onto the palette above */
-    --accent1: var(--sb-border);
-    --accent2: var(--accent);
-    --back-main: hsl(0 0% 99%);
-    --back-table: var(--back-main);
-    --back-editor: hsl(0 0% 100%);
-    --back-table-head: hsl(var(--accent-h) 20% 93%);
-    --back-table-tint: hsl(var(--accent-h) 15% 40% / .04);
-    --back-table-hover: var(--row-hover);
-    --back-table-high: var(--accent-soft);
-    --back-table-high-tint: hsl(var(--accent-h) var(--accent-s) 50% / .17);
-    --back-panel: hsl(var(--accent-h) 20% 40% / .04);
-    --back-message: var(--accent-softer);
-    --back-footer: var(--back-main);
-    /* same as --back-footer: the footer fade-mask needs a start AND end color,
-       both equal to the page background, or the mask clips the footer away
-       (this was still the old dark theme's near-black value before the merge) */
-    --back-footer-fade: var(--back-main);
-    --back-button: hsl(240 6% 10% / .88);
-    --back-button-high: hsl(240 6% 10%);
-    --back-button-disabled: hsl(0 0% 40%);
-    --back-error: hsl(0 85% 96%);
-    --text-heading: var(--sb-text);
-    --text-sub-heading: var(--sb-muted);
-    --text-link: var(--accent-strong);
-    --text-link-hover: hsl(var(--accent-h) var(--accent-s) 24%);
-    --text-message: var(--sb-text);
-    --text-error: hsl(0 65% 35%);
-    --text-time: var(--sb-muted);
-    --text-button: hsl(0 0% 98%);
-    --border: var(--sb-border);
-    --border-table: var(--sb-border);
-    --border-table-head: var(--sb-border);
-    --border-radius: 3px;
-    --border-radius-input: 3px;
-    --border-radius-table: 3px;
-    --border-radius-table-main: 4px;
-    --border-radius-fieldset: 3px;
-    --shadow: hsl(0 0% 0% / .25);
+   /* Adminer's own variable names, mapped onto the palette above */
+   --accent1: var(--sb-border);
+   --accent2: var(--accent);
+   --back-main: hsl(0 0% 99%);
+   --back-table: var(--back-main);
+   --back-editor: hsl(0 0% 100%);
+   --back-table-head: hsl(var(--accent-h) 20% 93%);
+   --back-table-tint: hsl(var(--accent-h) 95% 40% / .04);
+   --back-table-hover: var(--row-hover);
+   --back-table-high: var(--accent-soft);
+   --back-table-high-tint: hsl(var(--accent-h) var(--accent-s) 50% / .17);
+   --back-panel: hsl(var(--accent-h) 20% 40% / .04);
+   --back-message: var(--accent-softer);
+   --back-footer: var(--back-main);
+   --back-footer-fade: var(--back-main);
+   --back-button: hsl(240 6% 10% / .88);
+   --back-button-high: hsl(240 6% 10%);
+   --back-button-disabled: hsl(0 0% 40%);
+   --back-error: hsl(0 85% 96%);
+   --text-heading: var(--sb-text);
+   --text-sub-heading: var(--sb-muted);
+   --text-link: var(--accent-strong);
+   --text-link-hover: hsl(var(--accent-h) var(--accent-s) 24%);
+   --text-message: var(--sb-text);
+   --text-error: hsl(0 65% 35%);
+   --text-time: var(--sb-muted);
+   --text-button: hsl(0 0% 98%);
+   --border: var(--sb-border);
+   --border-table: var(--sb-border);
+   --border-table-head: var(--sb-border);
+   --border-radius: 3px;
+   --border-radius-input: 3px;
+   --border-radius-table: 3px;
+   --border-radius-table-main: 4px;
+   --border-radius-fieldset: 3px;
+   --shadow: hsl(0 0% 0% / .25);
 
-    /* SQL syntax highlighting (jush.js token classes) — more added once
+   /* SQL syntax highlighting (jush.js token classes) — more added once
        there's a confirmed example (strings, comments, variables, …) */
-    --jush-keyword: var(--accent-strong);
-    --jush-identifier: hsl(260 35% 45%);
-    --jush-number: hsl(195 45% 38%);
-    --jush-string: hsl(140 30% 32%);
+   --jush-keyword: var(--accent-strong);
+   --jush-identifier: hsl(260 35% 45%);
+   --jush-number: hsl(195 45% 38%);
+   --jush-string: hsl(140 30% 32%);
 
-    /* narrow scrollbars everywhere (scrollbar-color is inherited) */
-    scrollbar-color: var(--sb-border) transparent;
+   /* narrow scrollbars everywhere (scrollbar-color is inherited) */
+   scrollbar-color: var(--sb-border) transparent;
 }
 
 * {
-    scrollbar-width: thin;
+   scrollbar-width: thin;
 }
 /* ========== Icons (Lucide, ISC license — https://lucide.dev) ==========
    Generated from lucide-static SVGs, used as CSS masks: an element sets
@@ -234,9 +246,6 @@ body {
 }
 
 body {
-    /* override sets this to `auto` (not simple-theme's `100%`) specifically
-       so the body doesn't do its own width math alongside #menu's
-       position:fixed + #content's margin-left */
     width: auto;
     min-height: 100%;
 }
@@ -264,11 +273,7 @@ a:visited:hover {
     outline: 0;
 }
 
-/* ========== Icons (mask base) ==========
-   Every icon is a pseudo-element masked with a Lucide SVG token from
-   05-icons.css: the rule for a spot only sets `--icon: var(--i-<name>)`
-   (plus size), the shape comes from the mask, the color from
-   background-color — currentColor unless a rule says otherwise. */
+/* ========== Icons (mask base) ========== */
 
 #menu .links a::before,
 #menu #tables a.select::before,
@@ -288,9 +293,7 @@ a.doc:not(:has(*))::before,
     mask: var(--icon) center / contain no-repeat;
 }
 
-/* ========== Jump target (#anchor) ==========
-   Adminer's default.css marks the element jumped to via #anchor with a
-   background color only. Highlight the text instead. */
+/* ========== Jump target (#anchor) ========== */
 
 :target {
     background: none;
@@ -299,9 +302,7 @@ a.doc:not(:has(*))::before,
     text-decoration: underline;
 }
 
-/* ========== Typography ==========
-   Single place that decides what's UI-sans vs monospace, instead of each
-   selector declaring its own font-family. */
+/* ========== Typography ========== */
 
 code,
 .jush-sql,
@@ -330,8 +331,7 @@ textarea {
 }
 
 input.size[type="number"] {
-    /* Adminer's default.css gives .size (Limit, Text length) a fixed 7ex —
-       with this theme's padding plus the spin buttons that leaves room
+    /* Adminer's default.css gives .size a fixed 7ex that leaves room
        for barely one digit. Sized for ~5 digits + padding + spinner. */
     width: calc(5ch + 1.5em);
 }
@@ -348,11 +348,7 @@ input[type="radio"] {
     accent-color: var(--accent);
 }
 
-/* ========== Toggle switches ==========
-   Form-level on/off options (`<p><label><input type="checkbox">…</label>`:
-   "Default values", "Comment", "Stop on error", "Show only errors", …)
-   render as switches. Checkboxes in tables stay checkboxes — they sit in
-   `td > label.block` or directly in td/th, never in `p > label`. */
+/* ========== Toggle switches ========== */
 
 p>label:has(> input[type="checkbox"]) {
     display: inline-flex;
@@ -419,6 +415,7 @@ p>label>input[type="checkbox"]:disabled {
 }
 
 @media (prefers-reduced-motion: no-preference) {
+
     p>label>input[type="checkbox"],
     p>label>input[type="checkbox"]::before {
         transition: background-color .15s ease, transform .15s ease;
@@ -492,17 +489,10 @@ input[type="submit"] {
 }
 
 input[type="file"] {
-    /* form controls don't inherit font by default — without this the file
-       name and its button render at the browser's ~13px */
     font: inherit;
 }
 
 input[type="file"]::file-selector-button {
-    /* standard pseudo-element, styled like the other buttons. Was three
-       vendor variants (::-ms-browse, ::-webkit-file-upload-button,
-       ::-moz-file-upload-button) in ONE selector list — a browser drops
-       the whole rule if it doesn't know any one of them, so it never
-       applied anywhere. */
     margin: 0 .6em 0 0;
     padding: 0.3em 0.8em 0.4em;
     font: inherit;
@@ -596,9 +586,6 @@ input.required {
 }
 
 .message .time {
-    /* overrides simple-theme's `color: var(--text-button)` here — near-white,
-       left over from the old dark theme where the message bar itself was
-       dark; unreadable on the light message background */
     font-size: 14.4px;
     color: var(--sb-muted);
 }
@@ -625,19 +612,8 @@ input.required {
     padding: 0 20px 1.5em;
     background: var(--back-main);
     overflow-x: clip;
-    /* clip, not hidden: not scrollable, but sticky headers keep working */
 }
 
-/* override's selector list is literally "#content, .rtl #content" — same
-   flex/min-width/max-width/margin-left apply to both. But it only sets
-   margin-LEFT, so simple-theme's `.rtl #content { margin: 0 20em 0 0; }`
-   (a full shorthand) still contributes its OTHER sides — specifically
-   margin-right: 20em survives untouched. Combined with override's
-   margin-left: var(--sb-width) winning on the left, RTL desktop content
-   ends up with a margin on BOTH sides at once (old right-side assumption +
-   new left-side variable). That's almost certainly not intended — it's a
-   pre-existing gap in adminer-overrides.css itself, not introduced here.
-   Reproduced faithfully below; worth a real RTL decision before shipping. */
 .rtl #content {
     flex: 1 1 0;
     min-width: 0;
@@ -656,7 +632,6 @@ body.rtl {
 }
 
 #content [id] {
-    /* anchor targets shouldn't hide under the sticky header */
     scroll-margin-top: 7rem;
 }
 
@@ -740,10 +715,8 @@ h2+.hidden+*> :first-child {
     padding-left: 2.5em;
 }
 
-/* Tyto Alba owl as a faint watermark centered behind the content header
-   (h2 is sticky → containing block; its 2.2em top padding is the
-   breadcrumb row, so the mark spans both). Decorative only, takes no
-   space. */
+/* Tyto Alba owl as a watermark centered behind the content header
+   Decorative only, takes no space. */
 h2::after {
     content: "";
     position: absolute;
@@ -754,8 +727,8 @@ h2::after {
     transform: translateX(-50%);
     background-color: var(--accent);
     opacity: .16;
-    -webkit-mask: var(--i-owl) center / contain no-repeat;
-    mask: var(--i-owl) center / contain no-repeat;
+    -webkit-mask: var(--i-tyto) center / contain no-repeat;
+    mask: var(--i-tyto) center / contain no-repeat;
     pointer-events: none;
 }
 
@@ -763,9 +736,7 @@ h2::after {
     color: var(--text-sub-heading);
 }
 
-/* ========== Collapsible sidebar (desktop + mobile) ==========
-   Adminer toggles the `.foot` class on #foot when #menuopen is clicked;
-   "without .foot" means collapsed. State is per page load, not persisted. */
+/* ========== Collapsible sidebar (desktop + mobile) ========== */
 
 @media (min-width: 801px) {
     #menuopen {
@@ -835,23 +806,7 @@ h2::after {
     }
 }
 
-/* NOTE: the sidebar redesign above (border-right, left-anchored #menuopen,
-   translateX collapse) has no RTL counterpart — in `.rtl` mode #menu should
-   sit on the right with a left border, and #menuopen/collapse should mirror.
-   Not done here; flagging as a known gap, since the README still advertises
-   RTL support. */
-
-/* ========== Sidebar dock: logout / language ==========
-   Both used to be position:fixed pills anchored to the viewport — #lang
-   lives inside #menu (#menu > form > #lang), so it sat in #menu's own
-   stacking context and needed z-index:50 to not get covered. Now #foot
-   (see 50-sidebar.css) is the fixed sidebar box and the nearest positioned
-   ancestor of both; #menu and its form are static, so both dock to the
-   bottom of the sidebar via position:absolute and simply move/collapse
-   with it. Top-right isn't an option: #menuopen sits there.
-   Layout of the dock row, two equal halves:  [🌐] Deutsch   [⏻] username
-   The dark square (::before) is the button look; the text next to it is
-   plain sidebar text. */
+/* ========== Sidebar dock: logout / language ========== */
 
 #foot #lang,
 #foot .logout {
@@ -881,8 +836,6 @@ h2::after {
 #foot #lang {
     left: 12px;
     right: auto;
-    /* hides Adminer's "Language:" label text node; the <select> below
-       sets its own size again and shows the selected language instead */
     font-size: 0;
 }
 
@@ -904,7 +857,6 @@ h2::after {
 
 #foot #lang::before,
 #foot .logout::before {
-    /* the square button */
     position: static;
     flex: 0 0 var(--sb-dock-h);
     width: var(--sb-dock-h);
@@ -916,7 +868,6 @@ h2::after {
 
 #foot #lang::after,
 #foot .logout::after {
-    /* the icon, laid over the square */
     position: absolute;
     top: 0;
     left: 0;
@@ -956,13 +907,6 @@ h2::after {
 }
 
 .logout #logout {
-    /* `#logout` IS the `<input>` that `.logout input`/`.rtl .logout input`
-       in simple-theme.css also target — same element, two selectors. This
-       one (id, plus mostly !important) wins every overlapping property via
-       specificity, so simple-theme's version is dead except box-shadow,
-       which override never touches and is folded in here. See zz-legacy.css.
-       Stretched invisibly over the square only — the username isn't
-       clickable. */
     position: absolute;
     top: 0;
     left: 0;
@@ -983,9 +927,6 @@ h2::after {
 }
 
 #foot #lang select {
-    /* visible now, styled as plain text: shows the selected language.
-       Covers the whole half (square included, via padding) so a click on
-       the globe opens it too; transparent so the square shows through. */
     position: absolute;
     inset: 0;
     z-index: 1;
@@ -1035,16 +976,11 @@ h2::after {
     /* static, not positioned: no stacking context of its own, and #lang
        (nested inside it) resolves its absolute position against #foot */
     position: static;
-    /* flex-basis is still simple-theme's literal 20em, not var(--sb-width) —
-       override never touches it. Harmless at the default root font-size
-       (20em == 20rem at 16px), but diverges if that changes. Faithfully
-       reproduced as-is rather than silently switched to the variable. */
     flex: 0 0 20em;
     width: auto;
     min-width: 0;
     max-width: none;
     margin: 0;
-    /* bottom padding keeps #tables clear of the docked logout/lang row */
     padding: 0 12px calc(var(--sb-dock-h) + 2 * var(--sb-dock-gap));
     background: transparent;
     border: 0;
@@ -1054,11 +990,6 @@ h2::after {
 }
 
 .rtl #menu {
-    /* override's #menu padding rule above doesn't include `.rtl #menu`, and
-       `.rtl #menu` (1 class + 1 id) outranks plain `#menu` (1 id) regardless
-       of source order — so in RTL mode simple-theme's original wider padding
-       wins back over override's padding. Reproduced faithfully; see the
-       README/commit notes on RTL gaps for whether that's wanted. */
     margin: 0;
     padding: 0 20px calc(var(--sb-dock-h) + 2 * var(--sb-dock-gap));
 }
@@ -1075,12 +1006,9 @@ h2::after {
 }
 
 #menu h1 {
-    /* left/right asymmetric (8px vs 2.8rem): clearance for #menuopen */
     padding: 1em 2.8rem .4em 8px;
     background: transparent;
     border-bottom: none;
-    /* version number sits right of "Adminer" on the same baseline instead
-       of on its own line below — saves a line of sidebar height. */
     display: flex;
     flex-wrap: wrap;
     align-items: baseline;
@@ -1125,6 +1053,12 @@ h2::after {
     color: var(--back-footer);
     font-weight: 600;
     text-decoration: none;
+}
+
+#menu #version:empty {
+    /* Adminer always renders the link and only fills it in (via JS) when
+       a newer release exists — empty means up to date: no pill */
+    display: none;
 }
 
 /* ========== Database select ========== */
@@ -1198,9 +1132,6 @@ select:has(option:empty:checked) {
 /* ========== Table list ========== */
 
 #menu #tables {
-    /* max-height:none cancels the old fixed calc() cap so flex can size
-       this to the remaining sidebar space (min-height:0 lets it shrink);
-       overflow-y:auto is what actually makes it scroll within that space. */
     flex: 1 1 auto;
     min-height: 0;
     max-height: none !important;
@@ -1234,11 +1165,6 @@ select:has(option:empty:checked) {
     background: var(--sb-active);
 }
 
-/* Horizontal clip, revealed on hover (so a long table name or the select
-   icon peeking past the edge isn't cut off while hovering it). Independent
-   of #menu #tables's overflow-y above: that one wins on the y-axis (higher
-   specificity, #menu #tables = 2 ids vs #tables = 1), this one still
-   decides the x-axis. */
 #logins,
 #tables {
     margin: 0.7em -20px -20px;
@@ -1285,27 +1211,13 @@ select:has(option:empty:checked) {
 
 #menu #tables li a.structure.active,
 #menu #tables li a.view.active {
-    /* was `#menu #tables li a.active`, which also matches a.select.active —
-       its 2 ids always beat `#dbs, #tables a.select { color: transparent }`
-       (1 id), so the hidden link text ("zeigen" / "select" depending on
-       locale) became visible on whichever table is the current select
-       view. Scoped to .structure/.view only; a.select stays icon-only. */
     font-weight: 500;
     color: var(--accent-strong);
 }
 
 #menu #tables a.select {
-    /* override fully replaces simple-theme's top:0.5em/width:1.13em/
-       margin-left:-.3em/padding:.2em .3em sizing for the flex+centered `li`
-       layout above — nothing of the old box survives except
-       position/overflow/display/border-radius, which override never
-       touches. display:inline-block matters: without it, width/height
-       don't apply to an `a` at all (inline elements ignore both). */
     position: relative;
     overflow: hidden;
-    /* inline-flex + center: the icon sits on the li's vertical middle,
-       like the table name next to it; the hidden link text follows the
-       icon as a second flex item and is clipped by overflow */
     display: inline-flex;
     align-items: center;
     border-radius: var(--border-radius);
@@ -1330,7 +1242,6 @@ select:has(option:empty:checked) {
 }
 
 #logins a {
-    /* wins over the --text-button color set alongside #tables a/span above */
     color: var(--sb-text);
 }
 
@@ -1339,7 +1250,6 @@ select:has(option:empty:checked) {
 #menu .links a::before,
 #menu #tables a.select::before,
 #dbs::before {
-    /* rem, not em: #dbs has font-size:0 */
     width: .95rem;
     height: .95rem;
     color: var(--sb-muted);
@@ -1506,19 +1416,6 @@ h3 {
 
 /* ========== "SQL command" toggle (#import) ========== */
 
-/* In the real markup, #import's `<p>` is a block-level sibling that comes
-   right AFTER `.footer` (closing `</div></div>`), not inside the fieldset
-   row — so it always starts a new line, and `order`/flex on the fieldsets
-   can't pull it in next to "Exportieren" (no shared flex/grid parent to
-   reorder within). Can't make it sit IN the row, so instead make the `<p>`
-   itself look like one of the fieldsets beside it — same border/radius/
-   background/sizing tokens as the real `fieldset` rule in 30-elements.css
-   — with the toggle link faked as a `<legend>` sitting on its top border,
-   the same trick a real `<legend>` gets natively.
-   Matched by content, not as `.footer+p`: with "No rows." Adminer renders
-   no .footer div at all, the <p> then follows <p class="message"> — the
-   old selector missed it and left the absolutely positioned label
-   floating loose. */
 p:has(> a[href="#import"]) {
     margin-top: 0;
     display: inline-block;
@@ -1570,15 +1467,12 @@ a[href="#import"] {
     color: var(--text-button);
 }
 
-/* Collapsed fieldsets show a centered icon instead of their form controls */
 #import.hidden::before,
 .js fieldset>.hidden::before {
     display: block;
     height: 1.5rem;
     background-color: var(--sb-muted);
     opacity: .45;
-    /* fallback for fieldsets without their own rule below — without any
-       --icon the mask is invalid and ::before shows as a solid grey bar */
     --icon: var(--i-ellipsis);
 }
 
@@ -1616,20 +1510,13 @@ a[href="#import"] {
 }
 
 #import.hidden {
-    /* .js fieldset > .hidden normally supplies min-height:1.5rem for this
-       (30-elements.css) — doesn't apply here since #import's parent is a
-       <p>, not a <fieldset>, so it's repeated explicitly */
     display: block;
     min-width: 4em;
     min-height: 1.5rem;
     color: transparent;
 }
 
-/* ========== Icon buttons (alter table: move / add / remove columns) ==========
-   Adminer renders these as `<button class="icon icon-*">`. The theme's
-   `background` shorthand would otherwise wipe out Adminer's own icon images
-   (default.css sets them via `background`), so these are mask icons on
-   ::before instead of images. */
+/* ========== Icon buttons (alter table: move / add / remove columns) ========== */
 
 button.icon {
     display: inline-grid;
@@ -1671,7 +1558,6 @@ button.icon::before {
 }
 
 .icon-cross::before {
-    /* trash, not X: "remove column" reads better as delete than as close */
     --icon: var(--i-trash);
 }
 
@@ -1679,21 +1565,8 @@ button.icon::before {
     --icon: var(--i-move);
 }
 
-/* ========== "Edit" row action → pencil icon ==========
-   Corrected from real markup: the href pattern doesn't distinguish "New
-   item" from a per-row edit — both use edit=<tablename>, difference is
-   just whether a where[...] param follows. But the per-row link already
-   carries its own class="edit", which is what Adminer's own select/table
-   view actually renders — use that directly instead of guessing hrefs.
-   "New item" (in the #content .links action bar) has no such class, so
-   it's untouched and stays a plain text button like its siblings. */
+/* ========== "Edit" row action → pencil icon ========== */
 a.edit {
-    /* color:transparent (2nd attempt) still showed the first few characters
-       of "bearbeiten"/"edit" — left-aligned and clipped, not centered, so
-       something was overriding the color rather than inline-grid failing
-       to size the box. Switched to the classic text-indent hide, which
-       physically pushes the real text out of the clip area instead of
-       depending on which color rule happens to win: robust regardless. */
     position: relative;
     display: inline-block;
     width: 1.7em;
@@ -1714,11 +1587,7 @@ a.edit::before {
     mask-size: .9rem;
 }
 
-/* ========== Documentation link: 📖 → info icon ==========
-   Adminer's doc_link() renders `<a class="doc">📖</a>`. One call site
-   passes its own text instead (MySQL bit type: `<code>b''</code>`), so
-   only a.doc without child elements — i.e. the bare emoji — is swapped;
-   hidden the same text-indent way as a.edit. */
+/* ========== Documentation link: 📖 → info icon ========== */
 a.doc:not(:has(*)) {
     position: relative;
     display: inline-block;
@@ -1739,12 +1608,6 @@ a.doc:not(:has(*))::before {
     mask-size: .9em;
 }
 
-/* In table headers: pinned to the th's top-right corner instead of
-   trailing the label (thead th is position:relative, .sticky ones are
-   sticky — both work as containing block). Padding keeps the label clear.
-   Note: `th:has(> a.doc)` without the :not(:has(*)) used elsewhere —
-   :has() can't be nested, that would drop the rule; the <code> doc link
-   variant never appears in thead anyway. */
 thead th:has(> a.doc) {
     padding-right: 1.3em;
 }
@@ -2006,8 +1869,6 @@ tbody tr:last-child td:last-child {
     border-bottom-right-radius: var(--border-radius-table);
 }
 
-/* Column headers may wrap in the data view (table.nowrap, despite the name,
-   is the view that opts INTO wrapping) */
 table.nowrap thead th {
     white-space: normal;
     line-height: 1.25;
@@ -2027,9 +1888,6 @@ table.nowrap thead th {
 }
 
 #schema .table span {
-    /* font-family comes from the typography rule in 30-elements.css —
-       override's combinator only replaces that one property, this
-       font-weight is simple-theme's own and still applies */
     font-weight: 500;
 }
 
@@ -2037,20 +1895,7 @@ table.nowrap thead th {
     color: var(--accent2);
 }
 
-/* ========== Column sort / search toggle ==========
-   Adminer renders these as real text (a Unicode ↓/↑ and a literal "="), not
-   blank links with an icon background. Hidden the same text-indent way as
-   a.edit above (not color:transparent — that one turned out unreliable)
-   and replaced with mask icons.
-
-   Which arrow to show is read off the href, not the `title` attribute —
-   title is localized ("absteigend"/"aufsteigend"), href isn't. A link
-   whose href carries &desc[0]= is offering to switch that column to
-   descending order (i.e. it's currently NOT sorted descending); anything
-   else sort-related defaults to the ascending-offer glyph. If you only
-   ever see one arrow, it means every column you're looking at is in the
-   same unsorted/default state — not a CSS issue, Adminer decides the
-   href per column server-side. */
+/* ========== Column sort / search toggle ==========*/
 
 .js .column {
     z-index: 1;
