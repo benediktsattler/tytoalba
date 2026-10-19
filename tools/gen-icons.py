@@ -22,6 +22,7 @@ ICONS = {
     "trash": "trash-2",
     "move": "move",
     "pencil": "pencil",
+    "info": "info",
     "search": "search",
     "sort-desc": "arrow-down-wide-narrow",
     "sort-asc": "arrow-up-narrow-wide",

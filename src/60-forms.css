@@ -280,6 +280,31 @@ a.edit::before {
     mask-size: .9rem;
 }
 
+/* ========== Documentation link: 📖 → info icon ==========
+   Adminer's doc_link() renders `<a class="doc">📖</a>`. One call site
+   passes its own text instead (MySQL bit type: `<code>b''</code>`), so
+   only a.doc without child elements — i.e. the bare emoji — is swapped;
+   hidden the same text-indent way as a.edit. */
+a.doc:not(:has(*)) {
+    position: relative;
+    display: inline-block;
+    width: 1.1em;
+    height: 1.1em;
+    overflow: hidden;
+    white-space: nowrap;
+    text-indent: 150%;
+    vertical-align: -.15em;
+    text-decoration: none;
+}
+
+a.doc:not(:has(*))::before {
+    position: absolute;
+    inset: 0;
+    --icon: var(--i-info);
+    -webkit-mask-size: .9em;
+    mask-size: .9em;
+}
+
 /* ========== SQL editor / code ========== */
 
 pre {

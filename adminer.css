@@ -116,6 +116,7 @@ Edit the files in src/, not adminer.css directly — it gets overwritten.
    --i-trash: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23000' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M3 6h18'/%3E%3Cpath d='M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6'/%3E%3Cpath d='M8 6V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2'/%3E%3Cline x1='10' x2='10' y1='11' y2='17'/%3E%3Cline x1='14' x2='14' y1='11' y2='17'/%3E%3C/svg%3E");
    --i-move: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23000' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M12 2v20'/%3E%3Cpath d='m15 19-3 3-3-3'/%3E%3Cpath d='m19 9 3 3-3 3'/%3E%3Cpath d='M2 12h20'/%3E%3Cpath d='m5 9-3 3 3 3'/%3E%3Cpath d='m9 5 3-3 3 3'/%3E%3C/svg%3E");
    --i-pencil: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23000' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M21.174 6.812a1 1 0 0 0-3.986-3.987L3.842 16.174a2 2 0 0 0-.5.83l-1.321 4.352a.5.5 0 0 0 .623.622l4.353-1.32a2 2 0 0 0 .83-.497z'/%3E%3Cpath d='m15 5 4 4'/%3E%3C/svg%3E");
+   --i-info: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23000' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Ccircle cx='12' cy='12' r='10'/%3E%3Cpath d='M12 16v-4'/%3E%3Cpath d='M12 8h.01'/%3E%3C/svg%3E");
    --i-search: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23000' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Ccircle cx='11' cy='11' r='8'/%3E%3Cpath d='m21 21-4.3-4.3'/%3E%3C/svg%3E");
    --i-sort-desc: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23000' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m3 16 4 4 4-4'/%3E%3Cpath d='M7 20V4'/%3E%3Cpath d='M11 4h10'/%3E%3Cpath d='M11 8h7'/%3E%3Cpath d='M11 12h4'/%3E%3C/svg%3E");
    --i-sort-asc: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23000' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m3 8 4-4 4 4'/%3E%3Cpath d='M7 4v16'/%3E%3Cpath d='M11 12h4'/%3E%3Cpath d='M11 16h7'/%3E%3Cpath d='M11 20h10'/%3E%3C/svg%3E");
@@ -269,6 +270,7 @@ a:visited:hover {
 #menuopen .icon::before,
 button.icon::before,
 a.edit::before,
+a.doc:not(:has(*))::before,
 .column a::before,
 #foot #lang::after,
 #foot .logout::after,
@@ -1597,6 +1599,31 @@ a.edit::before {
     --icon: var(--i-pencil);
     -webkit-mask-size: .9rem;
     mask-size: .9rem;
+}
+
+/* ========== Documentation link: 📖 → info icon ==========
+   Adminer's doc_link() renders `<a class="doc">📖</a>`. One call site
+   passes its own text instead (MySQL bit type: `<code>b''</code>`), so
+   only a.doc without child elements — i.e. the bare emoji — is swapped;
+   hidden the same text-indent way as a.edit. */
+a.doc:not(:has(*)) {
+    position: relative;
+    display: inline-block;
+    width: 1.1em;
+    height: 1.1em;
+    overflow: hidden;
+    white-space: nowrap;
+    text-indent: 150%;
+    vertical-align: -.15em;
+    text-decoration: none;
+}
+
+a.doc:not(:has(*))::before {
+    position: absolute;
+    inset: 0;
+    --icon: var(--i-info);
+    -webkit-mask-size: .9em;
+    mask-size: .9em;
 }
 
 /* ========== SQL editor / code ========== */

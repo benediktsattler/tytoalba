@@ -48,6 +48,7 @@ a:visited:hover {
 #menuopen .icon::before,
 button.icon::before,
 a.edit::before,
+a.doc:not(:has(*))::before,
 .column a::before,
 #foot #lang::after,
 #foot .logout::after,
