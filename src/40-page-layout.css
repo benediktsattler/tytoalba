@@ -64,27 +64,8 @@ h1 {
     cursor: default;
 }
 
-#h1::before {
-    /* the owl mark from favicon.svg (circle + small rounded corner, not
-       the old full teardrop), as a mask instead of an image so it picks
-       up --accent-strong (and follows it if --accent-h/-s change) instead
-       of being stuck with favicon.svg's own fixed color. Block + margin
-       auto stacks it above the "Adminer" text, centered, instead of
-       sitting inline before it. */
-    content: "";
-    display: block;
-    width: 2em;
-    height: 2.3em;
-    margin: 0 auto .3em;
-    background-color: var(--accent-strong);
-    -webkit-mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 48 56'%3E%3Cpath d='M24 2C13 2 4 11 4 22c0 12 20 30 20 30s20-18 20-30C44 11 35 2 24 2Z' fill='none' stroke='%23000' stroke-width='3' stroke-linejoin='round'/%3E%3Ccircle cx='17' cy='18' r='3.2'/%3E%3Ccircle cx='31' cy='18' r='3.2'/%3E%3Cpath d='M24 23v8M6 35q18 8 36 0' fill='none' stroke='%23000' stroke-width='3' stroke-linecap='round'/%3E%3C/svg%3E");
-    mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 48 56'%3E%3Cpath d='M24 2C13 2 4 11 4 22c0 12 20 30 20 30s20-18 20-30C44 11 35 2 24 2Z' fill='none' stroke='%23000' stroke-width='3' stroke-linejoin='round'/%3E%3Ccircle cx='17' cy='18' r='3.2'/%3E%3Ccircle cx='31' cy='18' r='3.2'/%3E%3Cpath d='M24 23v8M6 35q18 8 36 0' fill='none' stroke='%23000' stroke-width='3' stroke-linecap='round'/%3E%3C/svg%3E");
-    -webkit-mask-size: contain;
-    mask-size: contain;
-    -webkit-mask-repeat: no-repeat;
-    mask-repeat: no-repeat;
-    -webkit-mask-position: center;
-    mask-position: center;
+#logo {
+    display: none;
 }
 
 #h1:focus,
@@ -142,6 +123,25 @@ h2+.hidden+*> :first-child {
     margin: 0 -20px -2em;
     padding-right: 20px;
     padding-left: 2.5em;
+}
+
+/* Tyto Alba owl as a faint watermark centered behind the content header
+   (h2 is sticky → containing block; its 2.2em top padding is the
+   breadcrumb row, so the mark spans both). Decorative only, takes no
+   space. */
+h2::after {
+    content: "";
+    position: absolute;
+    top: .55em;
+    left: 50%;
+    width: 2.5em;
+    height: 2.9em;
+    transform: translateX(-50%);
+    background-color: var(--accent);
+    opacity: .16;
+    -webkit-mask: var(--i-owl) center / contain no-repeat;
+    mask: var(--i-owl) center / contain no-repeat;
+    pointer-events: none;
 }
 
 .version {
