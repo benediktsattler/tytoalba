@@ -27,6 +27,10 @@ Edit the files in src/, not adminer.css directly — it gets overwritten.
    --sb-hover: hsl(var(--accent-h) 30% 35% / .07);
    --sb-active: var(--accent-soft);
    --sb-width: 17rem;
+   /* bottom dock row in the sidebar (logout + language) */
+   --sb-dock-h: 2rem;
+   --sb-dock-gap: .6rem;
+   --sb-dock-space: .4rem;
    --radius-item: 8px;
 
    /* Hovered table row background — placeholder cyan, swap for real color */

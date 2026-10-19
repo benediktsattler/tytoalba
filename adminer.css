@@ -27,6 +27,10 @@ Edit the files in src/, not adminer.css directly — it gets overwritten.
    --sb-hover: hsl(var(--accent-h) 30% 35% / .07);
    --sb-active: var(--accent-soft);
    --sb-width: 17rem;
+   /* bottom dock row in the sidebar (logout + language) */
+   --sb-dock-h: 2rem;
+   --sb-dock-gap: .6rem;
+   --sb-dock-space: .4rem;
    --radius-item: 8px;
 
    /* Hovered table row background — placeholder cyan, swap for real color */
@@ -533,6 +537,7 @@ h1 {
     pointer-events: none;
     cursor: default;
 }
+
 #h1::before {
     /* the owl mark from favicon.svg (circle + small rounded corner, not
        the old full teardrop), as a mask instead of an image so it picks
@@ -630,7 +635,7 @@ h2+.hidden+*> :first-child {
         z-index: 20;
     }
 
-    body:has(#foot:not(.foot)) #menu {
+    #foot:not(.foot) {
         transform: translateX(-100%);
     }
 
@@ -650,7 +655,7 @@ h2+.hidden+*> :first-child {
 }
 
 @media (min-width: 801px) and (prefers-reduced-motion: no-preference) {
-    #menu {
+    #foot {
         transition: transform .2s ease;
     }
 
@@ -679,10 +684,13 @@ h2+.hidden+*> :first-child {
         padding-left: 3.5rem;
     }
 
-    #menu {
-        z-index: 15;
-        overflow-y: auto;
+    /* hidden/shown by Adminer's own `.js .foot { display: none }` */
+    #foot {
         box-shadow: 0 0 2rem var(--shadow);
+    }
+
+    #menu {
+        overflow-y: auto;
     }
 }
 
@@ -692,48 +700,92 @@ h2+.hidden+*> :first-child {
    Not done here; flagging as a known gap, since the README still advertises
    RTL support. */
 
-/* ========== Header controls: logout / language ========== */
+/* ========== Sidebar dock: logout / language ==========
+   Both used to be position:fixed pills anchored to the viewport — #lang
+   lives inside #menu (#menu > form > #lang), so it sat in #menu's own
+   stacking context and needed z-index:50 to not get covered. Now #foot
+   (see 50-sidebar.css) is the fixed sidebar box and the nearest positioned
+   ancestor of both; #menu and its form are static, so both dock to the
+   bottom of the sidebar via position:absolute and simply move/collapse
+   with it. Top-right isn't an option: #menuopen sits there.
+   Layout of the dock row, two equal halves:  [🌐] Deutsch   [⏻] username
+   The dark square (::before) is the button look; the text next to it is
+   plain sidebar text. */
 
-#lang,
-.logout {
-    /* #content had no z-index/position of its own, so by the normal
-       stacking rules these two (position:fixed) should already paint
-       above it regardless — but margin-top:0 on #content apparently
-       still let it cover #lang in practice, so bumped well past any
-       plausible conflict instead of relying on that. Dark pill
-       background added too, to visually anchor both as one group. */
-    z-index: 50;
+#foot #lang,
+#foot .logout {
+    /* #foot-prefixed: Adminer's default.css has `.js .logout`/`#lang`
+       mobile rules (position:static) that would otherwise outrank these */
+    position: absolute;
+    top: auto;
+    bottom: var(--sb-dock-gap);
+    z-index: 1;
+    display: flex;
+    align-items: center;
+    gap: .5rem;
+    width: calc((100% - 24px - var(--sb-dock-space)) / 2);
+    min-width: 0;
+    height: var(--sb-dock-h);
     margin: 0;
     padding: 0;
+    box-sizing: border-box;
+    box-shadow: none;
     overflow: hidden;
-    height: 2em;
-    position: fixed;
+    white-space: nowrap;
+    font-family: inherit;
+    color: var(--sb-text);
+    background: none;
+}
+
+#foot #lang {
+    left: 12px;
+    right: auto;
+    /* hides Adminer's "Language:" label text node; the <select> below
+       sets its own size again and shows the selected language instead */
+    font-size: 0;
+}
+
+#foot .logout {
+    right: 12px;
+    left: auto;
+    font-size: .85rem;
+}
+
+.rtl #foot #lang {
+    right: 12px;
+    left: auto;
+}
+
+.rtl #foot .logout {
+    left: 12px;
+    right: auto;
+}
+
+#foot #lang::before,
+#foot .logout::before {
+    /* the square button */
+    position: static;
+    flex: 0 0 var(--sb-dock-h);
+    width: var(--sb-dock-h);
+    height: var(--sb-dock-h);
     background-color: var(--back-button-high);
+    background-position: center;
+    background-size: 15px 15px !important;
     border-radius: var(--radius-item);
 }
 
-.logout {
-    /* override replaces simple-theme's right:10em/min-width:10em/height:2em/
-       overflow:hidden box entirely, and adds `top` (simple-theme never set
-       one for .logout) */
-    top: .7em;
-    right: 16px;
-    left: auto;
-    min-width: 0;
-    width: auto;
-    height: auto;
-    overflow: visible;
-    padding: .3em .8em;
-    display: flex;
-    align-items: center;
-    gap: .6em;
-    font-size: .85rem;
-    color: var(--sb-muted);
+#foot #lang:hover::before,
+#foot #lang:focus-within::before,
+#foot .logout:hover::before,
+#foot .logout:focus-within::before {
+    background-color: var(--back-button);
 }
 
-.rtl .logout {
-    left: 8em;
-    right: auto;
+.logout span {
+    /* the username, ellipsized when long */
+    min-width: 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
 .logout #logout {
@@ -741,118 +793,68 @@ h2+.hidden+*> :first-child {
        in simple-theme.css also target — same element, two selectors. This
        one (id, plus mostly !important) wins every overlapping property via
        specificity, so simple-theme's version is dead except box-shadow,
-       which override never touches and is folded in here. See zz-legacy.css. */
-    position: static;
-    width: auto !important;
-    height: auto;
+       which override never touches and is folded in here. See zz-legacy.css.
+       Stretched invisibly over the square only — the username isn't
+       clickable. */
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 1;
+    width: var(--sb-dock-h) !important;
+    height: 100%;
     margin: 0 !important;
-    padding: .35em .9em !important;
-    text-align: center;
-    color: var(--sb-text) !important;
-    background: var(--back-main) !important;
-    border: 1px solid var(--sb-border) !important;
-    border-radius: var(--radius-item);
-    font: inherit;
-    font-weight: 500 !important;
+    padding: 0 !important;
+    opacity: 0;
+    cursor: pointer;
+    border: 0 !important;
     box-shadow: none !important;
 }
 
-.logout #logout:hover {
-    background: var(--sb-hover) !important;
-}
-
-.logout:hover,
-.logout:focus-within {
-    background-color: var(--back-button-high);
-}
-
-#lang {
-    /* was right:0 — directly underneath .logout's area (right:16px, now a
-       wider flex row with icon+button since it's visible). Pushed further
-       left so the two don't overlap/stack; .logout paints later in the DOM
-       and would otherwise just cover #lang entirely regardless of its own
-       display value. Estimate — adjust once seen live.
-       Also no `top` was ever set here (simple-theme.css never needed one,
-       override only ever hid #lang outright) — added to match .logout's
-       top:.7em so they sit in the same row instead of #lang falling back
-       to wherever it happens to sit in normal flow. */
-    top: .7em;
-    right: 170px;
+.rtl .logout #logout {
     left: auto;
-    cursor: pointer;
-    padding-left: 12px;
-    color: var(--text-button);
-    font-weight: 500;
-    min-width: 6em;
-    width: auto;
-    text-align: right;
-    padding-right: 40px;
-    /* literal, not var(--font-ui) — override never touches #lang's font */
-    font-family: "Geist Sans", "MS Shell Dlg 2", Roboto, Helvetica, Arial, sans-serif;
-    padding-top: 2.5px;
-    height: calc(2em - 2.5px);
-    /* was display:none ("once the language cookie is set it never needs to
-       be touched again") — the actual reason it looked gone was never
-       this though, it was .logout painting over it (see right:170px
-       above). Made permanently visible, same call as .logout. */
+    right: 0;
 }
 
-.rtl #lang {
-    left: 0px;
-    right: auto;
-    padding-right: 12px;
-    padding-left: 0px;
-}
-
-#lang select {
-    opacity: 0;
-    width: 100% !important;
-}
-
-#lang select,
-#lang:before {
+#foot #lang select {
+    /* visible now, styled as plain text: shows the selected language.
+       Covers the whole half (square included, via padding) so a click on
+       the globe opens it too; transparent so the square shows through. */
     position: absolute;
-    left: 0;
-    top: 0;
-    height: 2em;
-    width: 100%;
-}
-
-#lang:focus,
-#lang:hover {
-    background-color: var(--back-button);
-}
-
-#lang select {
-    cursor: pointer;
+    inset: 0;
     z-index: 1;
+    width: 100% !important;
+    height: 100%;
+    margin: 0;
+    padding: 0 0 0 calc(var(--sb-dock-h) + .5rem);
+    opacity: 1;
+    -webkit-appearance: none;
+    appearance: none;
+    background: transparent;
+    border: 0;
+    box-shadow: none;
+    font: inherit;
+    font-size: .85rem;
+    color: var(--sb-text);
+    text-overflow: ellipsis;
+    cursor: pointer;
+}
+
+.rtl #foot #lang select {
+    padding: 0 calc(var(--sb-dock-h) + .5rem) 0 0;
 }
 
 #lang:before {
     display: block;
-    text-align: center;
     content: " ";
-    background-position-x: calc(100% - 12px);
-    background-position-y: center;
+    background-position: center;
     background-repeat: no-repeat;
     background-attachment: scroll;
     background-size: 17px 17px !important;
     background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink' version='1.1' viewBox='0 0 470 470' enable-background='new 0 0 470 470' width='512px' height='512px'%3E%3Cg%3E%3Cpath d='M432.5,227.5h-77.031c-0.611-37.438-5.782-73.616-14.771-105.694h50.518c4.143,0 7.5-3.357 7.5-7.5s-3.357-7.5-7.5-7.5h-55.112c-8.018-24.165-18.316-45.521-30.553-62.656-2.408-3.371-7.093-4.153-10.462-1.745-3.371,2.407-4.152,7.092-1.745,10.462 10.618,14.868 19.688,33.199 26.965,53.939h-77.809v-69.306c0-4.143-3.357-7.5-7.5-7.5s-7.5,3.357-7.5,7.5v69.306h-77.81c7.277-20.74 16.347-39.071 26.965-53.939 2.407-3.37 1.626-8.055-1.745-10.462-3.372-2.407-8.055-1.625-10.462,1.745-12.237,17.135-22.535,38.492-30.553,62.656h-55.112c-4.143,0-7.5,3.357-7.5,7.5s3.357,7.5 7.5,7.5h50.518c-8.988,32.078-14.159,68.256-14.771,105.694h-77.03c-4.143,0-7.5,3.357-7.5,7.5s3.357,7.5 7.5,7.5h77.031c0.611,37.438 5.782,73.616 14.771,105.694h-50.519c-4.143,0-7.5,3.357-7.5,7.5s3.357,7.5 7.5,7.5h55.112c8.019,24.169 18.32,45.529 30.56,62.666 1.464,2.049 3.77,3.142 6.11,3.142 1.508,0 3.031-0.454 4.353-1.397 3.37-2.408 4.151-7.092 1.744-10.463-10.621-14.869-19.693-33.204-26.972-53.947h77.81v69.305c0,4.143 3.357,7.5 7.5,7.5s7.5-3.357 7.5-7.5v-69.306h77.81c-7.278,20.744-16.351,39.078-26.972,53.947-2.407,3.371-1.626,8.055 1.744,10.463 1.321,0.943 2.844,1.397 4.353,1.397 2.341,0 4.646-1.093 6.11-3.142 12.24-17.137 22.54-38.497 30.56-62.666h55.112c4.143,0 7.5-3.357 7.5-7.5s-3.357-7.5-7.5-7.5h-50.519c8.989-32.078 14.16-68.256 14.771-105.694h77.031c4.143,0 7.5-3.357 7.5-7.5s-3.357-7.499-7.5-7.499zm-107.36-105.694c9.313,31.683 14.695,67.958 15.326,105.694h-97.966v-105.694h82.64zm-180.28,0h82.64v105.694h-97.966c0.632-37.737 6.013-74.011 15.326-105.694zm0,226.388c-9.313-31.683-14.695-67.958-15.326-105.694h97.966v105.694h-82.64zm180.28,0h-82.64v-105.694h97.966c-0.632,37.737-6.013,74.012-15.326,105.694z' fill='%23ECEBE4'/%3E%3Cpath d='M401.17,68.83C356.784,24.444,297.771,0,235,0S113.216,24.444,68.83,68.83S0,172.229,0,235.001 c0,46.271,13.391,90.899,38.764,129.316l-28.718,86.148c-0.898,2.695-0.197,5.667,1.812,7.676c2.009,2.008,4.979,2.708,7.676,1.812 l86.15-28.716C144.102,456.609,188.729,470,235,470c62.771,0,121.784-24.444,166.17-68.83S470,297.771,470,235.001 C470,172.229,445.556,113.216,401.17,68.83z M235,455c-44.491,0-87.355-13.222-123.961-38.235 c-1.262-0.862-2.739-1.308-4.231-1.308c-0.797,0-1.598,0.127-2.372,0.385L29.02,440.979l25.14-75.414 c0.741-2.225,0.399-4.668-0.923-6.604C28.222,322.357,15,279.492,15,235.001C15,113.692,113.691,15,235,15s220,98.692,220,220.001 C455,356.309,356.309,455,235,455z' fill='%23ECEBE4'/%3E%3C/g%3E%3C/svg%3E");
 }
 
-.rtl #lang:before {
-    background-position-x: 12px;
-}
-
 .logout::before {
-    /* flex item now (`.logout` is display:flex), not the old full-width
-       absolute-background box #lang:before still is — needs its own
-       explicit size or `content:" "` has nothing to render into but a
-       sliver, clipping the 17px icon down to almost nothing. */
     display: block;
-    flex-shrink: 0;
-    width: 1.1em;
-    height: 1.1em;
     content: " ";
     background-position: center;
     background-repeat: no-repeat;
@@ -865,22 +867,42 @@ h2+.hidden+*> :first-child {
 .rtl .logout {
     margin: 0;
 }
-#menu {
+#foot {
+    /* the real sidebar box: fixed, owns background/border/collapse, and is
+       the containing block #lang/.logout dock against (40-page-layout.css) */
     position: fixed;
     top: 0;
-    z-index: 1;
+    bottom: 0;
+    left: 0;
+    z-index: 15;
+    width: var(--sb-width);
+    margin: 0;
+    padding: 0;
+    background: var(--sb-bg);
+    border-right: 1px solid var(--sb-border);
+    box-sizing: border-box;
+}
+
+#menu {
+    /* static, not positioned: no stacking context of its own, and #lang
+       (nested inside it) resolves its absolute position against #foot */
+    position: static;
     /* flex-basis is still simple-theme's literal 20em, not var(--sb-width) —
        override never touches it. Harmless at the default root font-size
        (20em == 20rem at 16px), but diverges if that changes. Faithfully
        reproduced as-is rather than silently switched to the variable. */
     flex: 0 0 20em;
-    width: var(--sb-width);
+    width: auto;
+    min-width: 0;
     max-width: none;
     margin: 0;
-    padding: 0 12px 1em;
-    background: var(--sb-bg);
-    border-right: 1px solid var(--sb-border);
-    height: 100vh;
+    /* bottom padding keeps #tables clear of the docked logout/lang row */
+    padding: 0 12px calc(var(--sb-dock-h) + 2 * var(--sb-dock-gap));
+    background: transparent;
+    border: 0;
+    box-shadow: none;
+    height: 100%;
+    box-sizing: border-box;
 }
 
 .rtl #menu {
@@ -890,7 +912,7 @@ h2+.hidden+*> :first-child {
        wins back over override's padding. Reproduced faithfully; see the
        README/commit notes on RTL gaps for whether that's wanted. */
     margin: 0;
-    padding: 0 20px 1.5em;
+    padding: 0 20px calc(var(--sb-dock-h) + 2 * var(--sb-dock-gap));
 }
 
 @media (min-width: 801px) {
@@ -1021,6 +1043,7 @@ select:has(option:empty:checked) {
     margin: 1em -4px 0;
     padding: .8em 4px 1em;
     border-top: 1px solid var(--sb-border);
+    border-bottom: 1px solid var(--sb-border);
     font-size: .9rem;
 }
 
