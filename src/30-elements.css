@@ -6,9 +6,6 @@ body {
 }
 
 body {
-    /* override sets this to `auto` (not simple-theme's `100%`) specifically
-       so the body doesn't do its own width math alongside #menu's
-       position:fixed + #content's margin-left */
     width: auto;
     min-height: 100%;
 }
@@ -36,11 +33,7 @@ a:visited:hover {
     outline: 0;
 }
 
-/* ========== Icons (mask base) ==========
-   Every icon is a pseudo-element masked with a Lucide SVG token from
-   05-icons.css: the rule for a spot only sets `--icon: var(--i-<name>)`
-   (plus size), the shape comes from the mask, the color from
-   background-color — currentColor unless a rule says otherwise. */
+/* ========== Icons (mask base) ========== */
 
 #menu .links a::before,
 #menu #tables a.select::before,
@@ -60,9 +53,7 @@ a.doc:not(:has(*))::before,
     mask: var(--icon) center / contain no-repeat;
 }
 
-/* ========== Jump target (#anchor) ==========
-   Adminer's default.css marks the element jumped to via #anchor with a
-   background color only. Highlight the text instead. */
+/* ========== Jump target (#anchor) ========== */
 
 :target {
     background: none;
@@ -71,9 +62,7 @@ a.doc:not(:has(*))::before,
     text-decoration: underline;
 }
 
-/* ========== Typography ==========
-   Single place that decides what's UI-sans vs monospace, instead of each
-   selector declaring its own font-family. */
+/* ========== Typography ========== */
 
 code,
 .jush-sql,
@@ -102,8 +91,7 @@ textarea {
 }
 
 input.size[type="number"] {
-    /* Adminer's default.css gives .size (Limit, Text length) a fixed 7ex —
-       with this theme's padding plus the spin buttons that leaves room
+    /* Adminer's default.css gives .size a fixed 7ex that leaves room
        for barely one digit. Sized for ~5 digits + padding + spinner. */
     width: calc(5ch + 1.5em);
 }
@@ -120,11 +108,7 @@ input[type="radio"] {
     accent-color: var(--accent);
 }
 
-/* ========== Toggle switches ==========
-   Form-level on/off options (`<p><label><input type="checkbox">…</label>`:
-   "Default values", "Comment", "Stop on error", "Show only errors", …)
-   render as switches. Checkboxes in tables stay checkboxes — they sit in
-   `td > label.block` or directly in td/th, never in `p > label`. */
+/* ========== Toggle switches ========== */
 
 p>label:has(> input[type="checkbox"]) {
     display: inline-flex;
@@ -191,6 +175,7 @@ p>label>input[type="checkbox"]:disabled {
 }
 
 @media (prefers-reduced-motion: no-preference) {
+
     p>label>input[type="checkbox"],
     p>label>input[type="checkbox"]::before {
         transition: background-color .15s ease, transform .15s ease;
@@ -264,17 +249,10 @@ input[type="submit"] {
 }
 
 input[type="file"] {
-    /* form controls don't inherit font by default — without this the file
-       name and its button render at the browser's ~13px */
     font: inherit;
 }
 
 input[type="file"]::file-selector-button {
-    /* standard pseudo-element, styled like the other buttons. Was three
-       vendor variants (::-ms-browse, ::-webkit-file-upload-button,
-       ::-moz-file-upload-button) in ONE selector list — a browser drops
-       the whole rule if it doesn't know any one of them, so it never
-       applied anywhere. */
     margin: 0 .6em 0 0;
     padding: 0.3em 0.8em 0.4em;
     font: inherit;
@@ -368,9 +346,6 @@ input.required {
 }
 
 .message .time {
-    /* overrides simple-theme's `color: var(--text-button)` here — near-white,
-       left over from the old dark theme where the message bar itself was
-       dark; unreadable on the light message background */
     font-size: 14.4px;
     color: var(--sb-muted);
 }

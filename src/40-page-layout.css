@@ -73,7 +73,7 @@ h2 {
     font-size: 1.4rem;
     font-weight: 600;
     padding: 2.2em 20px .6em;
-    z-index: 1;
+    z-index: 2;
 }
 
 .rtl h2,
@@ -89,7 +89,7 @@ h2+.hidden+*> :first-child {
 }
 
 #breadcrumb {
-    z-index: 2;
+    z-index: 3;
     white-space: normal;
     background: transparent;
     color: var(--sb-muted);
@@ -100,9 +100,29 @@ h2+.hidden+*> :first-child {
     left: auto;
 }
 
+/* Links as pills; separators and current page are bare text nodes
+   (not targetable), so they keep #breadcrumb's muted style. */
 #breadcrumb a,
 #breadcrumb a:visited {
+    display: inline-block;
+    margin: 0 .15em;
+    padding: .1em .65em .15em;
+    border-radius: 999px;
+    background: var(--accent-softer);
     color: var(--accent-strong);
+    font-weight: 500;
+    line-height: 1.4;
+    text-decoration: none;
+}
+
+#breadcrumb a:first-child {
+    margin-left: 0;
+}
+
+#breadcrumb a:hover,
+#breadcrumb a:focus-visible {
+    background: var(--accent-soft);
+    text-decoration: none;
 }
 
 .rtl #breadcrumb {
@@ -182,11 +202,17 @@ h2::after {
         max-width: 100%;
     }
 
-    #menuopen {
+    /* .js #menuopen: beats default.css's mobile position:absolute */
+    #menuopen,
+    .js #menuopen {
         position: fixed;
         top: .6em;
         left: .6em;
         z-index: 20;
+    }
+
+    body:has(#foot:not(.foot)) #menuopen {
+        left: calc(var(--sb-width) - 2.6rem);
     }
 
     #breadcrumb,
@@ -205,6 +231,17 @@ h2::after {
 }
 
 /* ========== Sidebar dock: logout / language ========== */
+
+#foot::after {
+    /* solid strip behind the dock, so scrolled sidebar content doesn't show through */
+    content: "";
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    height: calc(var(--sb-dock-h) + 2 * var(--sb-dock-gap));
+    background: var(--sb-bg);
+}
 
 #foot #lang,
 #foot .logout {

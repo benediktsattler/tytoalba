@@ -2,7 +2,7 @@
  * Tyto Alba — Adminer theme
  * https://github.com/benediktsattler/tytoalba
  *
- * Version   1.0.0  (2026-10-19)
+ * Version   1.0.0  (2026-10-20)
  * Tested    Adminer 5.4.2, 6.1.2
  * Author    Benedikt Nierula
  * License   MIT
@@ -95,8 +95,7 @@
    --border-radius-fieldset: 3px;
    --shadow: hsl(0 0% 0% / .25);
 
-   /* SQL syntax highlighting (jush.js token classes) — more added once
-       there's a confirmed example (strings, comments, variables, …) */
+   /* SQL syntax highlighting (jush.js token classes) */
    --jush-keyword: var(--accent-strong);
    --jush-identifier: hsl(260 35% 45%);
    --jush-number: hsl(195 45% 38%);
@@ -146,12 +145,8 @@
    --i-power: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23000' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M12 2v10'/%3E%3Cpath d='M18.4 6.6a9 9 0 1 1-12.77.04'/%3E%3C/svg%3E");
    --img-ellipsis: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%237b7b85' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Ccircle cx='12' cy='12' r='1'/%3E%3Ccircle cx='19' cy='12' r='1'/%3E%3Ccircle cx='5' cy='12' r='1'/%3E%3C/svg%3E");
 }
-/* Fira Mono (dotted zero), SIL OFL 1.1 — see fonts/OFL.txt. Cut from the
-   Fira Mono Nerd Font with the icon glyphs (Private Use Area) removed by
-   tools/subset-fonts.py — ~60 KB instead of ~2.3 MB per weight; icons are
-   Lucide SVG masks now (05-icons.css). build.sh inlines these url()s as
-   base64, so adminer.css needs no fonts/ folder next to it. swap: a short
-   fallback beats invisible text. */
+/* Fira Mono (dotted zero), SIL OFL 1.1 — fonts/OFL.txt. Text-only subset
+   (tools/subset-fonts.py), inlined as base64 by build.sh. */
 
 @font-face {
     font-family: "Fira Mono";
@@ -675,7 +670,7 @@ h2 {
     font-size: 1.4rem;
     font-weight: 600;
     padding: 2.2em 20px .6em;
-    z-index: 1;
+    z-index: 2;
 }
 
 .rtl h2,
@@ -691,7 +686,7 @@ h2+.hidden+*> :first-child {
 }
 
 #breadcrumb {
-    z-index: 2;
+    z-index: 3;
     white-space: normal;
     background: transparent;
     color: var(--sb-muted);
@@ -702,9 +697,29 @@ h2+.hidden+*> :first-child {
     left: auto;
 }
 
+/* Links as pills; separators and current page are bare text nodes
+   (not targetable), so they keep #breadcrumb's muted style. */
 #breadcrumb a,
 #breadcrumb a:visited {
+    display: inline-block;
+    margin: 0 .15em;
+    padding: .1em .65em .15em;
+    border-radius: 999px;
+    background: var(--accent-softer);
     color: var(--accent-strong);
+    font-weight: 500;
+    line-height: 1.4;
+    text-decoration: none;
+}
+
+#breadcrumb a:first-child {
+    margin-left: 0;
+}
+
+#breadcrumb a:hover,
+#breadcrumb a:focus-visible {
+    background: var(--accent-soft);
+    text-decoration: none;
 }
 
 .rtl #breadcrumb {
@@ -784,11 +799,17 @@ h2::after {
         max-width: 100%;
     }
 
-    #menuopen {
+    /* .js #menuopen: beats default.css's mobile position:absolute */
+    #menuopen,
+    .js #menuopen {
         position: fixed;
         top: .6em;
         left: .6em;
         z-index: 20;
+    }
+
+    body:has(#foot:not(.foot)) #menuopen {
+        left: calc(var(--sb-width) - 2.6rem);
     }
 
     #breadcrumb,
@@ -807,6 +828,17 @@ h2::after {
 }
 
 /* ========== Sidebar dock: logout / language ========== */
+
+#foot::after {
+    /* solid strip behind the dock, so scrolled sidebar content doesn't show through */
+    content: "";
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    height: calc(var(--sb-dock-h) + 2 * var(--sb-dock-gap));
+    background: var(--sb-bg);
+}
 
 #foot #lang,
 #foot .logout {
@@ -956,9 +988,10 @@ h2::after {
 .rtl .logout {
     margin: 0;
 }
-#foot {
-    /* the real sidebar box: fixed, owns background/border/collapse, and is
-       the containing block #lang/.logout dock against (40-page-layout.css) */
+#foot,
+.js #foot {
+    /* sidebar box, containing block for the #lang/.logout dock.
+       .js #foot: beats default.css's mobile absolute/z-index:2 */
     position: fixed;
     top: 0;
     bottom: 0;
@@ -1044,8 +1077,7 @@ h2::after {
 }
 
 #menu #version {
-    /* newer Adminer release available — Adminer only renders this link
-       then, so it may stand out a bit */
+    /* newer Adminer release available */
     margin-left: .3em;
     padding: .05em .45em;
     border-radius: 999px;
@@ -1423,8 +1455,7 @@ p:has(> a[href="#import"]) {
     vertical-align: top;
     min-height: 1em;
     min-width: 6em;
-    /* fieldset gets this horizontal/bottom padding for free from the
-       browser's UA stylesheet — <p> doesn't, so it's explicit here */
+    /* fieldset's UA padding, which a <p> doesn't get */
     padding: .3em .75em .625em;
     text-align: left;
 
@@ -1438,11 +1469,7 @@ p:has(> a[href="#import"]) {
 }
 
 a[href="#import"] {
-    /* faked <legend>: real legends straddle the fieldset's top border and
-       use `padding: 0 .5em; font-size: .9em` (30-elements.css) — matched
-       here, since a <p> can't grow a native legend of its own. The
-       background swap (page bg, not --back-panel) hides the border behind
-       the label the same way a real legend's browser-drawn notch does. */
+    /* legend look-alike on the <p>'s top border; page bg masks the border */
     position: absolute;
     top: -0.8em;
     left: 8px;
@@ -1454,7 +1481,7 @@ a[href="#import"] {
 }
 
 #import {
-    /* no padding of its own — the `<p>` box above already provides it */
+    /* padding comes from the <p> */
     gap: 0.5rem;
     color: transparent;
 }
@@ -1664,14 +1691,8 @@ code.jush-sqlset {
 }
 
 /* ========== SQL syntax highlighting (jush.js) ==========
-   Adminer's own jush.css already does the real work (every token class —
-   keywords as `.jush a`, backtick identifiers as `.jush-bac`, numbers as
-   `.jush-num`, SQL string literals as `.jush-sql_apo`/`.jush-sql_quo`, …)
-   by reading a handful of CSS custom properties defined once on `.jush`
-   itself. It loads before this theme, so overriding those same properties
-   here — not writing our own per-class rules — retheme every token class
-   at once, including ones we haven't seen a live example of yet
-   (strings, brackets, comments stay jush's default gray). */
+   jush.css colors every token class from custom properties on .jush —
+   overriding those themes all tokens at once, no per-class rules. */
 .jush {
     --text-color: var(--sb-text);
     --bg-color: var(--back-main);

@@ -96,8 +96,7 @@ p:has(> a[href="#import"]) {
     vertical-align: top;
     min-height: 1em;
     min-width: 6em;
-    /* fieldset gets this horizontal/bottom padding for free from the
-       browser's UA stylesheet — <p> doesn't, so it's explicit here */
+    /* fieldset's UA padding, which a <p> doesn't get */
     padding: .3em .75em .625em;
     text-align: left;
 
@@ -111,11 +110,7 @@ p:has(> a[href="#import"]) {
 }
 
 a[href="#import"] {
-    /* faked <legend>: real legends straddle the fieldset's top border and
-       use `padding: 0 .5em; font-size: .9em` (30-elements.css) — matched
-       here, since a <p> can't grow a native legend of its own. The
-       background swap (page bg, not --back-panel) hides the border behind
-       the label the same way a real legend's browser-drawn notch does. */
+    /* legend look-alike on the <p>'s top border; page bg masks the border */
     position: absolute;
     top: -0.8em;
     left: 8px;
@@ -127,7 +122,7 @@ a[href="#import"] {
 }
 
 #import {
-    /* no padding of its own — the `<p>` box above already provides it */
+    /* padding comes from the <p> */
     gap: 0.5rem;
     color: transparent;
 }
@@ -337,14 +332,8 @@ code.jush-sqlset {
 }
 
 /* ========== SQL syntax highlighting (jush.js) ==========
-   Adminer's own jush.css already does the real work (every token class —
-   keywords as `.jush a`, backtick identifiers as `.jush-bac`, numbers as
-   `.jush-num`, SQL string literals as `.jush-sql_apo`/`.jush-sql_quo`, …)
-   by reading a handful of CSS custom properties defined once on `.jush`
-   itself. It loads before this theme, so overriding those same properties
-   here — not writing our own per-class rules — retheme every token class
-   at once, including ones we haven't seen a live example of yet
-   (strings, brackets, comments stay jush's default gray). */
+   jush.css colors every token class from custom properties on .jush —
+   overriding those themes all tokens at once, no per-class rules. */
 .jush {
     --text-color: var(--sb-text);
     --bg-color: var(--back-main);

@@ -1,9 +1,5 @@
-/* Fira Mono (dotted zero), SIL OFL 1.1 — see fonts/OFL.txt. Cut from the
-   Fira Mono Nerd Font with the icon glyphs (Private Use Area) removed by
-   tools/subset-fonts.py — ~60 KB instead of ~2.3 MB per weight; icons are
-   Lucide SVG masks now (05-icons.css). build.sh inlines these url()s as
-   base64, so adminer.css needs no fonts/ folder next to it. swap: a short
-   fallback beats invisible text. */
+/* Fira Mono (dotted zero), SIL OFL 1.1 — fonts/OFL.txt. Text-only subset
+   (tools/subset-fonts.py), inlined as base64 by build.sh. */
 
 @font-face {
     font-family: "Fira Mono";

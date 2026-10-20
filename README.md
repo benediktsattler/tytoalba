@@ -65,8 +65,6 @@ clone:
 ```
 git config core.hooksPath .githooks
 ```
-There's no separate overrides file to layer on top anymore — what used to be
-`adminer-overrides.css` is folded into these sources as the actual rules.
 
 Icons are [Lucide](https://lucide.dev) SVGs used as CSS masks. To add or
 swap one, edit the `ICONS` map in `tools/gen-icons.py`, then:

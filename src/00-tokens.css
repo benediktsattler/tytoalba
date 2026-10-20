@@ -73,8 +73,7 @@
    --border-radius-fieldset: 3px;
    --shadow: hsl(0 0% 0% / .25);
 
-   /* SQL syntax highlighting (jush.js token classes) — more added once
-       there's a confirmed example (strings, comments, variables, …) */
+   /* SQL syntax highlighting (jush.js token classes) */
    --jush-keyword: var(--accent-strong);
    --jush-identifier: hsl(260 35% 45%);
    --jush-number: hsl(195 45% 38%);

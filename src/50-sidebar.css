@@ -1,6 +1,7 @@
-#foot {
-    /* the real sidebar box: fixed, owns background/border/collapse, and is
-       the containing block #lang/.logout dock against (40-page-layout.css) */
+#foot,
+.js #foot {
+    /* sidebar box, containing block for the #lang/.logout dock.
+       .js #foot: beats default.css's mobile absolute/z-index:2 */
     position: fixed;
     top: 0;
     bottom: 0;
@@ -86,8 +87,7 @@
 }
 
 #menu #version {
-    /* newer Adminer release available — Adminer only renders this link
-       then, so it may stand out a bit */
+    /* newer Adminer release available */
     margin-left: .3em;
     padding: .05em .45em;
     border-radius: 999px;
