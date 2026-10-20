@@ -138,13 +138,13 @@ h2+.hidden+*> :first-child {
 h2::after {
     content: "";
     position: absolute;
-    top: .55em;
-    left: 50%;
-    width: 2.5em;
-    height: 2.9em;
+    top: .5em;
+    left: 19em;
+    width: 2em;
+    height: 2.3em;
     transform: translateX(-50%);
     background-color: var(--accent);
-    opacity: .16;
+    opacity: .1;
     -webkit-mask: var(--i-tyto) center / contain no-repeat;
     mask: var(--i-tyto) center / contain no-repeat;
     pointer-events: none;

@@ -212,3 +212,31 @@ table.nowrap thead th {
 .column a:hover::before {
     color: var(--accent);
 }
+
+/* ========== Alter table (#edit-fields) ========== */
+
+#edit-fields th>input[name$="[field]"] {
+    width: 15ch;
+}
+
+#edit-fields .type {
+    width: 12.5ex;
+}
+
+#edit-fields .options select,
+#edit-fields .options input {
+    width: 15ex;
+}
+
+#edit-fields thead th:has(> input[type="radio"]) {
+    /* keep the AI radio next to its label when the table gets squeezed */
+    white-space: nowrap;
+}
+
+#edit-fields input[name$="[comment]"],
+input[name="Comment"],
+/* table structure: Column | Type | Comment */
+table.odds:not(.checkable):has(> thead > tr > th:nth-child(3):last-child)>tbody>tr>td:nth-child(3) {
+    color: var(--jush-string);
+    font-style: italic;
+}
