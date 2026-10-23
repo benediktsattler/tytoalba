@@ -1,6 +1,6 @@
 # Tyto Alba — Clean theme for Adminer
 
-![Tyto Alba theme for Adminer — overview](https://raw.githubusercontent.com/benediktsattler/tytoalba/main/screenshots/cover.svg)
+![Tyto Alba theme for Adminer — select data](https://raw.githubusercontent.com/benediktsattler/tytoalba/main/screenshots/select.png)
 
 ## Introduction
 
@@ -19,19 +19,17 @@ Tyto Alba is a quiet, warm-toned theme for [Adminer](https://www.adminer.org/) �
 
 ### Preview
 
-#### Select (filters + with & without pagination)
-![Tyto Alba theme for Adminer - Select with pagination](https://raw.githubusercontent.com/benediktsattler/tytoalba/main/screenshots/select.svg)
-![Tyto Alba theme for Adminer - Select filters](https://raw.githubusercontent.com/benediktsattler/tytoalba/main/screenshots/select-filter.svg)
-![Tyto Alba theme for Adminer - Create table](https://raw.githubusercontent.com/benediktsattler/tytoalba/main/screenshots/create-table.svg)
+#### Table structure
+![Tyto Alba theme for Adminer - Table structure](https://raw.githubusercontent.com/benediktsattler/tytoalba/main/screenshots/table-structure.png)
 
-#### Schema
-![Tyto Alba theme for Adminer - Schema](https://raw.githubusercontent.com/benediktsattler/tytoalba/main/screenshots/schema.svg)
+#### Alter table
+![Tyto Alba theme for Adminer - Alter table](https://raw.githubusercontent.com/benediktsattler/tytoalba/main/screenshots/alter-table.png)
 
-#### Tables
-![Tyto Alba theme for Adminer - Tables](https://raw.githubusercontent.com/benediktsattler/tytoalba/main/screenshots/tables.svg)
+#### SQL command
+![Tyto Alba theme for Adminer - SQL command with history](https://raw.githubusercontent.com/benediktsattler/tytoalba/main/screenshots/sql-command.png)
 
-#### Query
-![Tyto Alba theme for Adminer - Query](https://raw.githubusercontent.com/benediktsattler/tytoalba/main/screenshots/query.svg)
+#### Login
+![Tyto Alba theme for Adminer - Login with saved logins](https://raw.githubusercontent.com/benediktsattler/tytoalba/main/screenshots/login.png)
 
 ### Development
 
