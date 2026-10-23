@@ -2,7 +2,7 @@
  * Tyto Alba — Adminer theme
  * https://github.com/benediktsattler/tytoalba
  *
- * Version   1.0.0  (2026-10-20)
+ * Version   1.0.0  (2026-10-23)
  * Tested    Adminer 5.4.2, 6.1.2
  * Author    Benedikt Nierula
  * License   MIT
@@ -1197,7 +1197,6 @@ select:has(option:empty:checked) {
     background: var(--sb-active);
 }
 
-#logins,
 #tables {
     margin: 0.7em -20px -20px;
     padding: 0 20px 20px;
@@ -1205,7 +1204,6 @@ select:has(option:empty:checked) {
     font-size: 1rem;
 }
 
-#logins:hover,
 #tables:hover {
     overflow: visible !important;
 }
@@ -1270,11 +1268,34 @@ select:has(option:empty:checked) {
 /* ========== Saved logins (login page) ========== */
 
 #logins {
-    line-height: 2;
+    /* visible: hovered entries may extend past the sidebar edge */
+    margin: .8em 0 0;
+    padding: 0;
+    overflow: visible !important;
+    line-height: 1.5;
 }
 
 #logins a {
+    display: block;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
     color: var(--sb-text);
+    border-radius: var(--radius-item);
+}
+
+#logins a:hover,
+#logins a:focus {
+    /* full name on an opaque sidebar-coloured pill */
+    position: relative;
+    z-index: 1;
+    width: max-content;
+    min-width: 100%;
+    box-sizing: border-box;
+    overflow: visible;
+    background: linear-gradient(var(--sb-hover), var(--sb-hover)), var(--sb-bg);
+    box-shadow: 0 1px 4px var(--shadow);
+    text-decoration: none;
 }
 
 /* ========== Icons ========== */
