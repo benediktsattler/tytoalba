@@ -1,6 +1,6 @@
 # Tyto Alba â€” Clean theme for Adminer
 
-![Tyto Alba theme for Adminer â€” select data](https://raw.githubusercontent.com/benediktsattler/tytoalba/main/screenshots/select.png)
+![Tyto Alba theme for Adminer - Login with saved logins](https://raw.githubusercontent.com/benediktsattler/tytoalba/main/screenshots/login.png)
 
 ## Introduction
 
@@ -19,6 +19,9 @@ Tyto Alba is a quiet, warm-toned theme for [Adminer](https://www.adminer.org/) â
 
 ### Preview
 
+#### Table Select data
+![Tyto Alba theme for Adminer â€” select data](https://raw.githubusercontent.com/benediktsattler/tytoalba/main/screenshots/select.png)
+
 #### Table structure
 ![Tyto Alba theme for Adminer - Table structure](https://raw.githubusercontent.com/benediktsattler/tytoalba/main/screenshots/table-structure.png)
 
@@ -28,8 +31,6 @@ Tyto Alba is a quiet, warm-toned theme for [Adminer](https://www.adminer.org/) â
 #### SQL command
 ![Tyto Alba theme for Adminer - SQL command with history](https://raw.githubusercontent.com/benediktsattler/tytoalba/main/screenshots/sql-command.png)
 
-#### Login
-![Tyto Alba theme for Adminer - Login with saved logins](https://raw.githubusercontent.com/benediktsattler/tytoalba/main/screenshots/login.png)
 
 ### Development
 
@@ -49,8 +50,6 @@ src/
   50-sidebar.css       nav, DB select, table list, sidebar icons
   60-forms.css         fieldsets, SQL editor, icon buttons, footer
   70-tables.css        table/thead/tbody, schema view, column sort
-  zz-legacy.css        dead rules from Simple Theme, kept for reference,
-                        NOT built into adminer.css
 ```
 
 Edit the files in `src/`, then run `./build.sh` to regenerate `adminer.css`.
