@@ -2,7 +2,7 @@
  * Tyto Alba — Adminer theme
  * https://github.com/benediktsattler/tytoalba
  *
- * Version   1.0.0  (2026-10-23)
+ * Version   1.0.0  (2026-10-26)
  * Tested    Adminer 5.4.2, 6.1.2
  * Author    Benedikt Nierula
  * License   MIT
@@ -653,6 +653,24 @@ h1 {
     display: none;
 }
 
+#h1::before {
+    /* Tyto Alba owl as the logo, in front of "Adminer" */
+    content: "";
+    display: inline-block;
+    width: 1.1em;
+    height: 1.3em;
+    margin-right: .4em;
+    vertical-align: -.3em;
+    background-color: var(--accent);
+    -webkit-mask: var(--i-tyto) center / contain no-repeat;
+    mask: var(--i-tyto) center / contain no-repeat;
+}
+
+.rtl #h1::before {
+    margin-right: 0;
+    margin-left: .4em;
+}
+
 #h1:focus,
 #h1:hover {
     text-decoration: underline;
@@ -728,23 +746,6 @@ h2+.hidden+*> :first-child {
     margin: 0 -20px -2em;
     padding-right: 20px;
     padding-left: 2.5em;
-}
-
-/* Tyto Alba owl as a watermark centered behind the content header
-   Decorative only, takes no space. */
-h2::after {
-    content: "";
-    position: absolute;
-    top: .5em;
-    left: 19em;
-    width: 2em;
-    height: 2.3em;
-    transform: translateX(-50%);
-    background-color: var(--accent);
-    opacity: .1;
-    -webkit-mask: var(--i-tyto) center / contain no-repeat;
-    mask: var(--i-tyto) center / contain no-repeat;
-    pointer-events: none;
 }
 
 .version {
@@ -1039,14 +1040,20 @@ h2::after {
 }
 
 #menu h1 {
-    padding: 1em 2.8rem .4em 8px;
+    /* owl centered on the nav icon column below (.55rem + half the size
+       difference); right side clears #menuopen */
+    padding: 1em 2.8rem .4em .475rem;
     background: transparent;
     border-bottom: none;
     display: flex;
     flex-wrap: wrap;
     align-items: baseline;
-    justify-content: center;
+    justify-content: flex-start;
     column-gap: .5em;
+}
+
+.rtl #menu h1 {
+    padding: 1em .475rem .4em 2.8rem;
 }
 
 #menu p {
@@ -1100,6 +1107,11 @@ h2::after {
     align-items: center;
     gap: .5em;
     font-size: 0;
+}
+
+#menu #dbs {
+    /* icon in line with the nav icons below */
+    padding: 0 .55rem;
 }
 
 #dbs,

@@ -49,14 +49,20 @@
 }
 
 #menu h1 {
-    padding: 1em 2.8rem .4em 8px;
+    /* owl centered on the nav icon column below (.55rem + half the size
+       difference); right side clears #menuopen */
+    padding: 1em 2.8rem .4em .475rem;
     background: transparent;
     border-bottom: none;
     display: flex;
     flex-wrap: wrap;
     align-items: baseline;
-    justify-content: center;
+    justify-content: flex-start;
     column-gap: .5em;
+}
+
+.rtl #menu h1 {
+    padding: 1em .475rem .4em 2.8rem;
 }
 
 #menu p {
@@ -110,6 +116,11 @@
     align-items: center;
     gap: .5em;
     font-size: 0;
+}
+
+#menu #dbs {
+    /* icon in line with the nav icons below */
+    padding: 0 .55rem;
 }
 
 #dbs,
