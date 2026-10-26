@@ -17,6 +17,40 @@ Tyto Alba is a quiet, warm-toned theme for [Adminer](https://www.adminer.org/) �
 
 > **_NOTE:_** Adminer is better used for development environments, not for production purposes.
 
+### Environment marker (optional plugin)
+
+To tell production, staging and backup databases apart at a glance, the theme
+marks the environment with a colored strip along the top of the screen, a
+label hanging from it like a notch (always centered in view, even on wide
+tables) and tinted breadcrumbs: prod red, staging violet, dev green, backup
+blue.
+
+Which connection is which is decided on the server by the small plugin
+[`plugins/tytoalba-env.php`](plugins/tytoalba-env.php) (Adminer 5.3+), so no
+host names end up in the CSS:
+
+1. Copy `tytoalba-env.php` into a folder `adminer-plugins/` next to `adminer.php`.
+2. Configure it in `adminer-plugins.php` (also next to `adminer.php`):
+
+```php
+<?php
+return array(
+    new AdminerTytoAlbaEnv(array(
+        '*@db.example.com'  => 'prod',
+        '*@localhost/dev_*' => 'dev',
+        'backend@localhost' => array('backup', 'Backup · {db}'),
+        '*@localhost'       => 'backup',
+    )),
+);
+```
+
+Rules are matched against `user@server/database` in order, the first match
+wins; `*` and `?` are wildcards. A rule value is an environment name
+(`prod`, `staging`, `dev`, `backup`) or `array(name, label, hue)` for a custom
+label or an environment of your own, e.g. `array('qa', 'QA', 280)`. Labels may
+contain `{db}`, `{user}` and `{server}`; without a selected database a
+trailing separator is dropped (`Backup · {db}` → `Backup`).
+
 ### Preview
 
 #### Table Select data
@@ -50,6 +84,7 @@ src/
   50-sidebar.css       nav, DB select, table list, sidebar icons
   60-forms.css         fieldsets, SQL editor, icon buttons, footer
   70-tables.css        table/thead/tbody, schema view, column sort
+  80-environments.css  environment marker (body.env-* from the plugin)
 ```
 
 Edit the files in `src/`, then run `./build.sh` to regenerate `adminer.css`.

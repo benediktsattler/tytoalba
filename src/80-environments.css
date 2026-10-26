@@ -1,0 +1,106 @@
+/* ========== Environment marker ==========
+   body.env.env-<name> is set by plugins/tytoalba-env.php. Only the strip,
+   the notch label and the breadcrumb pills take the environment's hue. */
+
+body.env {
+    --env-h: var(--accent-h);
+    --env: hsl(var(--env-h) 80% 45%);
+    --env-soft: hsl(var(--env-h) 80% 50% / .12);
+    --env-strong: hsl(var(--env-h) 80% 32%);
+}
+
+body.env-prod {
+    --env-h: 0;
+}
+
+body.env-staging {
+    --env-h: 275;
+}
+
+body.env-dev {
+    --env-h: 145;
+}
+
+body.env-backup {
+    --env-h: 210;
+}
+
+/* frame along the top, left and right edge of the viewport: an inset box
+   with rounded top corners whose spread shadow fills the space to the edges,
+   so the inner corners are round */
+body.env::before {
+    content: "";
+    position: fixed;
+    top: 6px;
+    left: 4px;
+    right: 4px;
+    bottom: -2rem;
+    z-index: 30;
+    border-radius: .6rem .6rem 0 0;
+    box-shadow: 0 0 0 1.5rem var(--env);
+    pointer-events: none;
+}
+
+/* label hanging from the strip, centered in the viewport (fixed, so wide
+   tables scrolling sideways can't push it off screen) */
+body.env::after {
+    position: fixed;
+    top: 0;
+    left: 50%;
+    z-index: 30;
+    max-width: calc(100vw - 6rem);
+    overflow: hidden;
+    padding: 0em .8em 0em;
+    border-radius: 0 0 .3em .3em;
+    background: var(--env);
+    color: var(--text-button);
+    font-size: 1rem;
+    font-weight: 600;
+    letter-spacing: .05em;
+    line-height: 1.3;
+    text-overflow: ellipsis;
+    text-transform: uppercase;
+    white-space: nowrap;
+    transform: translateX(-50%);
+    pointer-events: none;
+}
+
+body.env-prod::after {
+    content: var(--env-label, "Production");
+}
+
+body.env-staging::after {
+    content: var(--env-label, "Staging");
+}
+
+body.env-dev::after {
+    content: var(--env-label, "Development");
+}
+
+body.env-backup::after {
+    content: var(--env-label, "Backup");
+}
+
+body.env:not(.env-prod, .env-staging, .env-dev, .env-backup)::after {
+    content: var(--env-label, "");
+}
+
+body.env #breadcrumb a,
+body.env #breadcrumb a:visited {
+    background: var(--env-soft);
+    color: var(--env-strong);
+}
+
+body.env #breadcrumb a:hover,
+body.env #breadcrumb a:focus-visible {
+    background: hsl(var(--env-h) 80% 50% / .22);
+}
+
+/* room for the notch above the breadcrumb row */
+body.env #breadcrumb {
+    padding-top: 1.75em;
+}
+
+body.env h2 {
+    padding-top: 3em;
+}
