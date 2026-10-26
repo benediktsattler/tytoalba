@@ -10,24 +10,23 @@ body.env {
 }
 
 body.env-prod {
-    --env-h: 0;
+    --env-h: 10;
 }
 
 body.env-staging {
-    --env-h: 275;
+    --env-h: 290;
 }
 
 body.env-dev {
-    --env-h: 145;
+    --env-h: 80;
 }
 
 body.env-backup {
-    --env-h: 210;
+    --env-h: 200;
 }
 
-/* frame along the top, left and right edge of the viewport: an inset box
-   with rounded top corners whose spread shadow fills the space to the edges,
-   so the inner corners are round */
+/* frame on top, left and right: the spread shadow of an inset box with
+   rounded top corners fills up to the edges, so the inner corners are round */
 body.env::before {
     content: "";
     position: fixed;

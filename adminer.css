@@ -3,7 +3,7 @@
  * https://github.com/benediktsattler/tytoalba
  *
  * Version   1.0.0  (2026-10-26)
- * Tested    Adminer 5.4.2, 6.1.2
+ * Tested    Adminer 5.4.2, 6.1.2, 6.2.0
  * Author    Benedikt Nierula
  * License   MIT
  *
@@ -19,7 +19,6 @@
  *
  * GENERATED from src/*.css by build.sh — edit the sources, not this file.
  */
-
 :root {
    color-scheme: light;
 
@@ -1188,11 +1187,16 @@ select:has(option:empty:checked) {
 }
 
 #menu #tables::before {
-    content: "Tabellen";
+    content: "Tables";
     display: block;
     font-size: .75rem;
     color: var(--sb-muted);
     padding: 0 .6em .4em;
+}
+
+/* Adminer sets <html lang> to the UI language */
+:lang(de) #menu #tables::before {
+    content: "Tabellen";
 }
 
 #menu #tables li {
@@ -1298,7 +1302,7 @@ select:has(option:empty:checked) {
 
 #logins a:hover,
 #logins a:focus {
-    /* full name on an opaque sidebar-coloured pill */
+    /* full name on an opaque sidebar-colored pill */
     position: relative;
     z-index: 1;
     width: max-content;
@@ -2051,24 +2055,23 @@ body.env {
 }
 
 body.env-prod {
-    --env-h: 0;
+    --env-h: 10;
 }
 
 body.env-staging {
-    --env-h: 275;
+    --env-h: 290;
 }
 
 body.env-dev {
-    --env-h: 145;
+    --env-h: 80;
 }
 
 body.env-backup {
-    --env-h: 210;
+    --env-h: 200;
 }
 
-/* frame along the top, left and right edge of the viewport: an inset box
-   with rounded top corners whose spread shadow fills the space to the edges,
-   so the inner corners are round */
+/* frame on top, left and right: the spread shadow of an inset box with
+   rounded top corners fills up to the edges, so the inner corners are round */
 body.env::before {
     content: "";
     position: fixed;

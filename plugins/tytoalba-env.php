@@ -1,48 +1,52 @@
 <?php
 
 /** Mark the environment (production, staging, backup, …) of the current connection for the Tyto Alba theme
-*
-* Adds `env env-<name>` to <body class>; the theme turns that into a colored
-* strip with a label at the top of the screen and tinted breadcrumbs. Built-in
-* names: prod, staging, dev, backup. Any other name works with a custom hue.
-* Labels may contain {db}, {user} and {server}; with no database selected,
-* a trailing separator before {db} is dropped ("Backup · {db}" → "Backup").
-*
-* Rules are matched against "user@server/db" in order, the first match wins.
-* `*` and `?` are wildcards; a pattern without "@" only matches the server,
-* one without "/" matches every database. Adminer's default server ("") is
-* matched as "localhost".
-*
-* new AdminerTytoAlbaEnv(array(
-*     '*@db.example.com'      => 'prod',
-*     'backend@localhost'     => array('backup', 'Backup · {db}'),
-*     '*@localhost'           => 'backup',
-*     '*@10.0.0.5/shop_test'  => array('qa', 'QA', 280), // name, label, hue 0–360
-* ));
-*
-* @link https://github.com/benediktsattler/tytoalba
-* @author Benedikt Sattler
-* @license https://opensource.org/licenses/MIT MIT License
-*/
-class AdminerTytoAlbaEnv extends Adminer\Plugin {
+ *
+ * Adds `env env-<name>` to <body class>; the theme turns that into a colored
+ * strip with a label at the top of the screen and tinted breadcrumbs. Built-in
+ * names: prod, staging, dev, backup. Any other name works with a custom hue.
+ * Labels may contain {db}, {user} and {server}; with no database selected,
+ * a trailing separator before {db} is dropped ("Backup · {db}" → "Backup").
+ *
+ * Rules are matched against "user@server/db" in order, the first match wins.
+ * `*` and `?` are wildcards; a pattern without "@" only matches the server,
+ * one without "/" matches every database. Adminer's default server ("") is
+ * matched as "localhost".
+ *
+ * new AdminerTytoAlbaEnv(array(
+ *     '*@db.example.com'      => 'prod',
+ *     'backend@localhost'     => array('backup', 'Backup · {db}'),
+ *     '*@localhost'           => 'backup',
+ *     '*@10.0.0.5/shop_test'  => array('qa', 'QA', 280), // name, label, hue 0–360
+ * ));
+ *
+ * @link https://github.com/benediktsattler/tytoalba
+ * @author Benedikt Nierula
+ * @license https://opensource.org/licenses/MIT MIT License
+ */
+class AdminerTytoAlbaEnv extends Adminer\Plugin
+{
 	/** @var array<string, string|array{0: string, 1?: string, 2?: int}> */ private $rules;
 	/** @var array{0: string, 1?: string, 2?: int}|false|null */ private $match;
 
 	/**
-	* @param array<string, string|array> $rules pattern => name or array(name, label, hue)
-	*/
-	function __construct(array $rules = array()) {
+	 * @param array<string, string|array> $rules pattern => name or array(name, label, hue)
+	 */
+	function __construct(array $rules = array())
+	{
 		$this->rules = $rules;
 	}
 
-	function bodyClass() {
+	function bodyClass()
+	{
 		$match = $this->match();
 		if ($match) {
 			echo " env env-" . $match[0];
 		}
 	}
 
-	function head($dark = null) {
+	function head($dark = null)
+	{
 		$match = $this->match();
 		if ($match && (isset($match[1]) || isset($match[2]))) {
 			$css = "";
@@ -66,9 +70,10 @@ class AdminerTytoAlbaEnv extends Adminer\Plugin {
 	}
 
 	/** First rule matching the current connection, false if none
-	* @return array{0: string, 1?: string, 2?: int}|false
-	*/
-	private function match() {
+	 * @return array{0: string, 1?: string, 2?: int}|false
+	 */
+	private function match()
+	{
 		if ($this->match === null) {
 			$this->match = false;
 			if (isset($_GET["username"])) { // logged in; the login form has no connection yet

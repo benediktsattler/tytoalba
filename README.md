@@ -1,13 +1,15 @@
 # Tyto Alba — Clean theme for Adminer
 
-![Tyto Alba theme for Adminer - Login with saved logins](https://raw.githubusercontent.com/benediktsattler/tytoalba/main/screenshots/login.png)
+![Tyto Alba theme for Adminer — Login with saved logins](https://raw.githubusercontent.com/benediktsattler/tytoalba/main/screenshots/login.png)
 
 ## Introduction
 
-Tyto Alba is a quiet, warm-toned theme for [Adminer](https://www.adminer.org/) — off-white and warm grey colour language. Built on the bones of Hassan Azzi's Simple Theme.
-- warm off-white/grey palette with one accent color
-- intuitive layout
+Tyto Alba is a quiet, warm-toned theme for [Adminer](https://www.adminer.org/), named after the barn owl. Built on the bones of Hassan Azzi's Simple Theme.
+
+- warm off-white/grey palette with one accent color, adjustable via two variables
+- clean layout with Lucide icons
 - collapsible sidebar
+- optional environment marker for production, staging and backup servers
 
 ### Installation
 
@@ -15,7 +17,7 @@ Tyto Alba is a quiet, warm-toned theme for [Adminer](https://www.adminer.org/) �
 2. Download `adminer.css` from [here](https://raw.githubusercontent.com/benediktsattler/tytoalba/main/adminer.css).
 3. Put the file `adminer.css` alongside `adminer.php`, or in the same directory that contains Adminer on your web server.
 
-> **_NOTE:_** Adminer is better used for development environments, not for production purposes.
+> **_NOTE:_** Adminer is better used for development environments, use with caution in prodcution
 
 ### Environment marker (optional plugin)
 
@@ -53,18 +55,17 @@ trailing separator is dropped (`Backup · {db}` → `Backup`).
 
 ### Preview
 
-#### Table Select data
-![Tyto Alba theme for Adminer — select data](https://raw.githubusercontent.com/benediktsattler/tytoalba/main/screenshots/select.png)
+#### Select data
+![Tyto Alba theme for Adminer — select data](https://raw.githubusercontent.com/benediktsattler/tytoalba/main/screenshots/select-data.png)
 
 #### Table structure
-![Tyto Alba theme for Adminer - Table structure](https://raw.githubusercontent.com/benediktsattler/tytoalba/main/screenshots/table-structure.png)
+![Tyto Alba theme for Adminer — Table structure](https://raw.githubusercontent.com/benediktsattler/tytoalba/main/screenshots/table-structure.png)
 
 #### Alter table
-![Tyto Alba theme for Adminer - Alter table](https://raw.githubusercontent.com/benediktsattler/tytoalba/main/screenshots/alter-table.png)
+![Tyto Alba theme for Adminer — Alter table](https://raw.githubusercontent.com/benediktsattler/tytoalba/main/screenshots/alter-table.png)
 
 #### SQL command
-![Tyto Alba theme for Adminer - SQL command with history](https://raw.githubusercontent.com/benediktsattler/tytoalba/main/screenshots/sql-command.png)
-
+![Tyto Alba theme for Adminer — SQL command with history](https://raw.githubusercontent.com/benediktsattler/tytoalba/main/screenshots/sql-command.png)
 
 ### Development
 
